@@ -1,0 +1,15 @@
+Jonathan: 
+    1. User Management   
+    5. Notifications
+
+Philopateer:  
+    2. Course Management   
+    Role-Based Access 
+    
+Mahmoud: 
+    3. Assessment & Grading 
+    Performance 
+    
+Miguel:  
+4. Performance Tracking 
+Email Notifications
