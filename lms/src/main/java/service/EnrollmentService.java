@@ -14,8 +14,8 @@ public class EnrollmentService {
     public List<Course> viewAvailableCourses(){
         return new ArrayList<>(courses.values());
     }
-    public boolean enrollInCourse(Student student , Course course){
-        Course enrolledCourse = courses.get(course.getId());
+    public boolean enrollInCourse(Student student , String courseId){
+        Course enrolledCourse = courses.get(courseId);
         enrolledCourse.addStudent(student);
         courses.put(enrolledCourse.getId(), enrolledCourse);
         return true;
