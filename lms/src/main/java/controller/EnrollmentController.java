@@ -43,8 +43,4 @@ public class EnrollmentController {
         Course searchCourse = courses.get(course.getId());
         return new ArrayList<>(searchCourse.getEnrolledStudents().values());
     }
-    @GetMapping("/test")
-    public String t(){
-                return " is runnig";
-    }
 }
