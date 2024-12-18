@@ -23,7 +23,9 @@ public class UploadMediaFilesController {
     @PostMapping("/videoUpload")
     public Response uploadVideo(VideoUploadRequest videoUploadRequest){
         if(RoleAccessControl.userType(videoUploadRequest.getUserType(), "Instructor")){
-            boolean isUploaded = uploadMediaFileService.Upload(new Video(videoUploadRequest.getVideoFile()));
+            String fileName = (videoUploadRequest.getVideoFile()).getOriginalFilename();
+            Video video = new Video(videoUploadRequest.getVideoFile(), fileName);
+            boolean isUploaded = uploadMediaFileService.Upload(video,fileName);
             if(isUploaded){
                 return  new Response("the video uploaded.");
             }
