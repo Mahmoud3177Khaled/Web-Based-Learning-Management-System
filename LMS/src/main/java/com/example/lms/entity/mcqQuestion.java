@@ -7,7 +7,7 @@ public class mcqQuestion extends Question {
     private ArrayList<String> choices;
     private Integer correctChoice;
 
-    mcqQuestion(String text, ArrayList<String> choices, Integer correctChoice) {
+    public mcqQuestion(String text, ArrayList<String> choices, Integer correctChoice) {
         // this.questionText = text;
         super(text);
         this.choices = choices;

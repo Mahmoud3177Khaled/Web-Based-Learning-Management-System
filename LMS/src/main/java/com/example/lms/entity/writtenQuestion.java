@@ -4,7 +4,7 @@ public class writtenQuestion extends Question {
     // private String questionText;
     private String correctAnswer;
 
-    writtenQuestion(String text, String correctAnswer) {
+    public writtenQuestion(String text, String correctAnswer) {
         super(text);
         // this.questionText = text;
         this.correctAnswer = correctAnswer;

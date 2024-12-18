@@ -4,7 +4,7 @@ public class tfQuestion extends Question {
     // private String questionText;
     private Integer correctChoice;
 
-    tfQuestion(String text, Integer correctChoice) {
+    public tfQuestion(String text, Integer correctChoice) {
         // this.questionText = text;
         super(text);
         this.correctChoice = correctChoice;

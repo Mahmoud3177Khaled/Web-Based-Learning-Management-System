@@ -8,14 +8,14 @@ import com.example.lms.repository.VirtualDatabase;
 
 @Service
 public class QuestionBankCreationService {
-    VirtualDatabase db;
+    // VirtualDatabase db;
     
     public boolean createQuestionBank(Course course) {
         try {
-            this.db = db.getInistance();
+            // this.db = db.getInistance();
             QuestionBank bank = new QuestionBank(course);
 
-            db.banks.add(bank);
+            VirtualDatabase.banks.add(bank);
 
             return true;
         } catch(Exception e) {
