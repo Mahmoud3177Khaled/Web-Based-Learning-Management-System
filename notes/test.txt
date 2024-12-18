@@ -12,3 +12,12 @@ http://localhost:8080/courseManagement/createCourse
     "endDate": "2024-12-31T18:00:00.000Z"
   }
 }
+
+2-
+
+http://localhost:8080/upload/videoUpload
+
+at form-data
+
+userType    --> Instructor
+videoFile  --> pick any video

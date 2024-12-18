@@ -23,7 +23,6 @@ public class Video extends MediaFile{
     @Override
     public boolean uploadIn(File destination) {
         try {
-        System.out.println("is upload");
             this.videoFile.transferTo(destination);
         } catch (IOException ex) {
             return false;
