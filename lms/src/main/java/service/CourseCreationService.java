@@ -16,7 +16,7 @@ public class CourseCreationService {
         virtualDatabase.courses.put(id, new Course(id, tittle, description, startDate, endDate));
         return  true;
     }
-    public boolean uploadMediaFileString(String courseId ,MediaFile mediaFile){
+    public boolean uploadMediaFile(String courseId ,MediaFile mediaFile){
         Course course = virtualDatabase.courses.get(courseId);
         course.addMediaFile(mediaFile);
         virtualDatabase.courses.put(courseId, course);
