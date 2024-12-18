@@ -1,27 +1,26 @@
 package service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
 import entity.Course;
 import entity.Student;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Service;
+import repository.VirtualDatabase;
 
 @Service
 public class EnrollmentService {
-    private Map<String,Course> courses;
     public List<Course> viewAvailableCourses(){
-        return new ArrayList<>(courses.values());
+        return new ArrayList<>(VirtualDatabase.courses.values());
     }
     public boolean enrollInCourse(Student student , String courseId){
-        Course enrolledCourse = courses.get(courseId);
+        Course enrolledCourse = VirtualDatabase.courses.get(courseId);
         enrolledCourse.addStudent(student);
-        courses.put(enrolledCourse.getId(), enrolledCourse);
+        VirtualDatabase.courses.put(enrolledCourse.getId(), enrolledCourse);
         return true;
     }
     public List<Student> showEnrolledStudents(Course course){
-        Course searchCourse = courses.get(course.getId());
+        Course searchCourse = VirtualDatabase.courses.get(course.getId());
         return new ArrayList<>(searchCourse.getEnrolledStudents().values());
     }
     // @Autowired
