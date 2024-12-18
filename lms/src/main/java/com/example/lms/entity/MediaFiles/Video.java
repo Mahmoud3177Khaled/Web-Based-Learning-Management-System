@@ -7,8 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class Video extends MediaFile{
     MultipartFile videoFile;
 
-    public Video(MultipartFile videoFile) {
+    public Video(MultipartFile videoFile ,String fileName) {
         this.videoFile = videoFile;
+        this.setFileName(fileName);
     }
 
     public MultipartFile getVideoFile() {
@@ -22,6 +23,7 @@ public class Video extends MediaFile{
     @Override
     public boolean uploadIn(File destination) {
         try {
+        System.out.println("is upload");
             this.videoFile.transferTo(destination);
         } catch (IOException ex) {
             return false;
