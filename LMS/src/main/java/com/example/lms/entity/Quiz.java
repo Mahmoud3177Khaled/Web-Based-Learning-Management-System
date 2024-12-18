@@ -6,8 +6,11 @@ public class Quiz {
     Course course;
     ArrayList<Question> questions;
 
-    public Quiz(Course course) {
+    Integer numOfQuestions;
+
+    public Quiz(Course course, Integer numOfQuestions) {
         this.course = course;
+        this.numOfQuestions = numOfQuestions;
     }
     
     public void setCourse(Course course) {
@@ -30,10 +33,13 @@ public class Quiz {
         this.questions.add(question);
     }
 
-    // public Quiz createQuiz() {
-    //     Quiz quiz = new Quiz();
-    //     return quiz;
-    // }
+    public void setNumOfQuestions(Integer numOfQuestions) {
+        this.numOfQuestions = numOfQuestions;
+    }
+
+    public Integer getNumOfQuestions() {
+        return this.numOfQuestions;
+    }
 
 
     
