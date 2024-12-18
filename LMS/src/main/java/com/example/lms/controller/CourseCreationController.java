@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lms.entity.MediaFiles.MediaFile;
+import com.example.lms.entity.MediaFile;
 import com.example.lms.entity.Response;
 import com.example.lms.entity.UserRequest.CourseCreationRequestBody;
 import com.example.lms.service.CourseCreationService;

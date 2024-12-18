@@ -5,8 +5,8 @@ Jonathan:
 Philopateer:  
     2. Course Management
         ● Course Creation:
-            ○ Instructors can create courses with details like title, description, duration, ... etc.
-            ○ Instructors can upload media files (videos, PDFs, audio, ... etc.).
+            + Instructors can create courses with details like title, description, duration, ... etc.
+            + Instructors can upload media files (videos, PDFs, audio, ... etc.).
             ○ Course consists of a number of lessons to be attended by students.
         ● Enrollment Management:
             ○ Students can view available courses and enroll in these courses.

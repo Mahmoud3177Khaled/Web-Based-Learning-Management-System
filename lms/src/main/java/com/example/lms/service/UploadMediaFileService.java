@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.springframework.stereotype.Service;
 
-import  com.example.lms.entity.MediaFiles.MediaFile;
+import com.example.lms.entity.MediaFile;
 
 @Service
 public class UploadMediaFileService {

@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.example.lms.entity.Course;
-import com.example.lms.entity.MediaFiles.MediaFile;
+import com.example.lms.entity.MediaFile;
 import com.example.lms.repository.VirtualDatabase;
 
 
