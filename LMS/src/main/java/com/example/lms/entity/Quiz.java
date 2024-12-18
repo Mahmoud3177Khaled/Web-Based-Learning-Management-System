@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Quiz {
     Course course;
     ArrayList<Question> questions;
+
+    public Quiz(Course course) {
+        this.course = course;
+    }
     
     public void setCourse(Course course) {
         this.course = course;
@@ -26,10 +30,10 @@ public class Quiz {
         this.questions.add(question);
     }
 
-    public Quiz createQuiz() {
-        Quiz quiz = new Quiz();
-        return quiz;
-    }
+    // public Quiz createQuiz() {
+    //     Quiz quiz = new Quiz();
+    //     return quiz;
+    // }
 
 
     

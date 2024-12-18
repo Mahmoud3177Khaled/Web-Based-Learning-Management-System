@@ -11,9 +11,28 @@ import com.example.lms.entity.Quiz;
 import com.example.lms.entity.Student;
 
 public class VirtualDatabase {
-    public static Map<Integer,Student> students = new HashMap<>();
-    public static Map<String,Course> courses = new HashMap<>();
-    public static ArrayList<QuestionBank> banks = new ArrayList<>();
-    public static ArrayList<Quiz> quizes = new ArrayList<>();
+
+    private static VirtualDatabase SingletonDB;
+
+    public static Map<Integer,Student> students;
+    public static Map<String,Course> courses;
+    public static ArrayList<QuestionBank> banks;
+    public static ArrayList<Quiz> quizes;
+
+    // singleton db
+    private VirtualDatabase() {
+        VirtualDatabase.students = new HashMap<>();
+        VirtualDatabase.courses = new HashMap<>();
+        VirtualDatabase.banks = new ArrayList<>();
+        VirtualDatabase.quizes = new ArrayList<>();
+    }
+
+    public VirtualDatabase getInistance() {
+        if (VirtualDatabase.SingletonDB == null) {
+            VirtualDatabase.SingletonDB = new VirtualDatabase();
+        }
+
+        return VirtualDatabase.SingletonDB;
+    }
 
 }
