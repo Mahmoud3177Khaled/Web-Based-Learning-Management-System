@@ -1,4 +1,4 @@
-package entity;
+package com.example.lms.entity;
 
 import java.util.Date;
 // import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package controller;
+package com.example.lms.controller;
 
 import java.util.Date;
 
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import entity.MediaFile;
+import com.example.lms.entity.MediaFile;
 import lombok.RequiredArgsConstructor;
-import service.CourseCreationService;
+import com.example.lms.service.CourseCreationService;
 
 
 @RestController

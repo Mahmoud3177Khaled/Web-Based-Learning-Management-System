@@ -1,4 +1,4 @@
-package entity;
+package com.example.lms.entity;
 
 public class Student {
     private int id;

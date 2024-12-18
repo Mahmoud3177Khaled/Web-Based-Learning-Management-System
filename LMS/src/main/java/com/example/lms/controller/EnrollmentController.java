@@ -1,4 +1,4 @@
-package controller;
+package com.example.lms.controller;
 
 import java.util.List;
 
@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import entity.Course;
-import entity.Student;
+import com.example.lms.entity.Course;
+import com.example.lms.entity.Student;
+import com.example.lms.repository.VirtualDatabase;
+
 import lombok.RequiredArgsConstructor;
-import service.EnrollmentService;
+import com.example.lms.service.EnrollmentService;
 
 @RestController
 @RequestMapping("/enrollment")

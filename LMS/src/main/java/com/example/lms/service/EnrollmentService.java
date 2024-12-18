@@ -1,12 +1,12 @@
-package service;
+package com.example.lms.service;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import entity.Course;
-import entity.Student;
-import repository.VirtualDatabase;
+import com.example.lms.entity.Course;
+import com.example.lms.entity.Student;
+import com.example.lms.repository.VirtualDatabase;
 
 @Service
 public class EnrollmentService {

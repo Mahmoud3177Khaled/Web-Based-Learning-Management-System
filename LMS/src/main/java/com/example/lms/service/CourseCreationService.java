@@ -1,12 +1,12 @@
-package service;
+package com.example.lms.service;
 
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
-import entity.Course;
-import entity.MediaFile;
-import repository.VirtualDatabase;
+import com.example.lms.entity.Course;
+import com.example.lms.entity.MediaFile;
+import com.example.lms.repository.VirtualDatabase;
 
 
 @Service

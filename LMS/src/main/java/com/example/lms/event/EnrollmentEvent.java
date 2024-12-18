@@ -1,4 +1,4 @@
-package event; // Declares the package name for this class
+package com.example.lms.event; // Declares the package name for this class
 
 public class EnrollmentEvent { // Declares the EnrollmentEvent class
     private final String email; // Declares a final field for the email address
