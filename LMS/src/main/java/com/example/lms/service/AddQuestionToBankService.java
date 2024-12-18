@@ -13,7 +13,7 @@ public class AddQuestionToBankService {
     
     public boolean addQuastionToBank(Question question, QuestionBank bankInput) {
         try {
-            db = new VirtualDatabase();
+            this.db = db.getInistance();
 
             for(QuestionBank bank : db.banks) {
                 if(bank.getCourse().getId().equals(bankInput.getCourse().getId())) {
