@@ -4,17 +4,22 @@ import java.util.ArrayList;
 
 public class QuestionBank {
     Course course;
-    private ArrayList<mcqQuestion> mcqQuestions;
-    private ArrayList<tfQuestion> tfQuestions;
-    private ArrayList<writtenQuestion> writtenQuestions;
-
-    public QuestionBank(Course course, ArrayList<mcqQuestion> mcqQuestions, ArrayList<tfQuestion> tfQuestions, ArrayList<writtenQuestion> writtenQuestions) {
+    ArrayList<Question> questions;
+    
+    public void setCourse(Course course) {
         this.course = course;
-        this.mcqQuestions = mcqQuestions;
-        this.tfQuestions = tfQuestions;
-        this.writtenQuestions = writtenQuestions;
     }
 
-    
-    
+    public Course getCourse() {
+        return this.course;
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
+
+    public ArrayList<Question> getQuestions() {
+        return this.questions;
+    }
+
 }
