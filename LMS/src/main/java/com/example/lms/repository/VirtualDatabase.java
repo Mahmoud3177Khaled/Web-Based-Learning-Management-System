@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.lms.entity.Course;
-import com.example.lms.entity.Question;
+// import com.example.lms.entity.Question;
 import com.example.lms.entity.QuestionBank;
 import com.example.lms.entity.Quiz;
 import com.example.lms.entity.Student;
