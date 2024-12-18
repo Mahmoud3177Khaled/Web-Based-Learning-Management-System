@@ -12,7 +12,7 @@ import com.example.lms.entity.Student;
 
 public class VirtualDatabase {
 
-    private VirtualDatabase SingletonDB;
+    private static VirtualDatabase SingletonDB;
 
     public static Map<Integer,Student> students;
     public static Map<String,Course> courses;
@@ -21,18 +21,18 @@ public class VirtualDatabase {
 
     // singleton db
     private VirtualDatabase() {
-        this.students = new HashMap<>();
-        this.courses = new HashMap<>();
-        this.banks = new ArrayList<>();
-        this.quizes = new ArrayList<>();
+        VirtualDatabase.students = new HashMap<>();
+        VirtualDatabase.courses = new HashMap<>();
+        VirtualDatabase.banks = new ArrayList<>();
+        VirtualDatabase.quizes = new ArrayList<>();
     }
 
     public VirtualDatabase getInistance() {
-        if (this.SingletonDB == null) {
-            this.SingletonDB = new VirtualDatabase();
+        if (VirtualDatabase.SingletonDB == null) {
+            VirtualDatabase.SingletonDB = new VirtualDatabase();
         }
 
-        return this.SingletonDB;
+        return VirtualDatabase.SingletonDB;
     }
 
 }
