@@ -26,4 +26,8 @@ public class QuestionBank {
         return this.questions;
     }
 
+    public void addQuastion(Question question) {
+        this.questions.add(question);
+    }
+
 }
