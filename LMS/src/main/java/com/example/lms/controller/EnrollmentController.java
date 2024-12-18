@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lms.entity.Course;
 import com.example.lms.entity.Student;
-import com.example.lms.repository.VirtualDatabase;
+import com.example.lms.service.EnrollmentService;
 
 import lombok.RequiredArgsConstructor;
-import com.example.lms.service.EnrollmentService;
 
 @RestController
 @RequestMapping("/enrollment")
