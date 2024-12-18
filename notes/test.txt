@@ -1,0 +1,14 @@
+1-
+
+http://localhost:8080/courseManagement/createCourse 
+
+{
+  "userType": "Instructor",
+  "course": {
+    "id": "1",
+    "tittle": "Spring Boot Course",
+    "description": "Learn Spring Boot",
+    "startDate": "2024-01-01T10:00:00.000Z",
+    "endDate": "2024-12-31T18:00:00.000Z"
+  }
+}
