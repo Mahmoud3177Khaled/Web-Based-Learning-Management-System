@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 
-import jakarta.persistence.Entity;
+// import jakarta.persistence.Entity;
 
-@Entity
+// @Entity
 public class Course {
     private String id;
     private String tittle;

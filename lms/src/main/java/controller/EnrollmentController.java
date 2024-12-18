@@ -12,15 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import entity.Course;
 import entity.Student;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/enrollment")
+@RequiredArgsConstructor 
+
 public class EnrollmentController {
     private final Map<String,Course> courses;
 
-    public EnrollmentController(Map<String,Course> courses){
-        this.courses = courses;
-    }
+    // public EnrollmentController(Map<String,Course> courses){
+    //     this.courses = courses;
+    // }
 
     @GetMapping("/viewAvailableCourses")
     public List<Course> viewAvailableCourses(){
@@ -36,8 +39,12 @@ public class EnrollmentController {
     }
 
     @GetMapping("/showEnrolledStudents")
-    public List<Student> showEnrolledStudents(Course course){
+    public List<Student> showEnrolledStudents(@RequestBody Course course){
         Course searchCourse = courses.get(course.getId());
         return new ArrayList<>(searchCourse.getEnrolledStudents().values());
+    }
+    @GetMapping("/test")
+    public String t(){
+                return " is runnig";
     }
 }

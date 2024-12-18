@@ -1,9 +1,9 @@
 package entity;
 
 import java.util.Date;
-import jakarta.persistence.Entity;
+// import jakarta.persistence.Entity;
 
-@Entity
+// @Entity
 public class Lesson {
     private String tittle;
     private String description;
