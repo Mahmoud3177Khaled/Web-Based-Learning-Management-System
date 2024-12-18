@@ -1,19 +1,17 @@
 package com.example.lms.controller;
 
-import java.util.Date;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.lms.entity.MediaFile;
+import com.example.lms.entity.MediaFiles.MediaFile;
 import com.example.lms.entity.Response;
 import com.example.lms.entity.UserRequest.CourseCreationRequestBody;
+import com.example.lms.service.CourseCreationService;
 
 import lombok.RequiredArgsConstructor;
-import com.example.lms.service.CourseCreationService;
 
 @RestController
 @RequestMapping("/courseManagement")

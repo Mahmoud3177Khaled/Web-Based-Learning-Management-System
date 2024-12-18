@@ -1,15 +1,17 @@
 package com.example.lms.entity;
 
-import java.util.Date;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.example.lms.entity.MediaFiles.MediaFile;
 
 // import jakarta.persistence.Entity;
 
 // @Entity
-public class Course extends Entity{
+public class Course{
     private String id;
     private String tittle;
     private String description;
