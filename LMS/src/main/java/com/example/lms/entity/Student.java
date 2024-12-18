@@ -1,9 +1,11 @@
 package com.example.lms.entity;
 
+import java.util.ArrayList;
+
 public class Student {
     private int id;
-    private int totalCorrectMarks;
-    private int totalQuizMarks;
+    private ArrayList<Integer> correctMarks;
+    private ArrayList<Integer> quizMarks;
 
     public int getId() {
         return id;
@@ -13,19 +15,11 @@ public class Student {
         this.id = id;
     }
 
-    public void settotalCorrectMarks(int totalCorrectMarks) {
-        this.totalCorrectMarks = totalCorrectMarks;
+    public void addCorrectMark(Integer CorrectMark) {
+        this.correctMarks.add(CorrectMark);
     }
 
-    public int gettotalCorrectMarks() {
-        return this.totalCorrectMarks;
-    }
-
-    public void setTotalQuizMarks(int totalQuizMarks) {
-        this.totalQuizMarks = totalQuizMarks;
-    }
-
-    public int getTotalQuizMarks() {
-        return this.totalQuizMarks;
+    public void addQuizmark(Integer quizMark) {
+        this.quizMarks.add(quizMark);
     }
 }
