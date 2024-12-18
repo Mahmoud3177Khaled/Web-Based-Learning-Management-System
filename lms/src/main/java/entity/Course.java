@@ -1,8 +1,10 @@
 package entity;
 
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 // import jakarta.persistence.Entity;
 
@@ -13,9 +15,16 @@ public class Course {
     private String description;
     private Date startDate;
     private Date endDate;
-    private MediaFile[] mediaFiles;
-    private Lesson[] lessons;
-    private Map<Integer,Student> enrolledStudents = new HashMap<Integer,Student>();
+    private List<MediaFile> mediaFiles = new ArrayList<>();
+    private List<Lesson> lessons = new ArrayList<>();
+    private Map<Integer,Student> enrolledStudents = new HashMap<>();
+    public Course(String id, String tittle, String description, Date startDate, Date endDate){
+        this.id = id;
+        this.tittle = tittle;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    } 
     public String getId() {
         return id;
     }
@@ -46,16 +55,16 @@ public class Course {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-    public MediaFile[] getMediaFiles() {
+    public List<MediaFile> getMediaFiles() {
         return mediaFiles;
     }
-    public void setMediaFiles(MediaFile[] mediaFiles) {
+    public void setMediaFiles(List<MediaFile> mediaFiles) {
         this.mediaFiles = mediaFiles;
     }
-    public Lesson[] getLessons() {
+    public List<Lesson> getLessons() {
         return lessons;
     }
-    public void setLessons(Lesson[] lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
     public Map<Integer,Student> getEnrolledStudents() {
@@ -66,6 +75,10 @@ public class Course {
     }
     public boolean addStudent(Student student){
         this.enrolledStudents.put(student.getId(), student);
+        return true;
+    }
+    public boolean addMediaFile(MediaFile mediaFile){
+        this.mediaFiles.add(mediaFile);
         return true;
     }
 }
