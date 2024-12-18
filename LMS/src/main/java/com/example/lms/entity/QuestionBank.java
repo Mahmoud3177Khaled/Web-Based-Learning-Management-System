@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class QuestionBank {
     Course course;
     ArrayList<Question> questions;
+
+    public QuestionBank(Course course) {
+        this.course = course;
+    }
     
     public void setCourse(Course course) {
         this.course = course;
