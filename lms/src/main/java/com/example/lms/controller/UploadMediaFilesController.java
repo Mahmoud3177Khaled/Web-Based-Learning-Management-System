@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lms.entity.MediaFiles.Video;
+import com.example.lms.entity.MediaFiles.Audio;
 import com.example.lms.entity.MediaFiles.PDF;
 import com.example.lms.entity.Response;
 import com.example.lms.entity.UserRequest.VideoUploadRequest;
@@ -49,5 +50,17 @@ public class UploadMediaFilesController {
             return  new Response("happens an uploading error.");
         }
         return new Response("you don't have an authorization.");
+    }
+    @PostMapping("/audioUpload")
+    public Response uploadAudio(@RequestParam("userType") String userType,
+                                @RequestParam("audioFile") MultipartFile audioFile) {
+        if (RoleAccessControl.userType(userType, "Instructor")) {
+            boolean isUploaded = uploadMediaFileService.Upload(new Audio(audioFile),audioFile.getOriginalFilename());
+            if (isUploaded) {
+                return new Response("The audio file uploaded.");
+            }
+            return new Response("An error occurred while uploading the audio file.");
+        }
+        return new Response("You don't have authorization.");
     }
 }
