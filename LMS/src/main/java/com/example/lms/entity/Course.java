@@ -9,7 +9,7 @@ import java.util.Map;
 // import jakarta.persistence.Entity;
 
 // @Entity
-public class Course {
+public class Course extends Entity{
     private String id;
     private String tittle;
     private String description;

@@ -6,23 +6,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.lms.entity.MediaFile;
 import com.example.lms.entity.Response;
+import com.example.lms.entity.UserRequest.CourseCreationRequestBody;
+
 import lombok.RequiredArgsConstructor;
 import com.example.lms.service.CourseCreationService;
 
-
 @RestController
-@RequestMapping("/courseCreation")
+@RequestMapping("/courseManagement")
 @RequiredArgsConstructor 
 public class CourseCreationController {
+    @Autowired
     private CourseCreationService courseCreationService;
 
     @PostMapping("/createCourse")
-    public Response createCourse(@RequestBody String userType ,@RequestBody String id,@RequestBody String tittle,@RequestBody String description,@RequestBody Date startDate,@RequestBody Date endDate){
-        if(RoleAccessControl.userType(userType, "Instructor")){
-            courseCreationService.createCourse(id, tittle, description, startDate, endDate);
+    public Response createCourse(@RequestBody CourseCreationRequestBody creationRequestBody){
+        if(RoleAccessControl.userType(creationRequestBody.getUserType(), "Instructor")){
+            courseCreationService.createCourse(creationRequestBody.getCourse().getId(), creationRequestBody.getCourse().getTittle(), creationRequestBody.getCourse().getDescription(), creationRequestBody.getCourse().getStartDate(), creationRequestBody.getCourse().getEndDate());
             return  new Response("the Course created.");
 
         }
