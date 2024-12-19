@@ -36,7 +36,8 @@ public class CourseManagementController {
     private UploadMediaFileService uploadMediaFileService;
 
     @PostMapping("/addNewCourse")
-    public Response addNewCourse(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("course") Course course){
+    public Response addNewCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("course") Course course){
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
                 boolean isAdded = courseManagementService.addNewCourse(course);
@@ -51,7 +52,8 @@ public class CourseManagementController {
     }
     
     @PostMapping("/removeCourse")
-    public Response removeCourse(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId){
+    public Response removeCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId){
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
                 boolean isRemoved = courseManagementService.removeCourse(courseId);
@@ -66,7 +68,8 @@ public class CourseManagementController {
     }
     
     @PostMapping("/getCourse")
-    public Response getCourse(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId){
+    public Response getCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId){
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
                 Course course = courseManagementService.getCourse(courseId);
@@ -106,7 +109,8 @@ public class CourseManagementController {
 
 
     @PostMapping("/addLesson")
-    public Response addLesson(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId , @RequestParam("lesson") Lesson lesson){
+    public Response addLesson(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId , @RequestParam("lesson") Lesson lesson){
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
                 boolean isAdded = courseManagementService.addNewLesson(courseId, lesson);
@@ -121,7 +125,8 @@ public class CourseManagementController {
     }
 
     @PostMapping("/getLesson")
-    public Response getLesson(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
+    public Response getLesson(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
                 Lesson lesson = courseManagementService.getLesson(courseId, lessonNumber);
@@ -136,7 +141,8 @@ public class CourseManagementController {
     }
 
     @PostMapping("/removeLesson")
-    public Response removeLesson(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
+    public Response removeLesson(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
                 boolean isRemoved = courseManagementService.removeLesson(courseId, lessonNumber);
