@@ -25,7 +25,7 @@ public class Course{
 
     public Course(String id) {
         this.id = id;
-        this.bank = new QuestionBank(this);
+        this.bank = new QuestionBank();
     }
 
     public Course(String id, String tittle, String description, Date startDate, Date endDate){
@@ -34,7 +34,7 @@ public class Course{
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.bank = new QuestionBank(this);
+        this.bank = new QuestionBank();
         this.quizes = new ArrayList<>();
     } 
     public String getId() {

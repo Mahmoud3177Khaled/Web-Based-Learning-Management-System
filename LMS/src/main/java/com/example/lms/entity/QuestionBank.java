@@ -7,7 +7,7 @@ public class QuestionBank {
     // Course course;
     ArrayList<Question> questions;
 
-    public QuestionBank(Course course) {
+    public QuestionBank() {
         // this.course = course;
         this.questions = new ArrayList<>();
     }
