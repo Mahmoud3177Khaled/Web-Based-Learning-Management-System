@@ -22,10 +22,13 @@ public class AttendanceManagementService {
         virtualDatabase.courses.put(courseId, course);
         return true;
     }
-    public boolean lessonAttends(String courseId,int lessonNumber,String OTPCode){
+    public boolean lessonAttends(String courseId,int lessonNumber,int studentId,String OTPCode){
         Course course = virtualDatabase.courses.get(courseId);
         Lesson lesson =course.getLesson(lessonNumber);
         if(lesson.getOTPAttendanceCode().equals(OTPCode)){
+            lesson.addAttendedStudent(studentId);
+            course.addLesson(lesson);
+            virtualDatabase.courses.put(course.getId(), course);
             return true;
         }
         return false;

@@ -18,7 +18,6 @@ import com.example.lms.entity.Response;
 import com.example.lms.entity.Student;
 import com.example.lms.security.AuthenticationManagement;
 import com.example.lms.security.AuthorizationManagement;
-import com.example.lms.service.CourseManagementService;
 import com.example.lms.service.EnrollmentService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,7 @@ public class EnrollmentController {
     @Autowired
     private AuthorizationManagement authorizationManagement;
 
-    @GetMapping("/viewAvailableCourses")
+    @PostMapping("/viewAvailableCourses")
     public Response viewAvailableCourses(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest){
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Student")){
@@ -67,7 +66,7 @@ public class EnrollmentController {
         return  new Response("this request need an authentication.");
     }
 
-    @GetMapping("/showEnrolledStudents")
+    @PostMapping("/showEnrolledStudents")
     public Response showEnrolledStudentsIn(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest,@RequestBody String courseId){
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor") || authorizationManagement.isAuthorized(authenticationRequest, "Admin")){
@@ -82,7 +81,7 @@ public class EnrollmentController {
         return  new Response("this request need an authentication.");
     }
 
-    @GetMapping("/showEnrolledStudents")
+    @PostMapping("/showEnrolledStudents")
     public Response showEnrolledStudentsInAllCourses(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest){
         if(authenticationManagement.isAuthenticate(authenticationRequest)){
             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor") || authorizationManagement.isAuthorized(authenticationRequest, "Admin")){
