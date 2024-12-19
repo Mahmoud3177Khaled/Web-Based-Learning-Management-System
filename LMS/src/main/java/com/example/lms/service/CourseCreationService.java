@@ -12,8 +12,10 @@ import com.example.lms.repository.VirtualDatabase;
 
 @Service
 public class CourseCreationService {
+
     @Autowired
     public VirtualDatabase virtualDatabase;
+    
     public boolean createCourse(String id, String tittle, String description, Date startDate, Date endDate){
         VirtualDatabase.courses.put(id, new Course(id, tittle, description, startDate, endDate));
         return  true;
