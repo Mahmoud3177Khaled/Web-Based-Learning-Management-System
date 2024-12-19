@@ -52,10 +52,10 @@ public class QuestionBankController {
                 courseToAddTo.addQuestionToBank(newQuestion);
             }
             
-            return new Response("added " + questionType + " question to course " + courseid);
+            return new Response(courseToAddTo.getBank(), "added " + questionType + " question to course " + courseid);
         } catch (Exception e) {
-            // return new Response("failed to add " + questionType + " question to course " + courseid);
-            return new Response(e.toString());
+            return new Response("failed to add " + questionType + " question to course " + courseid);
+            // return new Response(e.toString());
 
         }
 
