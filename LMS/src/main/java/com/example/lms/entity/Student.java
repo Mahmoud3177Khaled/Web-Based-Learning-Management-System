@@ -2,18 +2,10 @@ package com.example.lms.entity;
 
 import java.util.ArrayList;
 
-public class Student {
-    private int id;
+public class Student extends User {
     private ArrayList<Integer> correctMarks;
     private ArrayList<Integer> quizMarks;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void addCorrectMark(Integer CorrectMark) {
         this.correctMarks.add(CorrectMark);
