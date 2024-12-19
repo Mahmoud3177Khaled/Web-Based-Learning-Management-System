@@ -15,6 +15,10 @@ public class Course{
     private String description;
     private Date startDate;
     private Date endDate;
+
+    private ArrayList<Quiz> quizes;
+    private QuestionBank bank;
+
     private List<MediaFile> mediaFiles = new ArrayList<>();
     private Map<Integer,Lesson> lessons = new HashMap<>();
     private Map<Integer,Student> enrolledStudents = new HashMap<>();
@@ -86,5 +90,30 @@ public class Course{
     public boolean addMediaFile(MediaFile mediaFile){
         this.mediaFiles.add(mediaFile);
         return true;
+    }
+
+
+    public void setQuizes(ArrayList<Quiz> quizes) {
+        this.quizes = quizes;
+    }
+
+    public ArrayList<Quiz> getQuizes() {
+        return quizes;
+    }
+
+    public void setBank(QuestionBank bank) {
+        this.bank = bank;
+    }
+
+    public QuestionBank getBank() {
+        return bank;
+    }
+
+    public void addQuiz(Quiz quiz) {
+        this.quizes.add(quiz);
+    }
+
+    public void addQuestionToBank(Question question) {
+        this.bank.addQuastion(question);
     }
 }

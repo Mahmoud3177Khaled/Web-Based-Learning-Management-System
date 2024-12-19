@@ -22,16 +22,16 @@ public class QuizCreationService {
             Quiz quiz = new Quiz(course, numOfQuestions);
 
             ArrayList<Question> quizBank = new ArrayList<>();
-            for (QuestionBank bank : VirtualDatabase.banks) {
-                if(course.getId().equals(bank.getCourse().getId())) {
-                    quizBank = bank.getQuestions();
-                }
-            }
+            // for (QuestionBank bank : VirtualDatabase.banks) {
+                // if(course.getId().equals(bank.getCourse().getId())) {
+                    quizBank = course.getBank().getQuestions();
+                // }
+            // }
 
             Collections.shuffle(quizBank);
             quiz.setquestions((ArrayList<Question>) quizBank.subList(0, numOfQuestions));
 
-            VirtualDatabase.quizes.add(quiz);
+            course.addQuiz(quiz);
 
             return true;
         } catch(Exception e) {

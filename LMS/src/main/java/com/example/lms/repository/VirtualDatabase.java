@@ -21,16 +21,16 @@ public class VirtualDatabase {
     public static Map<Integer,User> users;
     public static Map<Integer,Student> students;
     public static Map<String,Course> courses;
-    public static ArrayList<QuestionBank> banks;
-    public static ArrayList<Quiz> quizes;
+    // public static ArrayList<QuestionBank> banks;
+    // public static ArrayList<Quiz> quizes;
 
     // singleton db
     private VirtualDatabase() {
         VirtualDatabase.users = new HashMap<>();
         VirtualDatabase.students = new HashMap<>();
         VirtualDatabase.courses = new HashMap<>();
-        VirtualDatabase.banks = new ArrayList<>();
-        VirtualDatabase.quizes = new ArrayList<>();
+        // VirtualDatabase.banks = new ArrayList<>();
+        // VirtualDatabase.quizes = new ArrayList<>();
     }
 
     public VirtualDatabase getInistance() {

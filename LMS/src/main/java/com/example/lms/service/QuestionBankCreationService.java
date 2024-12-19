@@ -1,27 +1,27 @@
-package com.example.lms.service;
+// package com.example.lms.service;
 
-import org.springframework.stereotype.Service;
+// import org.springframework.stereotype.Service;
 
-import com.example.lms.entity.Course;
-import com.example.lms.entity.QuestionBank;
-import com.example.lms.repository.VirtualDatabase;
+// import com.example.lms.entity.Course;
+// import com.example.lms.entity.QuestionBank;
+// import com.example.lms.repository.VirtualDatabase;
 
-@Service
-public class QuestionBankCreationService {
-    // VirtualDatabase db;
+// @Service
+// public class QuestionBankCreationService {
+//     // VirtualDatabase db;
     
-    public boolean createQuestionBank(Course course) {
-        try {
-            // this.db = db.getInistance();
-            QuestionBank bank = new QuestionBank(course);
+//     public boolean createQuestionBank(Course course) {
+//         try {
+//             // this.db = db.getInistance();
+//             QuestionBank bank = new QuestionBank(course);
 
-            VirtualDatabase.banks.add(bank);
+//             VirtualDatabase.banks.add(bank);
 
-            return true;
-        } catch(Exception e) {
-            return false;
-        }
+//             return true;
+//         } catch(Exception e) {
+//             return false;
+//         }
         
-    }
+//     }
 
-}
+// }
