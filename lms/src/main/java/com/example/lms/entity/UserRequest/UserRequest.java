@@ -6,6 +6,7 @@ public class UserRequest {
     public String getUserType() {
         return userType;
     }
+
     public void setUserType(String userType) {
         this.userType = userType;
     }
