@@ -6,17 +6,18 @@ Philopateer:
     2. Course Management
         ● Course Creation:
             + Instructors can create courses with details like title, description, duration, ... etc.
-            + Instructors can upload media files (videos, PDFs, audio, ... etc.).
+            done -- Instructors can upload media files (videos, PDFs, audio, ... etc.).
             ○ Course consists of a number of lessons to be attended by students.
         ● Enrollment Management:
-            ○ Students can view available courses and enroll in these courses.
-            ○ Admins and Instructors can view the list of enrolled students per course.
+            done -- Students can view available courses  
+            + enroll in these courses.
+            + Admins and Instructors can view the list of enrolled students per course.
         ● Attendance Management
             ○ Instructors can generate an OTP per lesson to maintain the students attendance.
             ○ Students can select the lesson to attend and enter the OTP received from the instructor.  
     Role-Based Access 
         ○ Using Spring Security for authentication and authorization.
-        ○ Restrict access permissions so that they are granted based on role type.
+        + Restrict access permissions so that they are granted based on role type.
 Mahmoud: 
     3. Assessment & Grading 
     Performance 
