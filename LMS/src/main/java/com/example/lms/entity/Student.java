@@ -6,6 +6,10 @@ public class Student extends User {
     private ArrayList<Integer> correctMarks;
     private ArrayList<Integer> quizMarks;
 
+    public Student (int id, String name,String password,String email) {
+        super(id, name, password, email,"Student");
+    };
+
 
     public void addCorrectMark(Integer CorrectMark) {
         this.correctMarks.add(CorrectMark);

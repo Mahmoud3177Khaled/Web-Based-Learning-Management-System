@@ -2,7 +2,7 @@ package com.example.lms.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -25,8 +25,9 @@ public class QuizCreationService {
             quizBank = course.getBank().getQuestions();
 
             Collections.shuffle(quizBank);
-            quiz.setquestions(quizBank.subList(0, Math.min(numOfQuestions, quizBank.size())));
-            System.out.println(quiz.toString());
+            List<Question> detachedQuiz = new ArrayList<>(quizBank.subList(0, Math.min(numOfQuestions, quizBank.size())));
+            quiz.setquestions(detachedQuiz);
+            // System.out.println(quiz.toString());
             // course.addQuiz(quiz);
 
             return quiz;

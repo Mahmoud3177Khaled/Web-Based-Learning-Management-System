@@ -38,9 +38,9 @@ public class QuizManagemantController {
             Quiz quiz = quizCreationService.createQuiz(courseToAddTo, numOfQuestions);
             courseToAddTo.addQuiz(quiz);
 
-            return new Response(courseToAddTo.getQuizes(), "added a quiz to course " + courseid);
+            return new Response(courseToAddTo, "added a quiz to course " + courseid);
         } catch (Exception e) {
-            return new Response(courseToAddTo.getQuizes(), "failed to add a quiz to course " + courseid);
+            return new Response(courseToAddTo, "failed to add a quiz to course " + courseid);
             // return new Response(e.toString());
 
         }
