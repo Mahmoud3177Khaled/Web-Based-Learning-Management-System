@@ -10,6 +10,7 @@ import com.example.lms.entity.Course;
 import com.example.lms.entity.QuestionBank;
 import com.example.lms.entity.Quiz;
 import com.example.lms.entity.Student;
+import com.example.lms.entity.User;
 import com.example.lms.entity.Instructor;
 import com.example.lms.entity.Admin;
 import org.springframework.stereotype.Service;
@@ -19,20 +20,13 @@ public class VirtualDatabase {
 
     private static VirtualDatabase SingletonDB;
 
-<<<<<<< HEAD
     public static Map<Integer, Student> students;
+    public static Map<Integer, User> users;
     public static Map<Integer, Instructor> instructors;
     public static Map<Integer, Admin> admins;
     public static Map<String, Course> courses;
     public static ArrayList<QuestionBank> banks;
     public static ArrayList<Quiz> quizes;
-=======
-    public static Map<Integer,User> users;
-    public static Map<Integer,Student> students;
-    public static Map<String,Course> courses;
-    // public static ArrayList<QuestionBank> banks;
-    // public static ArrayList<Quiz> quizes;
->>>>>>> 484b0d464116c1fe0f17a651064689485ada9f94
 
     // singleton db
     private VirtualDatabase() {
