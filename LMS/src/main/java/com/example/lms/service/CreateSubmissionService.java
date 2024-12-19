@@ -12,7 +12,7 @@ public class CreateSubmissionService {
         try {
             QuizSubmission submission = new QuizSubmission(studentid, courseid, quizIndex, studAnswers);
 
-            return submission;
+            return submission; // put in course for grading
         } catch (Exception e) {
             return null;
         }
