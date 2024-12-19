@@ -2,7 +2,6 @@ package com.example.lms.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lms.entity.Student;
 import com.example.lms.entity.User;
 import com.example.lms.entity.UserRequest.LoginRequest;
 import com.example.lms.entity.UserRequest.UserCreation;
@@ -22,7 +21,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/login/submit")
+    @PostMapping("/register/submit")
     public ResponseEntity<String> RegisterNewUser(@RequestBody UserCreation user) {
         userService.addNewUser(user);
 
