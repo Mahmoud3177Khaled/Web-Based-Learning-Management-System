@@ -5,8 +5,15 @@ public abstract class User {
     private String  name;
     private String password;
     private String email;
+    private String userType;
 
 
+    public String getUserType() {
+        return userType;
+    }
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
     public int getId() {
         return id;
     }

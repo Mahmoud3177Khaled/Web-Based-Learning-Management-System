@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.lms.entity.Course;
+import com.example.lms.entity.User;
 // import com.example.lms.entity.Question;
 import com.example.lms.entity.QuestionBank;
 import com.example.lms.entity.Quiz;
@@ -17,6 +18,7 @@ public class VirtualDatabase {
 
     private static VirtualDatabase SingletonDB;
 
+    public static Map<Integer,User> users;
     public static Map<Integer,Student> students;
     public static Map<String,Course> courses;
     public static ArrayList<QuestionBank> banks;
