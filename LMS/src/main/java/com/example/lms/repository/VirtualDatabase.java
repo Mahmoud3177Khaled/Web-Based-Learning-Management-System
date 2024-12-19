@@ -9,7 +9,10 @@ import com.example.lms.entity.Course;
 import com.example.lms.entity.QuestionBank;
 import com.example.lms.entity.Quiz;
 import com.example.lms.entity.Student;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class VirtualDatabase {
 
     private static VirtualDatabase SingletonDB;
