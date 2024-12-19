@@ -22,6 +22,7 @@ public class VirtualDatabase {
 
     public static Map<Integer, Student> students;
     public static Map<Integer, User> users;
+    public static Map<String, User> loginMap;
     public static Map<Integer, Instructor> instructors;
     public static Map<Integer, Admin> admins;
     public static Map<String, Course> courses;
@@ -31,6 +32,7 @@ public class VirtualDatabase {
     // singleton db
     private VirtualDatabase() {
         VirtualDatabase.users = new HashMap<>();
+        VirtualDatabase.loginMap = new HashMap<>();
         VirtualDatabase.students = new HashMap<>();
         VirtualDatabase.admins = new HashMap<>();
         VirtualDatabase.instructors = new HashMap<>();
