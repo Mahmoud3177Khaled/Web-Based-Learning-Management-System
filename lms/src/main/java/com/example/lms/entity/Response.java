@@ -1,16 +1,20 @@
 package com.example.lms.entity;
 
 public class Response {
-    private int code;
+    private Object object;
     private String message;
     public Response(String message) {
         this.message = message;
     }
-    public int getCode() {
-        return code;
+    public Response(Object object ,String message) {
+        this.object = object;
+        this.message = message;
     }
-    public void setCode(int code) {
-        this.code = code;
+    public Object getObject() {
+        return object;
+    }
+    public void setCode(Object object) {
+        this.object = object;
     }
     public String getMessage() {
         return message;

@@ -11,11 +11,19 @@ import com.example.lms.repository.VirtualDatabase;
 
 
 @Service
-public class CourseCreationService {
+public class CourseManagementService {
     @Autowired
     public VirtualDatabase virtualDatabase;
-    public boolean createCourse(String id, String tittle, String description, Date startDate, Date endDate){
-        VirtualDatabase.courses.put(id, new Course(id, tittle, description, startDate, endDate));
+
+    public boolean addNewCourse(Course course){
+        VirtualDatabase.courses.put(course.getId(), course);
+        return  true;
+    }
+    public Course getCourse(String courseId){
+        return  VirtualDatabase.courses.get(courseId);
+    }
+    public boolean removeCourse(String courseId){
+        VirtualDatabase.courses.remove(courseId);
         return  true;
     }
     public boolean uploadMediaFile(String courseId ,MediaFile mediaFile){
