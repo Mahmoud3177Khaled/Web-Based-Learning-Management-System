@@ -1,6 +1,7 @@
 package com.example.lms.entity;
 
 import java.util.ArrayList;
+// import java.util.ArrayList;
 
 public class QuestionBank {
     Course course;
@@ -8,6 +9,7 @@ public class QuestionBank {
 
     public QuestionBank(Course course) {
         this.course = course;
+        this.questions = new ArrayList<>();
     }
     
     public void setCourse(Course course) {

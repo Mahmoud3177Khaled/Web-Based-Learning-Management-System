@@ -22,12 +22,20 @@ public class Course{
     private List<MediaFile> mediaFiles = new ArrayList<>();
     private Map<Integer,Lesson> lessons = new HashMap<>();
     private Map<Integer,Student> enrolledStudents = new HashMap<>();
+
+    public Course(String id) {
+        this.id = id;
+        this.bank = new QuestionBank(this);
+    }
+
     public Course(String id, String tittle, String description, Date startDate, Date endDate){
         this.id = id;
         this.tittle = tittle;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.bank = new QuestionBank(this);
+        this.quizes = new ArrayList<>();
     } 
     public String getId() {
         return id;
