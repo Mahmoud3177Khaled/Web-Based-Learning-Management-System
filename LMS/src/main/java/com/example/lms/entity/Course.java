@@ -16,7 +16,7 @@ public class Course{
     private Date startDate;
     private Date endDate;
     private List<MediaFile> mediaFiles = new ArrayList<>();
-    private List<Lesson> lessons = new ArrayList<>();
+    private Map<Integer,Lesson> lessons = new HashMap<>();
     private Map<Integer,Student> enrolledStudents = new HashMap<>();
     public Course(String id, String tittle, String description, Date startDate, Date endDate){
         this.id = id;
@@ -61,11 +61,17 @@ public class Course{
     public void setMediaFiles(List<MediaFile> mediaFiles) {
         this.mediaFiles = mediaFiles;
     }
-    public List<Lesson> getLessons() {
+    public Map<Integer,Lesson> getLessons() {
         return lessons;
     }
-    public void setLessons(List<Lesson> lessons) {
+    public void setLessons(Map<Integer,Lesson> lessons) {
         this.lessons = lessons;
+    }
+    public Lesson getLesson(int lessonNumber){
+        return lessons.get(lessonNumber);
+    }
+    public void setLesson(Lesson lesson) {
+        this.lessons.put(lesson.getLessonNumber(), lesson);
     }
     public Map<Integer,Student> getEnrolledStudents() {
         return enrolledStudents;
