@@ -26,6 +26,7 @@ public class VirtualDatabase {
 
     // singleton db
     private VirtualDatabase() {
+        VirtualDatabase.users = new HashMap<>();
         VirtualDatabase.students = new HashMap<>();
         VirtualDatabase.courses = new HashMap<>();
         VirtualDatabase.banks = new ArrayList<>();
