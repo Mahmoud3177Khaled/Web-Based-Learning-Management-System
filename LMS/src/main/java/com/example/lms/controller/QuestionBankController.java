@@ -23,6 +23,7 @@ import com.example.lms.entity.writtenQuestion;
 public class QuestionBankController {
     @Autowired
     private AddQuestionToBankService addQuestionToBankService;
+    private int i = 0;
 
     @PostMapping("/add")
     public Response addQuestionToBank(@RequestParam("courseid") String courseid,
@@ -34,8 +35,11 @@ public class QuestionBankController {
                                   ) {
 
         this.addQuestionToBankService = new AddQuestionToBankService();
-        
-        VirtualDatabase.courses.put("1", new Course("1"));
+        if (i == 0) {
+            VirtualDatabase.courses.put("1", new Course("1"));
+            
+        }
+        i++;
         Course courseToAddTo = VirtualDatabase.courses.get(courseid);
 
         try {
