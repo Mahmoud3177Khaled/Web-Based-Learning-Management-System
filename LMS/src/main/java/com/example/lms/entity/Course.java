@@ -15,15 +15,28 @@ public class Course{
     private String description;
     private Date startDate;
     private Date endDate;
+
+    private ArrayList<Quiz> quizes;
+    private QuestionBank bank;
+
     private List<MediaFile> mediaFiles = new ArrayList<>();
     private Map<Integer,Lesson> lessons = new HashMap<>();
     private Map<Integer,Student> enrolledStudents = new HashMap<>();
+
+    public Course(String id) {
+        this.id = id;
+        this.bank = new QuestionBank();
+        this.quizes = new ArrayList<>();
+    }
+
     public Course(String id, String tittle, String description, Date startDate, Date endDate){
         this.id = id;
         this.tittle = tittle;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.bank = new QuestionBank();
+        this.quizes = new ArrayList<>();
     } 
     public String getId() {
         return id;
@@ -70,8 +83,11 @@ public class Course{
     public Lesson getLesson(int lessonNumber){
         return lessons.get(lessonNumber);
     }
-    public void setLesson(Lesson lesson) {
+    public void addLesson(Lesson lesson) {
         this.lessons.put(lesson.getLessonNumber(), lesson);
+    }
+    public void removeLesson(int lessonNumber) {
+        this.lessons.remove(lessonNumber);
     }
     public Map<Integer,Student> getEnrolledStudents() {
         return enrolledStudents;
@@ -86,5 +102,30 @@ public class Course{
     public boolean addMediaFile(MediaFile mediaFile){
         this.mediaFiles.add(mediaFile);
         return true;
+    }
+
+
+    public void setQuizes(ArrayList<Quiz> quizes) {
+        this.quizes = quizes;
+    }
+
+    public ArrayList<Quiz> getQuizes() {
+        return this.quizes;
+    }
+
+    public void setBank(QuestionBank bank) {
+        this.bank = bank;
+    }
+
+    public QuestionBank getBank() {
+        return bank;
+    }
+
+    public void addQuiz(Quiz quiz) {
+        this.quizes.add(quiz);
+    }
+
+    public void addQuestionToBank(Question question) {
+        this.bank.addQuastion(question);
     }
 }

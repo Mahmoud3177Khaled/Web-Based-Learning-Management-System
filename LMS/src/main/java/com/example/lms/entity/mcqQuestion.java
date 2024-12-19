@@ -1,13 +1,13 @@
 package com.example.lms.entity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class mcqQuestion extends Question {
     // private String questionText;
-    private ArrayList<String> choices;
+    private List<String> choices;
     private Integer correctChoice;
 
-    public mcqQuestion(String text, ArrayList<String> choices, Integer correctChoice) {
+    public mcqQuestion(String text, List<String> choices, Integer correctChoice) {
         // this.questionText = text;
         super(text);
         this.choices = choices;
@@ -35,7 +35,7 @@ public class mcqQuestion extends Question {
         this.choices.add(choice);
     }
 
-    public ArrayList<String> getChoices() {
+    public List<String> getChoices() {
         return this.choices;
     }
 

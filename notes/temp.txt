@@ -1,0 +1,7 @@
+ if(authenticationManagement.isAuthenticate(authenticationRequest)){
+    if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
+
+    }
+    return  new Response("you don't have an authorization.");
+}
+return  new Response("this request need an authentication.");

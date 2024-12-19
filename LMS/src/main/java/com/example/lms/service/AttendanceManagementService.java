@@ -18,7 +18,7 @@ public class AttendanceManagementService {
         Course course = virtualDatabase.courses.get(courseId);
         Lesson lesson =course.getLesson(lessonNumber);
         lesson.setOTPAttendanceCode(OTPGenerator.generateOTP());
-        course.setLesson(lesson);
+        course.addLesson(lesson);
         virtualDatabase.courses.put(courseId, course);
         return true;
     }

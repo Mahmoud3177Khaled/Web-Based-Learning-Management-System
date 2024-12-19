@@ -1,6 +1,8 @@
 package com.example.lms.service;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,16 @@ public class EnrollmentService {
         VirtualDatabase.courses.put(enrolledCourse.getId(), enrolledCourse);
         return true;
     }
-    public List<Student> showEnrolledStudents(Course course){
-        Course searchCourse = VirtualDatabase.courses.get(course.getId());
+    public List<Student> showEnrolledStudentsIn(String courseId){
+        Course searchCourse = VirtualDatabase.courses.get(courseId);
         return new ArrayList<>(searchCourse.getEnrolledStudents().values());
+    }
+    public Map<Course,Map<Integer,Student>> showEnrolledStudentsInAllCourses(){
+        Map<Course,Map<Integer,Student>> allEnrolledStudents =new HashMap<>();
+        for (Map.Entry<String, Course> course : VirtualDatabase.courses.entrySet()) {
+            allEnrolledStudents.put(course.getValue(), course.getValue().getEnrolledStudents());
+        }
+        return allEnrolledStudents;
     }
     // @Autowired
     // private ApplicationEventPublisher eventPublisher;
