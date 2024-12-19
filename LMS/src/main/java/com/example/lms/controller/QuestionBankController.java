@@ -30,7 +30,7 @@ public class QuestionBankController {
                                   @RequestParam("questionType") String questionType, 
                                   @RequestParam("questionText") String text, 
                                   @RequestParam("choices") List<String> choices, 
-                                  @RequestParam("correctChoice") Integer correctChoice,
+                                //   @RequestParam("correctChoice") Integer correctChoice,
                                   @RequestParam("correctAnswer") String correctAnswer
                                   ) {
 
@@ -44,11 +44,11 @@ public class QuestionBankController {
 
         try {
             if(questionType.equals("mcq")) {
-                Question newQuestion = new mcqQuestion(text, choices, correctChoice);
+                Question newQuestion = new mcqQuestion(text, choices, correctAnswer);
                 courseToAddTo.addQuestionToBank(newQuestion);
     
             } else if (questionType.equals("tf")) {
-                Question newQuestion = new tfQuestion(text, correctChoice);
+                Question newQuestion = new tfQuestion(text, correctAnswer);
                 courseToAddTo.addQuestionToBank(newQuestion);
                 
             } else if (questionType.equals("written")) {

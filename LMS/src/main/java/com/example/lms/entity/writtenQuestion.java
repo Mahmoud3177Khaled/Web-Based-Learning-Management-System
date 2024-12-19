@@ -2,12 +2,12 @@ package com.example.lms.entity;
 
 public class writtenQuestion extends Question {
     // private String questionText;
-    private String correctAnswer;
+    // private String correctAnswer;
 
     public writtenQuestion(String text, String correctAnswer) {
-        super(text);
+        super(text, correctAnswer);
         // this.questionText = text;
-        this.correctAnswer = correctAnswer;
+        // this.correctAnswer = correctAnswer;
 
     }
 
@@ -19,13 +19,13 @@ public class writtenQuestion extends Question {
     //     return this.questionText;
     // }
 
-    public void setCorrectChoice(String answer) {
-        this.correctAnswer = answer;
-    }
+    // public void setCorrectChoice(String answer) {
+    //     this.correctAnswer = answer;
+    // }
 
-    public String getAnswer() {
-        return this.correctAnswer;
-    }
+    // public String getAnswer() {
+    //     return this.correctAnswer;
+    // }
 
     // public void addChoice(String choice) {
     //     this.choices.add(choice);

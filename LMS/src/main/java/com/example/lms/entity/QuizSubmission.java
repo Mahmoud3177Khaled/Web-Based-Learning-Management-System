@@ -3,38 +3,48 @@ package com.example.lms.entity;
 import java.util.ArrayList;
 
 public class QuizSubmission {
-    private Quiz quiz;
-    private Student student;
+    private int quizIndex;
+    private int studentid;
+    private int courseid;
 
-    ArrayList<Integer> studAnswers;
+    ArrayList<String> studAnswers;
 
-    public QuizSubmission(Quiz quiz, ArrayList<Integer> studAnswers, Student student) {
-        this.quiz = quiz;
-        this.studAnswers = studAnswers;
-        this.student = student;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
-    }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudAnswers(ArrayList<Integer> studAnswers) {
+    public QuizSubmission(int studentid, int courseid, int quizIndex, ArrayList<String> studAnswers) {
+        this.studentid = studentid;
+        this.courseid = courseid;
+        this.quizIndex = quizIndex;
         this.studAnswers = studAnswers;
     }
 
-    public ArrayList<Integer> getStudAnswers() {
+    public void setStudentid(int studentid) {
+        this.studentid = studentid;
+    }
+
+    public int getStudentid() {
+        return studentid;
+    }
+
+    public void setStudAnswers(ArrayList<String> studAnswers) {
+        this.studAnswers = studAnswers;
+    }
+
+    public ArrayList<String> getStudAnswers() {
         return studAnswers;
+    }
+
+    public void setQuizIndex(int quizIndex) {
+        this.quizIndex = quizIndex;
+    }
+
+    public int getQuizIndex() {
+        return quizIndex;
+    }
+
+    public void setCourseid(int courseid) {
+        this.courseid = courseid;
+    }
+
+    public int getCourseid() {
+        return courseid;
     }
 }

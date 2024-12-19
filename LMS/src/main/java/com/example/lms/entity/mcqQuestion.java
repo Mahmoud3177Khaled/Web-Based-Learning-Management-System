@@ -5,13 +5,13 @@ import java.util.List;
 public class mcqQuestion extends Question {
     // private String questionText;
     private List<String> choices;
-    private Integer correctChoice;
+    // private Integer correctChoice;
 
-    public mcqQuestion(String text, List<String> choices, Integer correctChoice) {
+    public mcqQuestion(String text, List<String> choices, String correctChoice) {
         // this.questionText = text;
-        super(text);
+        super(text, correctChoice);
         this.choices = choices;
-        this.correctChoice = correctChoice;
+        // this.correctChoice = correctChoice;
 
     }
 
@@ -23,13 +23,13 @@ public class mcqQuestion extends Question {
     //     return this.questionText;
     // }
 
-    public void setCorrectChoice(Integer choiceIndex) {
-        this.correctChoice = choiceIndex;
-    }
+    // public void setCorrectChoice(Integer choiceIndex) {
+    //     this.correctChoice = choiceIndex;
+    // }
 
-    public Integer getCorrectChoice() {
-        return this.correctChoice;
-    }
+    // public Integer getCorrectChoice() {
+    //     return this.correctChoice;
+    // }
 
     public void addChoice(String choice) {
         this.choices.add(choice);

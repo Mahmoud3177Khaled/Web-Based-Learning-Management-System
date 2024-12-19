@@ -17,6 +17,7 @@ public class Course{
     private Date endDate;
 
     private ArrayList<Quiz> quizes;
+    private ArrayList<QuizSubmission> quizSubmissions;
     private QuestionBank bank;
 
     private List<MediaFile> mediaFiles = new ArrayList<>();
@@ -127,5 +128,17 @@ public class Course{
 
     public void addQuestionToBank(Question question) {
         this.bank.addQuastion(question);
+    }
+
+    public void setQuizSubmissions(ArrayList<QuizSubmission> quizSubmissions) {
+        this.quizSubmissions = quizSubmissions;
+    }
+
+    public ArrayList<QuizSubmission> getQuizSubmissions() {
+        return quizSubmissions;
+    }
+
+    public void addSubmission(QuizSubmission submission) {
+        this.quizSubmissions.add(submission);
     }
 }

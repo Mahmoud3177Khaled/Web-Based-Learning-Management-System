@@ -2,12 +2,12 @@ package com.example.lms.entity;
 
 public class tfQuestion extends Question {
     // private String questionText;
-    private Integer correctChoice;
+    // private Integer correctChoice;
 
-    public tfQuestion(String text, Integer correctChoice) {
+    public tfQuestion(String text, String correctChoice) {
         // this.questionText = text;
-        super(text);
-        this.correctChoice = correctChoice;
+        super(text, correctChoice);
+        // this.correctChoice = correctChoice;
 
     }
 
@@ -19,13 +19,13 @@ public class tfQuestion extends Question {
     //     return this.questionText;
     // }
 
-    public void setCorrectChoice(Integer choiceIndex) {
-        this.correctChoice = choiceIndex;
-    }
+    // public void setCorrectChoice(Integer choiceIndex) {
+    //     this.correctChoice = choiceIndex;
+    // }
 
-    public Integer getCorrectChoice() {
-        return this.correctChoice;
-    }
+    // public Integer getCorrectChoice() {
+    //     return this.correctChoice;
+    // }
 
     // public void addChoice(String choice) {
     //     this.choices.add(choice);
