@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.lms.entity.AuthenticationRequest;
+import com.example.lms.entity.Course;
+import com.example.lms.entity.Lesson;
 import com.example.lms.entity.MediaFile;
 import com.example.lms.entity.Response;
-import com.example.lms.entity.Course;
 import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.security.AuthenticationManagement;
 import com.example.lms.security.AuthorizationManagement;
@@ -92,10 +93,57 @@ public class CourseManagementController {
                 boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseId);
                 Course course  = VirtualDatabase.courses.get(courseId);
                 Boolean isAdded = course.addMediaFile(mediaFile);
+                VirtualDatabase.courses.put(courseId, course);
                 if (isUploaded && isAdded) {
                     return new Response("The mediaFile file uploaded.");
                 }
                 return new Response("An error occurred while uploading the mediaFile file.");    
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
+
+
+    @PostMapping("/addLesson")
+    public Response addLesson(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId , @RequestParam("lesson") Lesson lesson){
+        if(authenticationManagement.isAuthenticate(authenticationRequest)){
+            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
+                boolean isAdded = courseManagementService.addNewLesson(courseId, lesson);
+                if(isAdded){
+                    return  new Response("the lesson added.");
+                }
+                return new Response("An error occurred while adding the lesson.");    
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
+
+    @PostMapping("/getLesson")
+    public Response getLesson(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
+        if(authenticationManagement.isAuthenticate(authenticationRequest)){
+            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
+                Lesson lesson = courseManagementService.getLesson(courseId, lessonNumber);
+                if (lesson != null) {
+                    return  new Response(lesson ,"the lesson is exist.");
+                }
+                return  new Response("the lesson not exist.");
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
+
+    @PostMapping("/removeLesson")
+    public Response removeLesson(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest  ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
+        if(authenticationManagement.isAuthenticate(authenticationRequest)){
+            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
+                boolean isRemoved = courseManagementService.removeLesson(courseId, lessonNumber);
+                if (isRemoved) {
+                    return  new Response("the lesson removed.");
+                }
+                return  new Response("An error occurred while removing the lesson.");
             }
             return  new Response("you don't have an authorization.");
         }

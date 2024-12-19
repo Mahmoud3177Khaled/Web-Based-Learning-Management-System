@@ -74,8 +74,11 @@ public class Course{
     public Lesson getLesson(int lessonNumber){
         return lessons.get(lessonNumber);
     }
-    public void setLesson(Lesson lesson) {
+    public void addLesson(Lesson lesson) {
         this.lessons.put(lesson.getLessonNumber(), lesson);
+    }
+    public void removeLesson(int lessonNumber) {
+        this.lessons.remove(lessonNumber);
     }
     public Map<Integer,Student> getEnrolledStudents() {
         return enrolledStudents;
