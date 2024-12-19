@@ -1,0 +1,2 @@
+@RequestParam("userId") int userId ,@RequestParam("password") String password ,
+make all like that
