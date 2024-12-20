@@ -1,6 +1,7 @@
 package com.example.lms.service;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class CourseManagementService {
     }
     public Course getCourse(String courseId){
         return  VirtualDatabase.courses.get(courseId);
+    }
+    public List<Course> getAllCourses(){
+        return  new ArrayList<>(VirtualDatabase.courses.values());
     }
     public boolean removeCourse(String courseId){
         VirtualDatabase.courses.remove(courseId);

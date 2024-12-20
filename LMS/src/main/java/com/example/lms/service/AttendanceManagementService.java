@@ -17,6 +17,7 @@ public class AttendanceManagementService {
     public boolean generateLessonOTP(String courseId,int lessonNumber){
         Course course = virtualDatabase.courses.get(courseId);
         Lesson lesson =course.getLesson(lessonNumber);
+        course.removeLesson(lessonNumber);
         lesson.setOTPAttendanceCode(OTPGenerator.generateOTP());
         course.addLesson(lesson);
         virtualDatabase.courses.put(courseId, course);

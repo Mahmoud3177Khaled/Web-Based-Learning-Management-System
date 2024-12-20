@@ -1,7 +1,6 @@
 package com.example.lms.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +12,8 @@ public class Course{
     private String id;
     private String tittle;
     private String description;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
     private ArrayList<Quiz> quizes;
     private ArrayList<QuizSubmission> quizSubmissions;
@@ -31,7 +30,7 @@ public class Course{
         this.quizSubmissions = new ArrayList<>();
     }
     
-    public Course(String id, String tittle, String description, Date startDate, Date endDate){
+    public Course(String id, String tittle, String description, String startDate, String endDate){
         this.id = id;
         this.tittle = tittle;
         this.description = description;
@@ -59,16 +58,16 @@ public class Course{
     public void setDescription(String description) {
         this.description = description;
     }
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
     public List<MediaFile> getMediaFiles() {

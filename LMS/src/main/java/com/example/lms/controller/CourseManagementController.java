@@ -1,6 +1,7 @@
 package com.example.lms.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.lms.entity.AuthenticationRequest;
 import com.example.lms.entity.Course;
 import com.example.lms.entity.Lesson;
 import com.example.lms.entity.MediaFile;
@@ -36,15 +36,15 @@ public class CourseManagementController {
     private UploadMediaFileService uploadMediaFileService;
 
     @PostMapping("/addNewCourse")
-    public Response addNewCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("course") Course course){
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
-                boolean isAdded = courseManagementService.addNewCourse(course);
-                if (isAdded) {
-                    return  new Response("the course created.");
-                }
-                return  new Response("An error occurred while adding the course.");
+    public Response addNewCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("id") String id,@RequestParam("tittle") String tittle,@RequestParam("description") String description,@RequestParam("startDate") String startDate,@RequestParam("endDate") String endDate) {
+        Course course = new Course(id, tittle, description, startDate,endDate);
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            boolean isAdded = courseManagementService.addNewCourse(course);
+            if (isAdded) {
+                return  new Response("the course created.");
+            }
+            return  new Response("An error occurred while adding the course.");
             }
             return  new Response("you don't have an authorization.");
         }
@@ -53,14 +53,13 @@ public class CourseManagementController {
     
     @PostMapping("/removeCourse")
     public Response removeCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId){
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
-                boolean isRemoved = courseManagementService.removeCourse(courseId);
-                if (isRemoved) {
-                    return  new Response("the course created.");
-                }
-                return  new Response("An error occurred while adding the course.");
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            boolean isRemoved = courseManagementService.removeCourse(courseId);
+            if (isRemoved) {
+                return  new Response("the course removed.");
+            }
+            return  new Response("An error occurred while removing the course.");
             }
             return  new Response("you don't have an authorization.");
         }
@@ -69,14 +68,28 @@ public class CourseManagementController {
     
     @PostMapping("/getCourse")
     public Response getCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId){
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
-                Course course = courseManagementService.getCourse(courseId);
-                if (course != null) {
-                    return  new Response(course ,"the course is exist.");
-                }
-                return  new Response("the course not exist.");
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            Course course = courseManagementService.getCourse(courseId);
+            if (course != null) {
+                return  new Response(course ,"the course is exist.");
+            }
+            return  new Response("the course not exist.");
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
+
+    @PostMapping("/getAllCourses")
+    public Response getAllCourses(@RequestParam("userId") int userId ,@RequestParam("password") String password){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            List<Course> courses = courseManagementService.getAllCourses();
+            if (courses != null) {
+                return  new Response(courses ,"the course is exist.");
+            }
+            return  new Response("the course not exist.");
             }
             return  new Response("you don't have an authorization.");
         }
@@ -86,21 +99,20 @@ public class CourseManagementController {
 
     @PostMapping("/uploadMediaFile")
     public Response uploadMediaFile(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("userType") String userType,@RequestParam("courseId") String courseId,@RequestParam("mediaFile") MultipartFile multipartFile) {
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
-                MediaFile mediaFile = new MediaFile(multipartFile);
-                mediaFile.setFileName(multipartFile.getOriginalFilename().split(".")[0]);
-                mediaFile.setType(multipartFile.getOriginalFilename().split(".")[1]);
-                mediaFile.setUploadDate(new Date());
-                boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseId);
-                Course course  = VirtualDatabase.courses.get(courseId);
-                Boolean isAdded = course.addMediaFile(mediaFile);
-                VirtualDatabase.courses.put(courseId, course);
-                if (isUploaded && isAdded) {
-                    return new Response("The mediaFile file uploaded.");
-                }
-                return new Response("An error occurred while uploading the mediaFile file.");    
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            MediaFile mediaFile = new MediaFile(multipartFile);
+            mediaFile.setFileName(multipartFile.getOriginalFilename().split(".")[0]);
+            mediaFile.setType(multipartFile.getOriginalFilename().split(".")[1]);
+            mediaFile.setUploadDate(new Date());
+            boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseId);
+            Course course  = VirtualDatabase.courses.get(courseId);
+            Boolean isAdded = course.addMediaFile(mediaFile);
+            VirtualDatabase.courses.put(courseId, course);
+            if (isUploaded && isAdded) {
+                return new Response("The mediaFile file uploaded.");
+            }
+            return new Response("An error occurred while uploading the mediaFile file.");    
             }
             return  new Response("you don't have an authorization.");
         }
@@ -109,15 +121,15 @@ public class CourseManagementController {
 
 
     @PostMapping("/addLesson")
-    public Response addLesson(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId , @RequestParam("lesson") Lesson lesson){
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
-                boolean isAdded = courseManagementService.addNewLesson(courseId, lesson);
-                if(isAdded){
-                    return  new Response("the lesson added.");
-                }
-                return new Response("An error occurred while adding the lesson.");    
+    public Response addLesson(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId ,@RequestParam("tittle") String tittle, @RequestParam("description") String description,@RequestParam("lessonNumber") int lessonNumber,@RequestParam("startDateAndTime") String startDateAndTime){
+        Lesson lesson = new Lesson(tittle,description,lessonNumber,courseId,startDateAndTime);
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            boolean isAdded = courseManagementService.addNewLesson(courseId, lesson);
+            if(isAdded){
+                return  new Response("the lesson added.");
+            }
+            return new Response("An error occurred while adding the lesson.");    
             }
             return  new Response("you don't have an authorization.");
         }
@@ -126,9 +138,8 @@ public class CourseManagementController {
 
     @PostMapping("/getLesson")
     public Response getLesson(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 Lesson lesson = courseManagementService.getLesson(courseId, lessonNumber);
                 if (lesson != null) {
                     return  new Response(lesson ,"the lesson is exist.");
@@ -142,9 +153,8 @@ public class CourseManagementController {
 
     @PostMapping("/removeLesson")
     public Response removeLesson(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId , @RequestParam("lessonNumber") int lessonNumber){
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(userId,password);
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 boolean isRemoved = courseManagementService.removeLesson(courseId, lessonNumber);
                 if (isRemoved) {
                     return  new Response("the lesson removed.");

@@ -1,6 +1,5 @@
 package com.example.lms.entity;
 
-import java.util.Date;
 import java.util.List;
 // import jakarta.persistence.Entity;
 
@@ -10,11 +9,18 @@ public class Lesson {
     private String description;
     private int lessonNumber;
     private String courseId;
-    private Date startDateAndTime;
+    private String startDateAndTime;
     private String OTPAttendanceCode;
     private List<Integer> attendedStudentsIds;
 
     
+    public Lesson(String tittle, String description, int lessonNumber, String courseId, String startDateAndTime) {
+        this.tittle = tittle;
+        this.description = description;
+        this.lessonNumber = lessonNumber;
+        this.courseId = courseId;
+        this.startDateAndTime = startDateAndTime;
+    }
     public List<Integer> getAttendedStudentsIds() {
         return attendedStudentsIds;
     }
@@ -49,10 +55,10 @@ public class Lesson {
     public void setLessonNumber(int lessonNumber) {
         this.lessonNumber = lessonNumber;
     }
-    public Date getStartDateAndTime() {
+    public String getStartDateAndTime() {
         return startDateAndTime;
     }
-    public void setStartDateAndTime(Date startDateAndTime) {
+    public void setStartDateAndTime(String startDateAndTime) {
         this.startDateAndTime = startDateAndTime;
     }
     public String getOTPAttendanceCode() {
