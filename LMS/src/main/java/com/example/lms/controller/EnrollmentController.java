@@ -1,60 +1,57 @@
-// package com.example.lms.controller;
+package com.example.lms.controller;
 
 // import java.util.List;
 // import java.util.Map;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
-// import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-// import com.example.lms.entity.AuthenticationRequest;
-// import com.example.lms.entity.Course;
-// import com.example.lms.entity.Response;
-// import com.example.lms.entity.Student;
-// import com.example.lms.security.AuthenticationManagement;
-// import com.example.lms.security.AuthorizationManagement;
-// import com.example.lms.service.EnrollmentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-// import lombok.RequiredArgsConstructor;
+import com.example.lms.entity.Course;
+import com.example.lms.entity.Response;
+import com.example.lms.security.AuthenticationManagement;
+import com.example.lms.security.AuthorizationManagement;
+import com.example.lms.service.EnrollmentService;
 
-// @RestController
-// @RequestMapping("/enrollment")
-// @RequiredArgsConstructor 
+import lombok.RequiredArgsConstructor;
 
-// public class EnrollmentController {
+@RestController
+@RequestMapping("/enrollment")
+@RequiredArgsConstructor 
+
+public class EnrollmentController {
     
-//     @Autowired
-//     private EnrollmentService enrollmentService;
-//     @Autowired
-//     private AuthenticationManagement authenticationManagement;
-//     @Autowired
-//     private AuthorizationManagement authorizationManagement;
+    @Autowired
+    private EnrollmentService enrollmentService;
+    @Autowired
+    private AuthenticationManagement authenticationManagement;
+    @Autowired
+    private AuthorizationManagement authorizationManagement;
 
-//     @PostMapping("/viewAvailableCourses")
-//     public Response viewAvailableCourses(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest){
-//         if(authenticationManagement.isAuthenticate(authenticationRequest)){
-//             if(authorizationManagement.isAuthorized(authenticationRequest, "Student")){
-//                 List<Course> courses = enrollmentService.viewAvailableCourses();
-//                 if(courses != null){
-//                     return new Response(courses,"there are courses.");
-//                 }
-//                 return new Response("there are not courses.");
-//             }
-//             return  new Response("you don't have an authorization.");
-//         }
-//         return  new Response("this request need an authentication.");
+    @PostMapping("/viewAvailableCourses")
+    public Response viewAvailableCourses(@RequestParam("userId") int userId ,@RequestParam("password") String password){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Student")){
+                List<Course> courses = enrollmentService.viewAvailableCourses();
+                if(courses != null){
+                    return new Response(courses,"there are courses.");
+                }
+                return new Response("there are not courses.");
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
         
-//     }
+    }
     
 //     @PostMapping("/enrollInCourse")
-//     public Response enrollInCourse(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest,@RequestBody Student student ,@RequestBody String courseId){
-//         if(authenticationManagement.isAuthenticate(authenticationRequest)){
-//             if(authorizationManagement.isAuthorized(authenticationRequest, "Student")){
+//     public Response enrollInCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password,@RequestBody Student student ,@RequestBody String courseId){
+//         if(authenticationManagement.isAuthenticate(userId,password)){
+//             if(authorizationManagement.isAuthorized(userId, "Student")){
 //                 boolean isEnrolled = enrollmentService.enrollInCourse(student, courseId);
 //                 if(isEnrolled){
 //                     return new Response("is enrolled successful.");
@@ -95,4 +92,4 @@
 //         }
 //         return  new Response("this request need an authentication.");
 //     }
-// }
+}
