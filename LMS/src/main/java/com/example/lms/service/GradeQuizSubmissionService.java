@@ -10,15 +10,18 @@ import com.example.lms.repository.VirtualDatabase;
 
 @Service
 public class GradeQuizSubmissionService {
-    public void gradeQuizSubmission(QuizSubmission submission) {
+    public Course gradeQuizSubmission(int courseid, int submissionindex) {
         try {
-            Course course = VirtualDatabase.courses.get(String.valueOf(submission.getCourseid()));
-            Student student = VirtualDatabase.students.get(submission.getStudentid());
-            Quiz quiz = course.getQuizes().get(submission.getQuizIndex());
+            Course course = VirtualDatabase.courses.get(String.valueOf(courseid));
+            QuizSubmission submissionToGrade = course.getQuizSubmissions().get(submissionindex);
+            
+            // Student student = VirtualDatabase.students.get(submissionToGrade.getStudentid());
+            Student student = course.getEnrolledStudents().get(submissionToGrade.getStudentid());
+            Quiz quiz = course.getQuizes().get(submissionToGrade.getQuizIndex());
 
             int score = 0;
-            for (int i = 0; i < submission.getStudAnswers().size(); i++) {
-                if(quiz.getquestions().get(i).getCorrectAnswer().equals(submission.getStudAnswers().get(i))) {
+            for (int i = 0; i < submissionToGrade.getStudAnswers().size(); i++) {
+                if(quiz.getquestions().get(i).getCorrectAnswer().equals(submissionToGrade.getStudAnswers().get(i))) {
                     score++;
                 }
             }
@@ -26,9 +29,11 @@ public class GradeQuizSubmissionService {
             student.addCorrectMark(score);
             student.addQuizmark(quiz.getquestions().size());
 
-
+            return course;
         } catch (Exception e) {
-
+            // return e.toString();
+            return null;
+            
         }
         
     }

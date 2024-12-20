@@ -8,6 +8,8 @@ public class Student extends User {
 
     public Student (int id, String name,String password,String email) {
         super(id, name, password, email,"Student");
+        this.correctMarks = new ArrayList<>();
+        this.quizMarks = new ArrayList<>();
     };
 
 
