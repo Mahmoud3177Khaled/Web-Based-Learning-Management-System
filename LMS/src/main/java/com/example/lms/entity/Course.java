@@ -28,8 +28,9 @@ public class Course{
         this.id = id;
         this.bank = new QuestionBank();
         this.quizes = new ArrayList<>();
+        this.quizSubmissions = new ArrayList<>();
     }
-
+    
     public Course(String id, String tittle, String description, Date startDate, Date endDate){
         this.id = id;
         this.tittle = tittle;
@@ -38,6 +39,7 @@ public class Course{
         this.endDate = endDate;
         this.bank = new QuestionBank();
         this.quizes = new ArrayList<>();
+        this.quizSubmissions = new ArrayList<>();
     } 
     public String getId() {
         return id;
