@@ -24,7 +24,7 @@ public class SubmitQuizAnswersController {
     private int i = 0;
 
     @PostMapping("/submit")
-    public Response submitQuiz(@RequestParam("studentid") int studentid,
+    public Response submitQuizSubmission(@RequestParam("studentid") int studentid,
                            @RequestParam("courseid") int courseid, 
                            @RequestParam("quizindex") int quizIndex, 
                            @RequestParam("studentanswers") ArrayList<String> studentAnswers) {
@@ -37,6 +37,7 @@ public class SubmitQuizAnswersController {
 
             if(i == 0) {
                 course.addStudent(student);
+                i++;
             }
     
             if(student != null) {
