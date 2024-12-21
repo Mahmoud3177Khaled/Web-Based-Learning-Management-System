@@ -120,7 +120,7 @@ public class AssignmentCreationController {
                         
                         return new Response(course, "assignment added");
                     } else {
-                        return new Response("assignment not uploaded");
+                        return new Response("assignment not submitted");
                     }
                 
                 } catch(Exception e) {
