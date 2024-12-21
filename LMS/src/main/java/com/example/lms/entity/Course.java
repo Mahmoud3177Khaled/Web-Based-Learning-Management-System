@@ -31,6 +31,7 @@ public class Course{
 
     public Course(String id) {
         this.id = id;
+        this.state = "open";
         this.bank = new QuestionBank();
         this.quizes = new ArrayList<>();
         this.quizSubmissions = new ArrayList<>();
