@@ -18,6 +18,7 @@ import com.example.lms.entity.MediaFile;
 import com.example.lms.entity.Response;
 import com.example.lms.entity.Student;
 import com.example.lms.repository.VirtualDatabase;
+import com.example.lms.service.NotificationService;
 import com.example.lms.service.UploadMediaFileService;
 
 import com.example.lms.security.AuthenticationManagement;
@@ -135,6 +136,9 @@ public class AssignmentCreationController {
 
         // }
     }
+
+    @Autowired
+    private NotificationService notificationService;
     
     @GetMapping("/grade")
     public Response gradeAssignmentSubmission(@RequestParam("courseid") String courseid,
@@ -156,6 +160,8 @@ public class AssignmentCreationController {
                 student.addcorrectAssignmentMark(gradeToSet);
                 
                 VirtualDatabase.students.put(student.getId(), student);
+
+                notificationService.addCustomNotification(student.getId(), "you got " + gradeToSet + " out of " + assignment.getGrade() + " in assignment " + assignmentSubmissionTograde.getAssignmentIndex() + " for course " + courseid);
                 
                 return new Response(student, "graded assignmet " + assignmentSubmissionTograde.getAssignmentIndex() + " for student " + assignmentSubmissionTograde.getStudentid());
         //     } else {
