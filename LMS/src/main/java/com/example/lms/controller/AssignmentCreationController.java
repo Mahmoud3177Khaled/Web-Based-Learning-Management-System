@@ -111,14 +111,17 @@ public class AssignmentCreationController {
                     mediaFile.setUploadDate(new Date());
                     boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseid);
                     
-                    // if(isUploaded) {
-                    AssignmentSubmission newAssignmentSubmission = new AssignmentSubmission(mediaFile, studentid, assignmentIndex);
-                    Course course = VirtualDatabase.courses.get(courseid);
-                    
-                    course.addAssignmentSubmission(newAssignmentSubmission);
-                    VirtualDatabase.courses.put(course.getId(), course);
-                    
-                    return new Response(course, "assignment added");
+                    if(isUploaded) {
+                        AssignmentSubmission newAssignmentSubmission = new AssignmentSubmission(mediaFile, studentid, assignmentIndex);
+                        Course course = VirtualDatabase.courses.get(courseid);
+                        
+                        course.addAssignmentSubmission(newAssignmentSubmission);
+                        VirtualDatabase.courses.put(course.getId(), course);
+                        
+                        return new Response(course, "assignment added");
+                    } else {
+                        return new Response("assignment not uploaded");
+                    }
                 
                 } catch(Exception e) {
                     return new Response(e.toString());
