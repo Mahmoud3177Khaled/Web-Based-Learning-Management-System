@@ -106,8 +106,8 @@ public class AssignmentCreationController {
         //     if(authorizationManagement.isAuthorized(userId, "Student")){
                 try {
                     MediaFile mediaFile = new MediaFile(assignmentSubmissionFile);
-                    mediaFile.setFileName(assignmentSubmissionFile.getOriginalFilename().split(".")[0]);
-                    mediaFile.setType(assignmentSubmissionFile.getOriginalFilename().split(".")[1]);
+                    mediaFile.setFileName(assignmentSubmissionFile.getOriginalFilename().split("\\.")[0]);
+                    mediaFile.setType(assignmentSubmissionFile.getOriginalFilename().split("\\.")[1]);
                     mediaFile.setUploadDate(new Date());
                     boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseid);
                     
