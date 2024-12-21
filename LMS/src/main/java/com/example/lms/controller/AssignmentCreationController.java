@@ -42,7 +42,7 @@ public class AssignmentCreationController {
                 Course course = VirtualDatabase.courses.get(courseid);
     
                 course.addAssignment(newAssignment);
-                VirtualDatabase.courses.put(courseid, course);
+                VirtualDatabase.courses.put(course.getId(), course);
 
                 return new Response(course, "assignment added");
 
@@ -72,7 +72,7 @@ public class AssignmentCreationController {
                 Course course = VirtualDatabase.courses.get(courseid);
     
                 course.addAssignmentSubmission(newAssignmentSubmission);
-                VirtualDatabase.courses.put(courseid, course);
+                VirtualDatabase.courses.put(course.getId(), course);
 
                 return new Response(course, "assignment added");
 
