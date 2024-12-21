@@ -14,13 +14,10 @@ import com.example.lms.entity.QuestionBank;
 import com.example.lms.entity.Quiz;
 import com.example.lms.entity.Student;
 import com.example.lms.entity.User;
-<<<<<<< HEAD
 import com.example.lms.entity.Notification;
 import com.example.lms.entity.Instructor;
 import com.example.lms.entity.Admin;
 import org.springframework.stereotype.Service;
-=======
->>>>>>> c439b130d0c6309c74bf4ae412ab0d9bf3e5083f
 
 @Service
 public class VirtualDatabase {
@@ -38,7 +35,6 @@ public class VirtualDatabase {
 
     // singleton db
     private VirtualDatabase() {
-        VirtualDatabase.users = new HashMap<>();
         VirtualDatabase.notifications = new HashMap<>();
         VirtualDatabase.loginMap = new HashMap<>();
         VirtualDatabase.students = new HashMap<>();
