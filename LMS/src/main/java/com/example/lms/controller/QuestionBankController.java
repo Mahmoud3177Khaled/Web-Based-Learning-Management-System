@@ -56,7 +56,7 @@ public class QuestionBankController {
                 courseToAddTo.addQuestionToBank(newQuestion);
             }
 
-            VirtualDatabase.courses.put(courseid, courseToAddTo);
+            VirtualDatabase.courses.put(courseToAddTo.getId(), courseToAddTo);
             
             return new Response(courseToAddTo.getBank(), "added " + questionType + " question to course " + courseid);
         } catch (Exception e) {

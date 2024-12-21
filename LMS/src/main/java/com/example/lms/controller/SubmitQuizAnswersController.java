@@ -43,7 +43,7 @@ public class SubmitQuizAnswersController {
             if(student != null) {
                 QuizSubmission newSubmission = this.createSubmissionService.createSubmission(studentid, courseid, quizIndex, studentAnswers);
                 course.addSubmission(newSubmission);
-                VirtualDatabase.courses.put(String.valueOf(courseid), course);
+                VirtualDatabase.courses.put(course.getId(), course);
     
                 return new Response(course, "Added new quiz submission from Student " + studentid + " in course " + courseid);
     
