@@ -37,9 +37,9 @@ public class CourseManagementController {
 
     @PostMapping("/addNewCourse")
     public Response addNewCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("id") String id,@RequestParam("tittle") String tittle,@RequestParam("description") String description,@RequestParam("startDate") String startDate,@RequestParam("endDate") String endDate) {
-        Course course = new Course(id, tittle, description, startDate,endDate);
         if(authenticationManagement.isAuthenticate(userId,password)){
             if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            Course course = new Course(id, tittle, description,userId,startDate,endDate);
             boolean isAdded = courseManagementService.addNewCourse(course);
             if (isAdded) {
                 return  new Response("the course created.");
@@ -55,7 +55,7 @@ public class CourseManagementController {
     public Response removeCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId){
         if(authenticationManagement.isAuthenticate(userId,password)){
             if(authorizationManagement.isAuthorized(userId, "Instructor")){
-            boolean isRemoved = courseManagementService.removeCourse(courseId);
+            boolean isRemoved = courseManagementService.removeCourse(userId,courseId);
             if (isRemoved) {
                 return  new Response("the course removed.");
             }
@@ -70,7 +70,7 @@ public class CourseManagementController {
     public Response getCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId){
         if(authenticationManagement.isAuthenticate(userId,password)){
             if(authorizationManagement.isAuthorized(userId, "Instructor")){
-            Course course = courseManagementService.getCourse(courseId);
+            Course course = courseManagementService.getCourse(userId,courseId);
             if (course != null) {
                 return  new Response(course ,"the course is exist.");
             }
@@ -85,7 +85,7 @@ public class CourseManagementController {
     public Response getAllCourses(@RequestParam("userId") int userId ,@RequestParam("password") String password){
         if(authenticationManagement.isAuthenticate(userId,password)){
             if(authorizationManagement.isAuthorized(userId, "Instructor")){
-            List<Course> courses = courseManagementService.getAllCourses();
+            List<Course> courses = courseManagementService.getAllCourses(userId);
             if (courses != null) {
                 return  new Response(courses ,"the course is exist.");
             }

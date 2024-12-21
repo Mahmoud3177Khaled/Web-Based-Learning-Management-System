@@ -14,6 +14,7 @@ public class Course{
     private String description;
     private String startDate;
     private String endDate;
+    private int instructorId;
 
     private ArrayList<Quiz> quizes;
     private ArrayList<QuizSubmission> quizSubmissions;
@@ -30,10 +31,11 @@ public class Course{
         this.quizSubmissions = new ArrayList<>();
     }
     
-    public Course(String id, String tittle, String description, String startDate, String endDate){
+    public Course(String id, String tittle, String description,int instructorId , String startDate, String endDate){
         this.id = id;
         this.tittle = tittle;
         this.description = description;
+        this.instructorId = instructorId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.bank = new QuestionBank();
@@ -141,5 +143,13 @@ public class Course{
 
     public void addSubmission(QuizSubmission submission) {
         this.quizSubmissions.add(submission);
+    }
+
+    public int getInstructorId() {
+        return instructorId;
+    }
+
+    public void setInstructorId(int instructorId) {
+        this.instructorId = instructorId;
     }
 }

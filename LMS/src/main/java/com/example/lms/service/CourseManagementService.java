@@ -21,15 +21,29 @@ public class CourseManagementService {
         VirtualDatabase.courses.put(course.getId(), course);
         return  true;
     }
-    public Course getCourse(String courseId){
-        return  VirtualDatabase.courses.get(courseId);
+    public Course getCourse(int instructorId,String courseId){
+        Course course = virtualDatabase.courses.get(courseId); 
+        if( course != null &&  course.getInstructorId() == instructorId){
+            return  course;
+        }
+        return  null;
     }
-    public List<Course> getAllCourses(){
-        return  new ArrayList<>(VirtualDatabase.courses.values());
+    public List<Course> getAllCourses(int instructorId){
+        List<Course> allCourses = new ArrayList<>(VirtualDatabase.courses.values());
+        List<Course> instructorCourses = new ArrayList<>();
+        for (Course course : allCourses) {
+            if(course.getInstructorId() == instructorId){
+                instructorCourses.add(course);
+            }
+        }
+        return  instructorCourses;
     }
-    public boolean removeCourse(String courseId){
-        VirtualDatabase.courses.remove(courseId);
-        return  true;
+    public boolean removeCourse(int instructorId ,String courseId){
+        if(virtualDatabase.courses.get(courseId).getInstructorId() == instructorId){
+            VirtualDatabase.courses.remove(courseId);
+            return  true;
+        }
+        return  false;
     }
     public boolean addNewLesson(String courseId , Lesson lesson){
         Course course = virtualDatabase.courses.get(courseId);
