@@ -78,18 +78,18 @@ public class EnrollmentController {
         return  new Response("this request need an authentication.");
     }
 
-    // @PostMapping("/showEnrolledStudents")
-    // public Response showEnrolledStudentsInAllCourses(@RequestParam("userId") int userId ,@RequestParam("password") String password){
-    //     if(authenticationManagement.isAuthenticate(userId,password)){
-    //         if(authorizationManagement.isAuthorized(userId, "Instructor") || authorizationManagement.isAuthorized(userId, "Admin")){
-    //             Map<Course,Map<Integer,Student>> enrolledStudentsInAllCourses = enrollmentService.showEnrolledStudentsInAllCourses();
-    //             if(enrolledStudentsInAllCourses != null){
-    //                 return new Response(enrolledStudentsInAllCourses,"there are students enrolled in courses.");
-    //             }
-    //             return new Response("An error occurred while retrieving Enrolling students.");
-    //         }
-    //         return  new Response("you don't have an authorization.");
-    //     }
-    //     return  new Response("this request need an authentication.");
-    // }
+    @PostMapping("/showAllEnrolledStudents")
+    public Response showEnrolledStudentsInAllCourses(@RequestParam("userId") int userId ,@RequestParam("password") String password){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor") || authorizationManagement.isAuthorized(userId, "Admin")){
+                Map<Course,Map<Integer,Student>> enrolledStudentsInAllCourses = enrollmentService.showEnrolledStudentsInAllCourses();
+                if(enrolledStudentsInAllCourses != null){
+                    return new Response(enrolledStudentsInAllCourses,"there are students enrolled in courses.");
+                }
+                return new Response("An error occurred while retrieving Enrolling students.");
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
 }
