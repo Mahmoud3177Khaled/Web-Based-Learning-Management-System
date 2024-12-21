@@ -7,8 +7,8 @@ public class Assignment {
     MediaFile assignmentFile;
     int grade;
 
-    public Assignment(MultipartFile assignmentFile, int grade) {
-        this.assignmentFile = new MediaFile(assignmentFile);
+    public Assignment(MediaFile assignmentFile, int grade) {
+        this.assignmentFile = assignmentFile;
         this.grade = grade;
     }
 

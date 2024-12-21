@@ -27,6 +27,14 @@ public class Student extends User {
         this.quizMarks.add(quizMark);
     }
 
+    public void addcorrectAssignmentMark(Integer correctAssignmentMarks) {
+        this.correctAssignmentMarks.add(correctAssignmentMarks);
+    }
+
+    public void addAssignmentsMark(Integer assignmentsMark) {
+        this.assignmentsMarks.add(assignmentsMark);
+    }
+
     public ArrayList<Integer> getCorrectMarks() {
         return this.correctQuizMarks;
     }

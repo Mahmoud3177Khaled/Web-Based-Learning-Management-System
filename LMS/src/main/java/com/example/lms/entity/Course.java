@@ -18,9 +18,12 @@ public class Course{
     private String state;
 
     
+    private QuestionBank bank;
     private ArrayList<Quiz> quizes;
     private ArrayList<QuizSubmission> quizSubmissions;
-    private QuestionBank bank;
+
+    private ArrayList<Assignment> assignments;
+    private ArrayList<AssignmentSubmission> assignmentSubmissions;
 
     private List<MediaFile> mediaFiles = new ArrayList<>();
     private Map<Integer,Lesson> lessons = new HashMap<>();
@@ -44,6 +47,8 @@ public class Course{
         this.bank = new QuestionBank();
         this.quizes = new ArrayList<>();
         this.quizSubmissions = new ArrayList<>();
+        this.assignments = new ArrayList<>();
+        this.assignmentSubmissions = new ArrayList<>();
     } 
     public String getId() {
         return id;
@@ -147,6 +152,17 @@ public class Course{
     public void addSubmission(QuizSubmission submission) {
         this.quizSubmissions.add(submission);
     }
+
+
+    public void addAssignment(Assignment assignment) {
+        this.assignments.add(assignment);
+    }
+
+    public void addAssignmentSubmission(AssignmentSubmission assignsubmission) {
+        this.assignmentSubmissions.add(assignsubmission);
+    }
+
+    
     
     public int getInstructorId() {
         return instructorId;
@@ -164,5 +180,21 @@ public class Course{
     }
     public boolean isAvailable() {
         return this.state.equals("open");
+    }
+
+    public void setAssignments(ArrayList<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+
+    public ArrayList<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignmentSubmissions(ArrayList<AssignmentSubmission> assignmentSubmissions) {
+        this.assignmentSubmissions = assignmentSubmissions;
+    }
+
+    public ArrayList<AssignmentSubmission> getAssignmentSubmissions() {
+        return assignmentSubmissions;
     }
 }
