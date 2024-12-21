@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.service.CreateSubmissionService;
 import com.example.lms.service.GradeQuizSubmissionService;
+import com.example.lms.service.NotificationService;
 // import com.example.lms.service.AddQuestionToBankService;
 import com.example.lms.service.QuizCreationService;
 import com.example.lms.entity.Course;
@@ -120,6 +121,9 @@ public class QuizManagemantController {
     @Autowired
     private GradeQuizSubmissionService gradeQuizSubmissionService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @GetMapping("/grade")
     public Response gradeQuizSubmission(@RequestParam("courseid") int courseid,
                                         @RequestParam("submissionindex") int submissionindex
@@ -130,9 +134,11 @@ public class QuizManagemantController {
         //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 this.gradeQuizSubmissionService = new GradeQuizSubmissionService();
                 Course course = gradeQuizSubmissionService.gradeQuizSubmission(courseid, submissionindex);
+                Student student = course.getEnrolledStudents().get(course.getQuizSubmissions().get(submissionindex).getStudentid());
+
+                notificationService.addCustomNotification(student.getId(), "you got " + student.getCorrectMarks().get(student.getCorrectMarks().size()-1) + " out of " + student.getQuizMarks().get(student.getQuizMarks().size()-1) + " for course " + courseid);
                 
-                // return new Response(course, "graded quizsub " + submissionindex + " for course " + courseid);
-                return new Response(course, "graded quizsub " + submissionindex + " for course " + courseid);
+                return new Response(course, "you got " + student.getCorrectMarks().get(student.getCorrectMarks().size()-1) + " out of " + student.getQuizMarks().get(student.getQuizMarks().size()-1) + " in quiz " + course.getQuizSubmissions().get(submissionindex).getQuizIndex() + " for course " + courseid);
         //     } else {
         //         return new Response("you are not an instructor");
         //     }
