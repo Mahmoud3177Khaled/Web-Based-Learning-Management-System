@@ -49,21 +49,21 @@ public class AssignmentCreationController {
     public Response createNewAssignment(@RequestParam("assignFile") MultipartFile assignFile, 
                                     @RequestParam("courseid") String courseid, 
                                     @RequestParam("grade") int grade 
-                                    ,@RequestParam("userId") int userId ,
-                                    @RequestParam("password") String password
+                                    // ,@RequestParam("userId") int userId ,
+                                    // @RequestParam("password") String password
                                     ) {
 
-        if(authenticationManagement.isAuthenticate(userId,password)){
-            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        // if(authenticationManagement.isAuthenticate(userId,password)){
+        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
 
                 try {
                     MediaFile mediaFile = new MediaFile(assignFile);
-                    mediaFile.setFileName(assignFile.getOriginalFilename().split(".")[0]);
-                    mediaFile.setType(assignFile.getOriginalFilename().split(".")[1]);
+                    mediaFile.setFileName(assignFile.getOriginalFilename().split("\\.")[0]);
+                    mediaFile.setType(assignFile.getOriginalFilename().split("\\.")[1]);
                     mediaFile.setUploadDate(new Date());
                     boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseid);
                     
-                    // if(isUploaded) {
+                    if(isUploaded) {
                         Assignment newAssignment = new Assignment(mediaFile, grade);
                         Course course = VirtualDatabase.courses.get(courseid);
                         
@@ -72,6 +72,11 @@ public class AssignmentCreationController {
                         
                         return new Response(course, "assignment added");
                         
+                    } else {
+                        return new Response("assignment not uploaded");
+
+                    }
+                        
                     } catch(Exception e) {
                         return new Response(e.toString());
                         
@@ -79,13 +84,13 @@ public class AssignmentCreationController {
                     // } else {
                         // return new Response("failed to uploadfile and assignment");
                         // }
-                    } else {
-                        return new Response("you are not an instructor");
-                    }
-                } else {
-                    return new Response("invalid credintials");
+                //     } else {
+                //         return new Response("you are not an instructor");
+                //     }
+                // } else {
+                //     return new Response("invalid credintials");
 
-                }
+                // }
     }
 
     @PostMapping("/submit")
@@ -93,12 +98,12 @@ public class AssignmentCreationController {
                                  @RequestParam("studentid") String studentid, 
                                  @RequestParam("courseid") String courseid, 
                                  @RequestParam("assignmentindex") int assignmentIndex
-                                 ,@RequestParam("userId") int userId ,
-                                 @RequestParam("password") String password
+                                //  ,@RequestParam("userId") int userId ,
+                                //  @RequestParam("password") String password
                                  ) {
 
-        if(authenticationManagement.isAuthenticate(userId,password)){
-            if(authorizationManagement.isAuthorized(userId, "Student")){
+        // if(authenticationManagement.isAuthenticate(userId,password)){
+        //     if(authorizationManagement.isAuthorized(userId, "Student")){
                 try {
                     MediaFile mediaFile = new MediaFile(assignmentSubmissionFile);
                     mediaFile.setFileName(assignmentSubmissionFile.getOriginalFilename().split(".")[0]);
@@ -119,24 +124,24 @@ public class AssignmentCreationController {
                     return new Response(e.toString());
 
                 }
-            } else {
-                return new Response("you are not a Student");
-            }
-        } else {
-            return new Response("invalid credintials");
+        //     } else {
+        //         return new Response("you are not a Student");
+        //     }
+        // } else {
+        //     return new Response("invalid credintials");
 
-        }
+        // }
     }
     
     @GetMapping("/grade")
     public Response gradeAssignmentSubmission(@RequestParam("courseid") String courseid,
                                           @RequestParam("assignmentSubmissionIndex") int assignmentSubmissionIndex, 
                                           @RequestParam("gradeToSet") int gradeToSet
-                                          ,@RequestParam("userId") int userId ,
-                                          @RequestParam("password") String password
+                                        //   ,@RequestParam("userId") int userId ,
+                                        //   @RequestParam("password") String password
                                           ) {
-        if(authenticationManagement.isAuthenticate(userId,password)){
-            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        // if(authenticationManagement.isAuthenticate(userId,password)){
+        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 Course course = VirtualDatabase.courses.get(courseid);
                 
                 AssignmentSubmission assignmentSubmissionTograde = course.getAssignmentSubmissions().get(assignmentSubmissionIndex);
@@ -150,13 +155,13 @@ public class AssignmentCreationController {
                 VirtualDatabase.students.put(student.getId(), student);
                 
                 return new Response(student, "graded assignmet " + assignmentSubmissionTograde.getAssignmentIndex() + " for student " + assignmentSubmissionTograde.getStudentid());
-            } else {
-                return new Response("you are not an instructor");
-            }
-        } else {
-            return new Response("invalid credintials");
+        //     } else {
+        //         return new Response("you are not an instructor");
+        //     }
+        // } else {
+        //     return new Response("invalid credintials");
 
-        }
+        // }
 
 
     }

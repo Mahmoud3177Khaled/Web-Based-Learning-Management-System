@@ -39,13 +39,13 @@ public class QuestionBankController {
                                   @RequestParam("choices") List<String> choices, 
                                 //   @RequestParam("correctChoice") Integer correctChoice,
                                   @RequestParam("correctAnswer") String correctAnswer
-                                  ,@RequestParam("userId") int userId ,
-                                @RequestParam("password") String password
+                                //   ,@RequestParam("userId") int userId ,
+                                // @RequestParam("password") String password
                                   ) {
 
                                     
-        if(authenticationManagement.isAuthenticate(userId,password)){
-            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        // if(authenticationManagement.isAuthenticate(userId,password)){
+        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 this.addQuestionToBankService = new AddQuestionToBankService();
                 if (i == 0) {
                     VirtualDatabase.courses.put("1", new Course("1"));
@@ -76,13 +76,13 @@ public class QuestionBankController {
                     // return new Response(e.toString());
                     
                 }
-            } else {
-                return new Response("you are not an instructor");
-            }
-        } else {
-            return new Response("invalid credintials");
+        //     } else {
+        //         return new Response("you are not an instructor");
+        //     }
+        // } else {
+        //     return new Response("invalid credintials");
 
-        }
+        // }
 
 
 

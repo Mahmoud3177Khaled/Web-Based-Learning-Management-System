@@ -35,6 +35,8 @@ public class Course{
         this.bank = new QuestionBank();
         this.quizes = new ArrayList<>();
         this.quizSubmissions = new ArrayList<>();
+        this.assignments = new ArrayList<>();
+        this.assignmentSubmissions = new ArrayList<>();
     }
     
     public Course(String id, String tittle, String description,int instructorId , String startDate, String endDate){
