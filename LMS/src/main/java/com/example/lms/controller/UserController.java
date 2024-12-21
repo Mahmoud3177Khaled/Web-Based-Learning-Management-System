@@ -21,6 +21,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
+    /*
+    {
+    "user": {
+        "id": 1,
+        "name": "Jonathan",
+        "password": "Password",
+        "email": "jonathan@gmail.com",
+        "userType": "Student"
+    }
+} 
+    */
     @PostMapping("/register/submit")
     public ResponseEntity<String> RegisterNewUser(@RequestBody UserCreation user) {
         userService.addNewUser(user);

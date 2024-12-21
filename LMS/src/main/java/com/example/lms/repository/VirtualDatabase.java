@@ -2,6 +2,7 @@ package com.example.lms.repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.example.lms.entity.Course;
@@ -11,6 +12,7 @@ import com.example.lms.entity.QuestionBank;
 import com.example.lms.entity.Quiz;
 import com.example.lms.entity.Student;
 import com.example.lms.entity.User;
+import com.example.lms.entity.Notification;
 import com.example.lms.entity.Instructor;
 import com.example.lms.entity.Admin;
 import org.springframework.stereotype.Service;
@@ -28,10 +30,12 @@ public class VirtualDatabase {
     public static Map<String, Course> courses;
     public static ArrayList<QuestionBank> banks;
     public static ArrayList<Quiz> quizes;
+    public static HashMap<Integer, List<Notification>> notifications;
 
     // singleton db
     private VirtualDatabase() {
         VirtualDatabase.users = new HashMap<>();
+        VirtualDatabase.notifications = new HashMap<>();
         VirtualDatabase.loginMap = new HashMap<>();
         VirtualDatabase.students = new HashMap<>();
         VirtualDatabase.admins = new HashMap<>();
@@ -48,5 +52,9 @@ public class VirtualDatabase {
 
         return VirtualDatabase.SingletonDB;
     }
+
+
+
+
 
 }
