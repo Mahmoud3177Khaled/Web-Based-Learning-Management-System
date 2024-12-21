@@ -3,7 +3,6 @@ package com.example.lms.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.lms.entity.Course;
@@ -14,15 +13,14 @@ import com.example.lms.repository.VirtualDatabase;
 
 @Service
 public class CourseManagementService {
-    @Autowired
-    public VirtualDatabase virtualDatabase;
+
 
     public boolean addNewCourse(Course course){
         VirtualDatabase.courses.put(course.getId(), course);
         return  true;
     }
     public Course getCourse(int instructorId,String courseId){
-        Course course = virtualDatabase.courses.get(courseId); 
+        Course course = VirtualDatabase.courses.get(courseId); 
         if( course != null &&  course.getInstructorId() == instructorId){
             return  course;
         }
@@ -39,16 +37,16 @@ public class CourseManagementService {
         return  instructorCourses;
     }
     public boolean removeCourse(int instructorId ,String courseId){
-        if(virtualDatabase.courses.get(courseId).getInstructorId() == instructorId){
+        if(VirtualDatabase.courses.get(courseId).getInstructorId() == instructorId){
             VirtualDatabase.courses.remove(courseId);
             return  true;
         }
         return  false;
     }
     public boolean addNewLesson(String courseId , Lesson lesson){
-        Course course = virtualDatabase.courses.get(courseId);
+        Course course = VirtualDatabase.courses.get(courseId);
         course.addLesson(lesson);
-        virtualDatabase.courses.put(courseId, course);
+        VirtualDatabase.courses.put(courseId, course);
         return  true;
     }
     public Lesson getLesson(String courseId , int lessonNumber){

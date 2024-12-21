@@ -23,31 +23,31 @@ public class AttendanceManagementController {
 
     @PostMapping("/generateLessonOTP")
     public Response generateLessonOTP(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId ,@RequestParam("lessonNumber") int lessonNumber){
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 boolean isGenerated = attendanceManagementService.generateLessonOTP(courseId,lessonNumber);
                 if(isGenerated){
                     return  new Response("the code generated.");
                 }
                 return  new Response("the code not generated.");
-        //     }
-        //     return  new Response("you don't have an authorization.");
-        // }
-        // return  new Response("this request need an authentication.");
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
     }
 
     @PostMapping("/lessonAttends")
     public Response lessonAttends(@RequestParam("userId") int userId ,@RequestParam("password") String password ,@RequestParam("courseId") String courseId ,@RequestParam("lessonNumber") int lessonNumber,@RequestParam("studentId") int studentId ,@RequestParam("OTPCode") String OTPCode){
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Student")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Student")){
                 boolean isTrueCode = attendanceManagementService.lessonAttends(courseId , lessonNumber,studentId, OTPCode);
                 if(isTrueCode){
                     return new Response("the code is true you are attended.");
                 }
                 return new Response("An error occurred while attending the lesson.");
             }
-        //     return  new Response("you don't have an authorization.");
-        // }
-        // return  new Response("this request need an authentication.");
-    // }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
 }

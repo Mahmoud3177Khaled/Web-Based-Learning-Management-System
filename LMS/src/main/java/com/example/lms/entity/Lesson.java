@@ -1,5 +1,6 @@
 package com.example.lms.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 // import jakarta.persistence.Entity;
 
@@ -20,6 +21,8 @@ public class Lesson {
         this.lessonNumber = lessonNumber;
         this.courseId = courseId;
         this.startDateAndTime = startDateAndTime;
+        this.OTPAttendanceCode = "";
+        this.attendedStudentsIds = new ArrayList<>();
     }
     public List<Integer> getAttendedStudentsIds() {
         return attendedStudentsIds;
