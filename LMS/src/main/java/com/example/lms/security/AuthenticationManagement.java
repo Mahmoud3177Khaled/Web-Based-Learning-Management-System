@@ -9,7 +9,16 @@ import com.example.lms.repository.VirtualDatabase;
 public class AuthenticationManagement {
 
     public boolean isAuthenticate(int userId ,String password){
-        User user = VirtualDatabase.users.get(userId);
+        User user = null;
+        if(VirtualDatabase.instructors.containsKey(userId)){
+            user = VirtualDatabase.instructors.get(userId);
+        }
+        else if(VirtualDatabase.admins.containsKey(userId)){
+            user = VirtualDatabase.admins.get(userId);
+        }
+        else if(VirtualDatabase.students.containsKey(userId)){
+            user = VirtualDatabase.students.get(userId);
+        }
         return user != null &&  user.getPassword().equals(password);
     }
 }

@@ -22,9 +22,9 @@ public class testCotroller {
         Course course = VirtualDatabase.courses.get("1");
         course.addLesson(new Lesson("L1", "no", 1, "1","12-10-2024"));
         VirtualDatabase.courses.put("1", course);
-        VirtualDatabase.users.put(1, new Instructor(1,"a","1","a@a.com"));
-        VirtualDatabase.users.put(2, new Instructor(2,"b","2","a@a.com"));
-        VirtualDatabase.users.put(3, new Instructor(3,"c","3","a@a.com"));
+        VirtualDatabase.instructors.put(1, new Instructor(1,"a","1","a@a.com"));
+        VirtualDatabase.instructors.put(2, new Instructor(2,"b","2","a@a.com"));
+        VirtualDatabase.instructors.put(3, new Instructor(3,"c","3","a@a.com"));
         return "test ok";
     }
 }
