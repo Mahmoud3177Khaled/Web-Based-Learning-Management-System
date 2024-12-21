@@ -17,7 +17,7 @@ public class GradeQuizInCourseController {
     @Autowired
     private GradeQuizSubmissionService gradeQuizSubmissionService;
 
-    @GetMapping("/gradequiz")
+    @GetMapping("/grade")
     public Response gradeQuizSubmission(@RequestParam("courseid") int courseid,
                                         @RequestParam("submissionindex") int submissionindex) {
 

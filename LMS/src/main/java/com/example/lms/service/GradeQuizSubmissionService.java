@@ -29,6 +29,8 @@ public class GradeQuizSubmissionService {
             student.addCorrectMark(score);
             student.addQuizmark(quiz.getquestions().size());
 
+            VirtualDatabase.students.put(student.getId(), student);
+
             return course;
         } catch (Exception e) {
             // return e.toString();

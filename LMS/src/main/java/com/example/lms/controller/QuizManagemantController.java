@@ -37,6 +37,7 @@ public class QuizManagemantController {
         try {
             Quiz quiz = quizCreationService.createQuiz(courseToAddTo, numOfQuestions);
             courseToAddTo.addQuiz(quiz);
+            VirtualDatabase.courses.put(courseid, courseToAddTo);
 
             return new Response(courseToAddTo, "added a quiz to course " + courseid);
         } catch (Exception e) {

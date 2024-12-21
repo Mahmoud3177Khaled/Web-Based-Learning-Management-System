@@ -42,6 +42,8 @@ public class AssignmentCreationController {
                 Course course = VirtualDatabase.courses.get(courseid);
     
                 course.addAssignment(newAssignment);
+                VirtualDatabase.courses.put(courseid, course);
+
                 return new Response(course, "assignment added");
 
         } catch(Exception e) {
@@ -70,6 +72,8 @@ public class AssignmentCreationController {
                 Course course = VirtualDatabase.courses.get(courseid);
     
                 course.addAssignmentSubmission(newAssignmentSubmission);
+                VirtualDatabase.courses.put(courseid, course);
+
                 return new Response(course, "assignment added");
 
         } catch(Exception e) {
@@ -92,6 +96,8 @@ public class AssignmentCreationController {
 
         student.addAssignmentsMark(assignment.getGrade());
         student.addcorrectAssignmentMark(gradeToSet);
+
+        VirtualDatabase.students.put(student.getId(), student);
 
         return new Response(student, "graded assignmet " + assignmentSubmissionTograde.getAssignmentIndex() + " for student " + assignmentSubmissionTograde.getStudentid());
 
