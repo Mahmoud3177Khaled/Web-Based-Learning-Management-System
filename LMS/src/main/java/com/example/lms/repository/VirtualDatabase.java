@@ -15,10 +15,6 @@ import com.example.lms.entity.Quiz;
 import com.example.lms.entity.Student;
 import com.example.lms.entity.User;
 import com.example.lms.entity.Notification;
-import com.example.lms.entity.Instructor;
-import com.example.lms.entity.Admin;
-import org.springframework.stereotype.Service;
-
 @Service
 public class VirtualDatabase {
 
