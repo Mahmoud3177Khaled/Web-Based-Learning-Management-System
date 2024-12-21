@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationService {
 
-    public static void addNotification(int userId, Notification notification) {
-        VirtualDatabase.notifications.computeIfAbsent(userId, k -> new ArrayList<>()).add(notification);
-    }
-
+    
     public static List<Notification> getNotifications(int userId) {
         return VirtualDatabase.notifications.getOrDefault(userId, new ArrayList<>());
     }
@@ -48,6 +45,6 @@ public class NotificationService {
                 message,
                 false);
 
-        addNotification(userId, notification);
+                VirtualDatabase.notifications.computeIfAbsent(userId, k -> new ArrayList<>()).add(notification);
     }
 }
