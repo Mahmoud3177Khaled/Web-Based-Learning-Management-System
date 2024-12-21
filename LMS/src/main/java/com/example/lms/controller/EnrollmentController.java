@@ -1,9 +1,8 @@
 package com.example.lms.controller;
 
-// import java.util.List;
-// import java.util.Map;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lms.entity.Course;
+import com.example.lms.entity.Student;
 import com.example.lms.entity.Response;
 import com.example.lms.security.AuthenticationManagement;
 import com.example.lms.security.AuthorizationManagement;
@@ -64,9 +64,9 @@ public class EnrollmentController {
     }
 
     @PostMapping("/showEnrolledStudents")
-    public Response showEnrolledStudentsIn(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest,@RequestBody String courseId){
-        if(authenticationManagement.isAuthenticate(authenticationRequest)){
-            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor") || authorizationManagement.isAuthorized(authenticationRequest, "Admin")){
+    public Response showEnrolledStudentsIn(@RequestParam("userId") int userId ,@RequestParam("password") String password,@RequestParam("courseId") String courseId){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor") || authorizationManagement.isAuthorized(userId, "Admin")){
                 List<Student> enrolledStudents = enrollmentService.showEnrolledStudentsIn(courseId);
                 if(enrolledStudents != null){
                     return new Response(enrolledStudents,"there are students enrolled in that course.");
@@ -78,18 +78,18 @@ public class EnrollmentController {
         return  new Response("this request need an authentication.");
     }
 
-//     @PostMapping("/showEnrolledStudents")
-//     public Response showEnrolledStudentsInAllCourses(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest){
-//         if(authenticationManagement.isAuthenticate(authenticationRequest)){
-//             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor") || authorizationManagement.isAuthorized(authenticationRequest, "Admin")){
-//                 Map<Course,Map<Integer,Student>> enrolledStudentsInAllCourses = enrollmentService.showEnrolledStudentsInAllCourses();
-//                 if(enrolledStudentsInAllCourses != null){
-//                     return new Response(enrolledStudentsInAllCourses,"there are students enrolled in courses.");
-//                 }
-//                 return new Response("An error occurred while retrieving Enrolling students.");
-//             }
-//             return  new Response("you don't have an authorization.");
-//         }
-//         return  new Response("this request need an authentication.");
-//     }
+    // @PostMapping("/showEnrolledStudents")
+    // public Response showEnrolledStudentsInAllCourses(@RequestParam("userId") int userId ,@RequestParam("password") String password){
+    //     if(authenticationManagement.isAuthenticate(userId,password)){
+    //         if(authorizationManagement.isAuthorized(userId, "Instructor") || authorizationManagement.isAuthorized(userId, "Admin")){
+    //             Map<Course,Map<Integer,Student>> enrolledStudentsInAllCourses = enrollmentService.showEnrolledStudentsInAllCourses();
+    //             if(enrolledStudentsInAllCourses != null){
+    //                 return new Response(enrolledStudentsInAllCourses,"there are students enrolled in courses.");
+    //             }
+    //             return new Response("An error occurred while retrieving Enrolling students.");
+    //         }
+    //         return  new Response("you don't have an authorization.");
+    //     }
+    //     return  new Response("this request need an authentication.");
+    // }
 }
