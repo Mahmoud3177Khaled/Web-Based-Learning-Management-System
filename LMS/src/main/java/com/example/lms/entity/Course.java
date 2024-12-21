@@ -15,7 +15,9 @@ public class Course{
     private String startDate;
     private String endDate;
     private int instructorId;
+    private String state;
 
+    
     private ArrayList<Quiz> quizes;
     private ArrayList<QuizSubmission> quizSubmissions;
     private QuestionBank bank;
@@ -38,6 +40,7 @@ public class Course{
         this.instructorId = instructorId;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.state = "open";
         this.bank = new QuestionBank();
         this.quizes = new ArrayList<>();
         this.quizSubmissions = new ArrayList<>();
@@ -128,15 +131,15 @@ public class Course{
     public void addQuiz(Quiz quiz) {
         this.quizes.add(quiz);
     }
-
+    
     public void addQuestionToBank(Question question) {
         this.bank.addQuastion(question);
     }
-
+    
     public void setQuizSubmissions(ArrayList<QuizSubmission> quizSubmissions) {
         this.quizSubmissions = quizSubmissions;
     }
-
+    
     public ArrayList<QuizSubmission> getQuizSubmissions() {
         return quizSubmissions;
     }
@@ -144,12 +147,22 @@ public class Course{
     public void addSubmission(QuizSubmission submission) {
         this.quizSubmissions.add(submission);
     }
-
+    
     public int getInstructorId() {
         return instructorId;
     }
 
     public void setInstructorId(int instructorId) {
         this.instructorId = instructorId;
+    }
+    public String getState() {
+        return state;
+    }
+    
+    public void setState(String state) {
+        this.state = state;
+    }
+    public boolean isAvailable() {
+        return this.state.equals("open");
     }
 }

@@ -13,9 +13,17 @@ import com.example.lms.repository.VirtualDatabase;
 @Service
 public class EnrollmentService {
     public List<Course> viewAvailableCourses(){
-        return new ArrayList<>(VirtualDatabase.courses.values());
+        List<Course> allCourses = new ArrayList<>(VirtualDatabase.courses.values());
+        List<Course> availableCourses = new ArrayList<>();
+        for (Course course : allCourses) {
+            if(course.isAvailable()){
+                availableCourses.add(course);
+            }
+        }
+        return availableCourses;
     }
-    public boolean enrollInCourse(Student student , String courseId){
+    public boolean enrollInCourse(int studentId , String courseId){
+        Student student = VirtualDatabase.students.get(studentId);
         Course enrolledCourse = VirtualDatabase.courses.get(courseId);
         enrolledCourse.addStudent(student);
         VirtualDatabase.courses.put(enrolledCourse.getId(), enrolledCourse);

@@ -48,35 +48,35 @@ public class EnrollmentController {
         
     }
     
-//     @PostMapping("/enrollInCourse")
-//     public Response enrollInCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password,@RequestBody Student student ,@RequestBody String courseId){
-//         if(authenticationManagement.isAuthenticate(userId,password)){
-//             if(authorizationManagement.isAuthorized(userId, "Student")){
-//                 boolean isEnrolled = enrollmentService.enrollInCourse(student, courseId);
-//                 if(isEnrolled){
-//                     return new Response("is enrolled successful.");
-//                 }
-//                 return new Response("An error occurred while Enrolling the course.");
-//             }
-//             return  new Response("you don't have an authorization.");
-//         }
-//         return  new Response("this request need an authentication.");
-//     }
+    @PostMapping("/enrollInCourse")
+    public Response enrollInCourse(@RequestParam("userId") int userId ,@RequestParam("password") String password,@RequestParam("courseId") String courseId){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Student")){
+                boolean isEnrolled = enrollmentService.enrollInCourse(userId, courseId);
+                if(isEnrolled){
+                    return new Response("is enrolled successful.");
+                }
+                return new Response("An error occurred while Enrolling the course.");
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
 
-//     @PostMapping("/showEnrolledStudents")
-//     public Response showEnrolledStudentsIn(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest,@RequestBody String courseId){
-//         if(authenticationManagement.isAuthenticate(authenticationRequest)){
-//             if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor") || authorizationManagement.isAuthorized(authenticationRequest, "Admin")){
-//                 List<Student> enrolledStudents = enrollmentService.showEnrolledStudentsIn(courseId);
-//                 if(enrolledStudents != null){
-//                     return new Response(enrolledStudents,"there are students enrolled in that course.");
-//                 }
-//                 return new Response("An error occurred while retrieving Enrolling students the course.");
-//             }
-//             return  new Response("you don't have an authorization.");
-//         }
-//         return  new Response("this request need an authentication.");
-//     }
+    @PostMapping("/showEnrolledStudents")
+    public Response showEnrolledStudentsIn(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest,@RequestBody String courseId){
+        if(authenticationManagement.isAuthenticate(authenticationRequest)){
+            if(authorizationManagement.isAuthorized(authenticationRequest, "Instructor") || authorizationManagement.isAuthorized(authenticationRequest, "Admin")){
+                List<Student> enrolledStudents = enrollmentService.showEnrolledStudentsIn(courseId);
+                if(enrolledStudents != null){
+                    return new Response(enrolledStudents,"there are students enrolled in that course.");
+                }
+                return new Response("An error occurred while retrieving Enrolling students the course.");
+            }
+            return  new Response("you don't have an authorization.");
+        }
+        return  new Response("this request need an authentication.");
+    }
 
 //     @PostMapping("/showEnrolledStudents")
 //     public Response showEnrolledStudentsInAllCourses(@RequestParam("authenticationRequest") AuthenticationRequest authenticationRequest){
