@@ -51,18 +51,16 @@ public class QuizManagemantController {
                 this.quizCreationService = new QuizCreationService();
                 
                 Course courseToAddTo = VirtualDatabase.courses.get(courseid);
-                
-                try {
-                    Quiz quiz = quizCreationService.createQuiz(courseToAddTo, numOfQuestions);
-                    courseToAddTo.addQuiz(quiz);
-                    VirtualDatabase.courses.put(courseToAddTo.getId(), courseToAddTo);
-                    
+                boolean success = quizCreationService.createQuiz(courseToAddTo, numOfQuestions);
+
+                if(success) {
                     return new Response(courseToAddTo, "added a quiz to course " + courseid);
-                } catch (Exception e) {
+                    
+                } else {
                     return new Response(courseToAddTo, "failed to add a quiz to course " + courseid);
-                    // return new Response(e.toString());
                     
                 }
+
         //     } else {
         //         return new Response("you are not an instructor");
         //     }

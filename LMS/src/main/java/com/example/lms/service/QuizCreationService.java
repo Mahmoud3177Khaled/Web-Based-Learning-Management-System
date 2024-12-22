@@ -16,7 +16,7 @@ import com.example.lms.repository.VirtualDatabase;
 public class QuizCreationService {
     // VirtualDatabase db;
     
-    public Quiz createQuiz(Course course, Integer numOfQuestions) {
+    public boolean createQuiz(Course course, Integer numOfQuestions) {
         try {
             // this.db = db.getInistance();
             Quiz quiz = new Quiz(numOfQuestions);
@@ -30,9 +30,13 @@ public class QuizCreationService {
             // System.out.println(quiz.toString());
             // course.addQuiz(quiz);
 
-            return quiz;
+            course.addQuiz(quiz);
+            VirtualDatabase.courses.put(course.getId(), course);
+                    
+
+            return true;
         } catch(Exception e) {
-            return null;
+            return false;
         }
         
     }

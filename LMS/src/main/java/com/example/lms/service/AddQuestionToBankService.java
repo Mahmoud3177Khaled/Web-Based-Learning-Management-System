@@ -21,45 +21,33 @@ public class AddQuestionToBankService {
     
     public boolean addQuastionToBank(String courseid, String questionType, String text, List<String> choices, String correctAnswer) { // add bank inside course and get bank from course
 
-            // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        if (i == 0) {
+            VirtualDatabase.courses.put("1", new Course("1"));
+    
+        }
+        i++;
+        Course courseToAddTo = VirtualDatabase.courses.get(courseid);
+
+        try {
+            if(questionType.equals("mcq")) {
+                Question newQuestion = new mcqQuestion(text, choices, correctAnswer);
+                courseToAddTo.addQuestionToBank(newQuestion);
+    
+            } else if (questionType.equals("tf")) {
+                Question newQuestion = new tfQuestion(text, correctAnswer);
+                courseToAddTo.addQuestionToBank(newQuestion);
                 
-                if (i == 0) {
-                    VirtualDatabase.courses.put("1", new Course("1"));
+            } else if (questionType.equals("written")) {
+                Question newQuestion = new writtenQuestion(text, correctAnswer);
+                courseToAddTo.addQuestionToBank(newQuestion);
+            }
             
-                }
-                i++;
-                Course courseToAddTo = VirtualDatabase.courses.get(courseid);
-
-                try {
-                    if(questionType.equals("mcq")) {
-                        Question newQuestion = new mcqQuestion(text, choices, correctAnswer);
-                        courseToAddTo.addQuestionToBank(newQuestion);
+            VirtualDatabase.courses.put(courseToAddTo.getId(), courseToAddTo);
             
-                    } else if (questionType.equals("tf")) {
-                        Question newQuestion = new tfQuestion(text, correctAnswer);
-                        courseToAddTo.addQuestionToBank(newQuestion);
-                        
-                    } else if (questionType.equals("written")) {
-                        Question newQuestion = new writtenQuestion(text, correctAnswer);
-                        courseToAddTo.addQuestionToBank(newQuestion);
-                    }
-                    
-                    VirtualDatabase.courses.put(courseToAddTo.getId(), courseToAddTo);
-                    
-                    return true;
-                } catch(Exception e) {
-                    return false;
-                }
-                    
-        //     } else {
-        //         return new Response("you are not an instructor");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
-
-        // }
-
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
         
     }
     

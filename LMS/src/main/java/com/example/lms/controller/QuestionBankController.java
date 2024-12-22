@@ -42,14 +42,6 @@ public class QuestionBankController {
                                 // @RequestParam("password") String password
                                   ) {
 
-        // return new Response(courseToAddTo.getBank(), "added " + questionType + " question to course " + courseid);
-        // } catch (Exception e) {
-        //     return new Response("failed to add " + questionType + " question to course " + courseid);
-        //     // return new Response(e.toString());
-        
-        // }
-
-
         // if(authenticationManagement.isAuthenticate(userId,password)){
         //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
         
