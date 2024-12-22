@@ -4,17 +4,36 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.example.lms.entity.Course;
 import com.example.lms.entity.QuizSubmission;
+import com.example.lms.entity.Student;
+import com.example.lms.repository.VirtualDatabase;
 
 @Service
 public class CreateSubmissionService {
-    public QuizSubmission createSubmission(int studentid, int courseid, int quizIndex, ArrayList<String> studAnswers) {
-        try {
-            QuizSubmission submission = new QuizSubmission(studentid, courseid, quizIndex, studAnswers);
+    private int i = 0;
 
-            return submission; // put in course for grading
+    public boolean createSubmission(int studentid, int courseid, int quizIndex, ArrayList<String> studAnswers) {
+        try {
+
+            Course course = VirtualDatabase.courses.get(String.valueOf(courseid));
+
+            // Student student = course.getEnrolledStudents().get(studentid);
+            Student student = new Student(studentid, "", "", "");
+            
+            if(i == 0) {
+                course.addStudent(student);
+                i++;
+            }
+
+            QuizSubmission newSubmission = new QuizSubmission(studentid, courseid, quizIndex, studAnswers);
+
+            course.addSubmission(newSubmission);
+            VirtualDatabase.courses.put(course.getId(), course);
+
+            return true; // put in course for grading
         } catch (Exception e) {
-            return null;
+            return false;
         }
     }
 }

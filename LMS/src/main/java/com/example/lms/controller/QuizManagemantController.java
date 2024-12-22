@@ -50,14 +50,13 @@ public class QuizManagemantController {
         //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 this.quizCreationService = new QuizCreationService();
                 
-                Course courseToAddTo = VirtualDatabase.courses.get(courseid);
-                boolean success = quizCreationService.createQuiz(courseToAddTo, numOfQuestions);
+                boolean success = quizCreationService.createQuiz(courseid, numOfQuestions);
 
                 if(success) {
-                    return new Response(courseToAddTo, "added a quiz to course " + courseid);
+                    return new Response(/*courseToAddTo,*/ "added a quiz to course " + courseid);
                     
                 } else {
-                    return new Response(courseToAddTo, "failed to add a quiz to course " + courseid);
+                    return new Response(/*courseToAddTo, */"failed to add a quiz to course " + courseid);
                     
                 }
 
@@ -86,24 +85,14 @@ public class QuizManagemantController {
         // if(authenticationManagement.isAuthenticate(userId,password)){
         //     if(authorizationManagement.isAuthorized(userId, "Student")){
                 this.createSubmissionService = new CreateSubmissionService();
-                try {
-                    Course course = VirtualDatabase.courses.get(String.valueOf(courseid));
-                    // Student student = course.getEnrolledStudents().get(studentid);
-                    Student student = new Student(studentid, "", "", "");
+                
+                boolean success = this.createSubmissionService.createSubmission(studentid, courseid, quizIndex, studentAnswers);
+                
+                if(success) {
+                    return new Response(/*course,*/ "Added new quiz submission from Student " + studentid + " in course " + courseid);
                     
-                    if(i == 0) {
-                        course.addStudent(student);
-                        i++;
-                    }
-    
-                QuizSubmission newSubmission = this.createSubmissionService.createSubmission(studentid, courseid, quizIndex, studentAnswers);
-                course.addSubmission(newSubmission);
-                VirtualDatabase.courses.put(course.getId(), course);
-                
-                return new Response(course, "Added new quiz submission from Student " + studentid + " in course " + courseid);
-                
-                } catch (Exception e) {
-                    return new Response(e.toString());
+                } else {
+                    return new Response(/*course,*/ "Failed to add a new quiz submission from Student " + studentid + " in course " + courseid);
                     
                 }
         //     } else {
