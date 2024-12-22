@@ -20,6 +20,7 @@ import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.security.AuthenticationManagement;
 import com.example.lms.security.AuthorizationManagement;
 import com.example.lms.service.AssignmentCreationService;
+import com.example.lms.service.AssignmentSubmissionService;
 import com.example.lms.service.NotificationService;
 import com.example.lms.service.UploadMediaFileService;
 
@@ -38,8 +39,6 @@ import com.example.lms.service.UploadMediaFileService;
 @RestController
 @RequestMapping("/assignment")
 public class AssignmentCreationController {
-    @Autowired
-    private UploadMediaFileService uploadMediaFileService;
 
     @Autowired
     private AssignmentCreationService assignmentCreationService;
@@ -81,6 +80,9 @@ public class AssignmentCreationController {
         // }
     }
 
+    @Autowired
+    private AssignmentSubmissionService assignmentSubmissionService;
+
     @PostMapping("/submit")
     public Response submitAssignment(@RequestParam("assignment") MultipartFile assignmentSubmissionFile,
                                  @RequestParam("studentid") String studentid, 
@@ -89,32 +91,19 @@ public class AssignmentCreationController {
                                 //  ,@RequestParam("userId") int userId ,
                                 //  @RequestParam("password") String password
                                  ) {
+            this.assignmentSubmissionService = new AssignmentSubmissionService();
 
+            boolean success = assignmentSubmissionService.submitAssignment(assignmentSubmissionFile, studentid, courseid, assignmentIndex);
+
+            if(success) {
+                return new Response("Submitted an assignment submission successfull");
+            } else {
+                return new Response("Failed to submit an assignment submission");
+
+            }
         // if(authenticationManagement.isAuthenticate(userId,password)){
         //     if(authorizationManagement.isAuthorized(userId, "Student")){
-                try {
-                    MediaFile mediaFile = new MediaFile(assignmentSubmissionFile);
-                    mediaFile.setFileName(assignmentSubmissionFile.getOriginalFilename().split("\\.")[0]);
-                    mediaFile.setType(assignmentSubmissionFile.getOriginalFilename().split("\\.")[1]);
-                    mediaFile.setUploadDate(new Date());
-                    boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseid);
-                    
-                    if(isUploaded) {
-                        AssignmentSubmission newAssignmentSubmission = new AssignmentSubmission(mediaFile, studentid, assignmentIndex);
-                        Course course = VirtualDatabase.courses.get(courseid);
-                        
-                        course.addAssignmentSubmission(newAssignmentSubmission);
-                        VirtualDatabase.courses.put(course.getId(), course);
-                        
-                        return new Response(course, "assignment submitted");
-                    } else {
-                        return new Response("assignment not submitted");
-                    }
                 
-                } catch(Exception e) {
-                    return new Response(e.toString());
-
-                }
         //     } else {
         //         return new Response("you are not a Student");
         //     }
