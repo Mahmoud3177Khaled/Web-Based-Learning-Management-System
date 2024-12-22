@@ -1,20 +1,20 @@
 package com.example.lms.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.lms.entity.Course;
 import com.example.lms.entity.Lesson;
-import com.example.lms.entity.Notification;
-import com.example.lms.entity.Student;
 import com.example.lms.entity.OTPGenerator;
+import com.example.lms.entity.Student;
 import com.example.lms.repository.VirtualDatabase;
-import com.example.lms.service.NotificationService;
 
 
 @Service
 public class AttendanceManagementService {
-
+    @Autowired
     private NotificationService notificationService;
+    
     public boolean generateLessonOTP(String courseId,int lessonNumber){
         Course course = VirtualDatabase.courses.get(courseId);
         Lesson lesson =course.getLesson(lessonNumber);
