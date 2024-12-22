@@ -87,7 +87,7 @@ public class QuizManagemantController {
                 this.createSubmissionService = new CreateSubmissionService();
                 
                 boolean success = this.createSubmissionService.createSubmission(studentid, courseid, quizIndex, studentAnswers);
-                
+
                 if(success) {
                     return new Response(/*course,*/ "Added new quiz submission from Student " + studentid + " in course " + courseid);
                     
@@ -108,24 +108,26 @@ public class QuizManagemantController {
     @Autowired
     private GradeQuizSubmissionService gradeQuizSubmissionService;
 
-    @Autowired
-    private NotificationService notificationService;
-
     @GetMapping("/grade")
     public Response gradeQuizSubmission(@RequestParam("courseid") int courseid,
                                         @RequestParam("submissionindex") int submissionindex
                                         // ,@RequestParam("userId") int userId ,
                                         // @RequestParam("password") String password
                                         ) {
+                                            
         // if(authenticationManagement.isAuthenticate(userId,password)){
         //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 this.gradeQuizSubmissionService = new GradeQuizSubmissionService();
-                Course course = gradeQuizSubmissionService.gradeQuizSubmission(courseid, submissionindex);
-                Student student = course.getEnrolledStudents().get(course.getQuizSubmissions().get(submissionindex).getStudentid());
-
-                notificationService.addCustomNotification(student.getId(), "you got " + student.getCorrectMarks().get(student.getCorrectMarks().size()-1) + " out of " + student.getQuizMarks().get(student.getQuizMarks().size()-1) + " for course " + courseid);
+                boolean success = gradeQuizSubmissionService.gradeQuizSubmission(courseid, submissionindex);
                 
-                return new Response(course, "you got " + student.getCorrectMarks().get(student.getCorrectMarks().size()-1) + " out of " + student.getQuizMarks().get(student.getQuizMarks().size()-1) + " in quiz " + course.getQuizSubmissions().get(submissionindex).getQuizIndex() + " for course " + courseid);
+                // return new Response(course, "you got " + student.getCorrectMarks().get(student.getCorrectMarks().size()-1) + " out of " + student.getQuizMarks().get(student.getQuizMarks().size()-1) + " in quiz " + course.getQuizSubmissions().get(submissionindex).getQuizIndex() + " for course " + courseid);
+                if(success) {
+                    return new Response("successfully graded the quiz");
+                    
+                } else {
+                    return new Response("Failed to grad the quiz");
+
+                }
         //     } else {
         //         return new Response("you are not an instructor");
         //     }
