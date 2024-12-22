@@ -16,22 +16,23 @@ import com.example.lms.repository.VirtualDatabase;
 public class QuizCreationService {
     // VirtualDatabase db;
     
-    public boolean createQuiz(Course course, Integer numOfQuestions) {
+    public boolean createQuiz(String courseid, Integer numOfQuestions) {
         try {
+            Course courseToAddTo = VirtualDatabase.courses.get(courseid);
             // this.db = db.getInistance();
             Quiz quiz = new Quiz(numOfQuestions);
 
             ArrayList<Question> quizBank = new ArrayList<>();
-            quizBank = course.getBank().getQuestions();
+            quizBank = courseToAddTo.getBank().getQuestions();
 
             Collections.shuffle(quizBank);
             List<Question> detachedQuiz = new ArrayList<>(quizBank.subList(0, Math.min(numOfQuestions, quizBank.size())));
             quiz.setquestions(detachedQuiz);
             // System.out.println(quiz.toString());
-            // course.addQuiz(quiz);
+            // courseToAddTo.addQuiz(quiz);
 
-            course.addQuiz(quiz);
-            VirtualDatabase.courses.put(course.getId(), course);
+            courseToAddTo.addQuiz(quiz);
+            VirtualDatabase.courses.put(courseToAddTo.getId(), courseToAddTo);
                     
 
             return true;

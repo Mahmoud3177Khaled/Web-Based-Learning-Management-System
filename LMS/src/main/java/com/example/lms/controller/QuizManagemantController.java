@@ -50,14 +50,13 @@ public class QuizManagemantController {
         //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 this.quizCreationService = new QuizCreationService();
                 
-                Course courseToAddTo = VirtualDatabase.courses.get(courseid);
-                boolean success = quizCreationService.createQuiz(courseToAddTo, numOfQuestions);
+                boolean success = quizCreationService.createQuiz(courseid, numOfQuestions);
 
                 if(success) {
-                    return new Response(courseToAddTo, "added a quiz to course " + courseid);
+                    return new Response(/*courseToAddTo,*/ "added a quiz to course " + courseid);
                     
                 } else {
-                    return new Response(courseToAddTo, "failed to add a quiz to course " + courseid);
+                    return new Response(/*courseToAddTo, */"failed to add a quiz to course " + courseid);
                     
                 }
 
