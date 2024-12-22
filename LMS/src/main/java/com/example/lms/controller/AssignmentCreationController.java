@@ -19,6 +19,7 @@ import com.example.lms.entity.Student;
 import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.security.AuthenticationManagement;
 import com.example.lms.security.AuthorizationManagement;
+import com.example.lms.service.AssignmentCreationService;
 import com.example.lms.service.NotificationService;
 import com.example.lms.service.UploadMediaFileService;
 
@@ -39,8 +40,13 @@ import com.example.lms.service.UploadMediaFileService;
 public class AssignmentCreationController {
     @Autowired
     private UploadMediaFileService uploadMediaFileService;
+
+    @Autowired
+    private AssignmentCreationService assignmentCreationService;
+
     @Autowired
     private AuthenticationManagement authenticationManagement;
+
     @Autowired
     private AuthorizationManagement authorizationManagement;
 
@@ -54,51 +60,25 @@ public class AssignmentCreationController {
 
         // if(authenticationManagement.isAuthenticate(userId,password)){
         //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            this.assignmentCreationService = new AssignmentCreationService();
 
-                try {
-                    MediaFile mediaFile = new MediaFile(assignFile);
-                    if(assignFile.getOriginalFilename() == null){
-                        mediaFile.setFileName("unknown");
-                        mediaFile.setType(assignFile.getContentType());
-                    }
-                    else{
-                        int indexOfDot =assignFile.getOriginalFilename().indexOf('.');
-                        String name = assignFile.getOriginalFilename().substring(0, indexOfDot);
-                        String type = assignFile.getOriginalFilename().substring(indexOfDot+1);
-                        mediaFile.setFileName(name);
-                        mediaFile.setType(type);
-                    }
-                    mediaFile.setUploadDate(new Date());
-                    boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseid);
-                    
-                    if(isUploaded) {
-                        Assignment newAssignment = new Assignment(mediaFile, grade);
-                        Course course = VirtualDatabase.courses.get(courseid);
-                        
-                        course.addAssignment(newAssignment);
-                        VirtualDatabase.courses.put(course.getId(), course);
-                        
-                        return new Response(course, "assignment added");
-                        
-                    } else {
-                        return new Response("assignment not uploaded");
+            boolean success = assignmentCreationService.createAssignment(assignFile, courseid, grade);
 
-                    }
-                        
-                    } catch(Exception e) {
-                        return new Response(e.toString());
-                        
-                    }
-                    // } else {
-                        // return new Response("failed to uploadfile and assignment");
-                        // }
-                //     } else {
-                //         return new Response("you are not an instructor");
-                //     }
-                // } else {
-                //     return new Response("invalid credintials");
+            if(success) {
+                return new Response("Created a new assignment successfully");
+            } else {
+                return new Response("Failed to create a new assignment");
 
-                // }
+            }
+                
+            
+        //     } else {
+        //         return new Response("you are not an instructor");
+        //     }
+        // } else {
+        //     return new Response("invalid credintials");
+
+        // }
     }
 
     @PostMapping("/submit")
