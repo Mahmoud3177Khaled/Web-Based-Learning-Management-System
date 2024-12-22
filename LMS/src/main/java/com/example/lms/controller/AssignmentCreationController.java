@@ -3,7 +3,6 @@ package com.example.lms.controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +17,10 @@ import com.example.lms.entity.MediaFile;
 import com.example.lms.entity.Response;
 import com.example.lms.entity.Student;
 import com.example.lms.repository.VirtualDatabase;
-import com.example.lms.service.NotificationService;
-import com.example.lms.service.UploadMediaFileService;
-
 import com.example.lms.security.AuthenticationManagement;
 import com.example.lms.security.AuthorizationManagement;
+import com.example.lms.service.NotificationService;
+import com.example.lms.service.UploadMediaFileService;
 
 // import com.example.lms.security.AuthenticationManagement;
 // import com.example.lms.security.AuthorizationManagement;
@@ -59,8 +57,17 @@ public class AssignmentCreationController {
 
                 try {
                     MediaFile mediaFile = new MediaFile(assignFile);
-                    mediaFile.setFileName(assignFile.getOriginalFilename().split("\\.")[0]);
-                    mediaFile.setType(assignFile.getOriginalFilename().split("\\.")[1]);
+                    if(assignFile.getOriginalFilename() == null){
+                        mediaFile.setFileName("unknown");
+                        mediaFile.setType(assignFile.getContentType());
+                    }
+                    else{
+                        int indexOfDot =assignFile.getOriginalFilename().indexOf('.');
+                        String name = assignFile.getOriginalFilename().substring(0, indexOfDot);
+                        String type = assignFile.getOriginalFilename().substring(indexOfDot+1);
+                        mediaFile.setFileName(name);
+                        mediaFile.setType(type);
+                    }
                     mediaFile.setUploadDate(new Date());
                     boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseid);
                     

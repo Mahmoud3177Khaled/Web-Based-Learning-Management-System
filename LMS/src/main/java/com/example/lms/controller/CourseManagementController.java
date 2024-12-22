@@ -102,8 +102,17 @@ public class CourseManagementController {
         if(authenticationManagement.isAuthenticate(userId,password)){
             if(authorizationManagement.isAuthorized(userId, "Instructor")){
             MediaFile mediaFile = new MediaFile(multipartFile);
-            mediaFile.setFileName(multipartFile.getOriginalFilename().split(".")[0]);
-            mediaFile.setType(multipartFile.getOriginalFilename().split(".")[1]);
+            if(multipartFile.getOriginalFilename() == null){
+                mediaFile.setFileName("unknown");
+                mediaFile.setType(multipartFile.getContentType());
+            }
+            else{
+                int indexOfDot =multipartFile.getOriginalFilename().indexOf('.');
+                String name = multipartFile.getOriginalFilename().substring(0, indexOfDot);
+                String type = multipartFile.getOriginalFilename().substring(indexOfDot+1);
+                mediaFile.setFileName(name);
+                mediaFile.setType(type);
+            }
             mediaFile.setUploadDate(new Date());
             boolean isUploaded = uploadMediaFileService.Upload(mediaFile,courseId);
             Course course  = VirtualDatabase.courses.get(courseId);
