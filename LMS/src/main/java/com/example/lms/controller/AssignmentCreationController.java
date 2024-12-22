@@ -20,6 +20,7 @@ import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.security.AuthenticationManagement;
 import com.example.lms.security.AuthorizationManagement;
 import com.example.lms.service.AssignmentCreationService;
+import com.example.lms.service.AssignmentGradingService;
 import com.example.lms.service.AssignmentSubmissionService;
 import com.example.lms.service.NotificationService;
 import com.example.lms.service.UploadMediaFileService;
@@ -114,7 +115,7 @@ public class AssignmentCreationController {
     }
 
     @Autowired
-    private NotificationService notificationService;
+    private AssignmentGradingService assignmentGradingService;
     
     @GetMapping("/grade")
     public Response gradeAssignmentSubmission(@RequestParam("courseid") String courseid,
@@ -125,21 +126,21 @@ public class AssignmentCreationController {
                                           ) {
         // if(authenticationManagement.isAuthenticate(userId,password)){
         //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
-                Course course = VirtualDatabase.courses.get(courseid);
-                
-                AssignmentSubmission assignmentSubmissionTograde = course.getAssignmentSubmissions().get(assignmentSubmissionIndex);
-                Assignment assignment = course.getAssignments().get(assignmentSubmissionTograde.getAssignmentIndex());
-                
-                Student student = VirtualDatabase.students.get(Integer.valueOf(assignmentSubmissionTograde.getStudentid()));
-                
-                student.addAssignmentsMark(assignment.getGrade());
-                student.addcorrectAssignmentMark(gradeToSet);
-                
-                VirtualDatabase.students.put(student.getId(), student);
+               
+                    this.assignmentGradingService = new AssignmentGradingService();
+                    
+                    boolean success = assignmentGradingService.gradeAssignmentSubmission(courseid, assignmentSubmissionIndex, gradeToSet);
 
-                notificationService.addCustomNotification(student.getId(), "you got " + gradeToSet + " out of " + assignment.getGrade() + " in assignment " + assignmentSubmissionTograde.getAssignmentIndex() + " for course " + courseid);
+                    if(success) {
+                        return new Response("Graded assignment submission successfully");
+                    } else {
+                        return new Response("Failed to grade assignment submission ");
+
+                    }
+
+                    
                 
-                return new Response(student, "graded assignmet " + assignmentSubmissionTograde.getAssignmentIndex() + " for student " + assignmentSubmissionTograde.getStudentid());
+                // return new Response(student, "graded assignmet " + assignmentSubmissionTograde.getAssignmentIndex() + " for student " + assignmentSubmissionTograde.getStudentid());
         //     } else {
         //         return new Response("you are not an instructor");
         //     }
