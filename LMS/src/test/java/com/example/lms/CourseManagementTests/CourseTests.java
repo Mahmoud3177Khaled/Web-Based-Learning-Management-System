@@ -43,7 +43,7 @@ public class CourseTests {
         assertEquals("1-1-2025",course.getEndDate());
         VirtualDatabase.courses.remove(course.getId());
     }
-
+    
     @Test
     public void getAllCourseTest(){
         Course course1 = new Course("t1", "test 1", "test create course function.", 1, "1-1-2024", "1-1-2025");
@@ -59,5 +59,12 @@ public class CourseTests {
         VirtualDatabase.courses.remove(course1.getId());
         VirtualDatabase.courses.remove(course2.getId());
         VirtualDatabase.courses.remove(course3.getId());
+    }
+    @Test
+    public void removeCourseTest(){
+        Course newCourse = new Course("t1", "test 1", "test create course function.", 1, "1-1-2024", "1-1-2025");
+        VirtualDatabase.courses.put("t1", newCourse);
+        courseManagementService.removeCourse(1, "t1");
+        assertEquals(false,VirtualDatabase.courses.containsKey("t1"));
     }
 }
