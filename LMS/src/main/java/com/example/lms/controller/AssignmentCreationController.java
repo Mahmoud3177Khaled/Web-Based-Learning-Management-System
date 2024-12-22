@@ -126,7 +126,7 @@ public class AssignmentCreationController {
                         course.addAssignmentSubmission(newAssignmentSubmission);
                         VirtualDatabase.courses.put(course.getId(), course);
                         
-                        return new Response(course, "assignment added");
+                        return new Response(course, "assignment submitted");
                     } else {
                         return new Response("assignment not submitted");
                     }
