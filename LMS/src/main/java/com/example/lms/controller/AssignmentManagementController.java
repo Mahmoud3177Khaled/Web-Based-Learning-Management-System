@@ -39,7 +39,7 @@ import com.example.lms.service.UploadMediaFileService;
 
 @RestController
 @RequestMapping("/assignment")
-public class AssignmentCreationController {
+public class AssignmentManagementController {
 
     @Autowired
     private AssignmentCreationService assignmentCreationService;
