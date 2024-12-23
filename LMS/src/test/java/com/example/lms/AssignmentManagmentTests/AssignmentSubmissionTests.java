@@ -10,13 +10,17 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.lms.entity.Course;
+import com.example.lms.entity.Student;
 import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.service.AssignmentCreationService;
+import com.example.lms.service.AssignmentSubmissionService;
 
 @SpringBootTest
-public class AssignmentCreationTests {
+public class AssignmentSubmissionTests {
 
     private AssignmentCreationService assignmentCreationService;
+
+    private AssignmentSubmissionService assignmentSubmissionService;
 
     private MockMultipartFile mockFile;
 
@@ -24,14 +28,20 @@ public class AssignmentCreationTests {
     void setUp() {
         VirtualDatabase.courses.put("1", new Course("1"));
 
+        Student student = new Student(1, "", "", "");
+        VirtualDatabase.courses.get("1").addStudent(student);
+
         this.mockFile = new MockMultipartFile(
-                "assignFile", // Parameter name
-                "assign1.txt", // Original filename
+                "assignSubmissionFile", // Parameter name
+                "assign1sol.txt", // Original filename
                 "text/plain", // MIME type
-                "Assignment 1 ".getBytes() // File content
+                "Assignment 1 submission".getBytes() // File content
         );
 
         this.assignmentCreationService = new AssignmentCreationService();
+        assignmentCreationService.createAssignment(mockFile, "1", 5);
+
+        this.assignmentSubmissionService = new AssignmentSubmissionService();
 
     }
 
@@ -43,19 +53,24 @@ public class AssignmentCreationTests {
     @Test
     public void createAssignmentSuccess() {
 
-        boolean success = assignmentCreationService.createAssignment(mockFile, "1", 5);
+        boolean success = assignmentSubmissionService.submitAssignment(mockFile, "1", "1", 0);
 
-        // assertTrue(success);
-
-        assertTrue(VirtualDatabase.courses.get("1").getAssignments().size() == 1);
+        assertTrue(success);
     }
-    
+
     @Test
     public void createAssignmentNoCourseFailure() {
-        
-        boolean success = assignmentCreationService.createAssignment(mockFile, "2", 5);
-        
-        // assertTrue(!success);
-        assertTrue(VirtualDatabase.courses.get("1").getAssignments().size() == 0);
+
+        boolean success = assignmentSubmissionService.submitAssignment(mockFile, "1", "2", 0);
+
+        assertTrue(!success);
+    }
+
+    @Test
+    public void createAssignmentNoStudentFailure() {
+
+        boolean success = assignmentSubmissionService.submitAssignment(mockFile, "2", "1", 0);
+
+        assertTrue(!success);
     }
 }

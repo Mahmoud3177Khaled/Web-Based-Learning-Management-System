@@ -20,6 +20,10 @@ public class AssignmentSubmissionService {
     public boolean submitAssignment(MultipartFile assignmentSubmissionFile, String studentid, String courseid, int assignmentIndex) {
         try {
 
+            if(VirtualDatabase.courses.get(courseid).getEnrolledStudents().get(Integer.valueOf(studentid)) == null) {
+                return false;
+            }
+
             this.uploadMediaFileService = new UploadMediaFileService();
             
             MediaFile mediaFile = new MediaFile(assignmentSubmissionFile);
