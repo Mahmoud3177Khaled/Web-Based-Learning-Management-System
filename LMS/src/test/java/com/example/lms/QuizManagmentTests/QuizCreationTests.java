@@ -22,7 +22,7 @@ import com.example.lms.service.QuizCreationService;
 public class QuizCreationTests {
 
     private QuizCreationService quizCreationService;
-    private List<String> choices = new ArrayList<>();
+    // private List<String> choices = new ArrayList<>();
 
     @BeforeEach
     void setup() {
