@@ -1,16 +1,20 @@
 package com.example.lms.entity.UserRequest;
 
-public class UpdatedUser{
-    private String email;
+public class UpdatedUser {
+    private String name;
     private String password;
-    private String type;
 
-    public String getEmail() {
-        return email;
+    public UpdatedUser(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -21,11 +25,4 @@ public class UpdatedUser{
         this.password = password;
     }
 
-    public String gettype() {
-        return type;
-    }
-
-    public void settype(String type) {
-        this.type = type;
-    }
 }
