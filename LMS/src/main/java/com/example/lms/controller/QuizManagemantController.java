@@ -42,12 +42,12 @@ public class QuizManagemantController {
     @PostMapping("/create")
     public Response createQuiz(@RequestParam("courseid") String courseid, 
                                @RequestParam("numOfQuestions") Integer numOfQuestions
-                            //    ,@RequestParam("userId") int userId ,
-                            //    @RequestParam("password") String password
+                               ,@RequestParam("userId") int userId ,
+                               @RequestParam("password") String password
                                ) {
 
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
                 this.quizCreationService = new QuizCreationService();
                 
                 boolean success = quizCreationService.createQuiz(courseid, numOfQuestions);
@@ -60,13 +60,13 @@ public class QuizManagemantController {
                     
                 }
 
-        //     } else {
-        //         return new Response("you are not an instructor");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
+            } else {
+                return new Response("you are not an instructor");
+            }
+        } else {
+            return new Response("invalid credintials");
 
-        // }
+        }
 
     }
 
@@ -79,11 +79,11 @@ public class QuizManagemantController {
                                         @RequestParam("courseid") int courseid, 
                                         @RequestParam("quizindex") int quizIndex, 
                                         @RequestParam("studentanswers") ArrayList<String> studentAnswers
-                                        // ,@RequestParam("userId") int userId ,
-                                        // @RequestParam("password") String password
+                                        ,@RequestParam("userId") int userId ,
+                                        @RequestParam("password") String password
                            ) {
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Student")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Student")){
                 this.createSubmissionService = new CreateSubmissionService();
                 
                 boolean success = this.createSubmissionService.createSubmission(studentid, courseid, quizIndex, studentAnswers);
@@ -95,13 +95,13 @@ public class QuizManagemantController {
                     return new Response(/*course,*/ "Failed to add a new quiz submission from Student " + studentid + " in course " + courseid);
                     
                 }
-        //     } else {
-        //         return new Response("you are not a Student");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
+            } else {
+                return new Response("you are not a Student");
+            }
+        } else {
+            return new Response("invalid credintials");
 
-        // }
+        }
 
     }
 
@@ -111,12 +111,13 @@ public class QuizManagemantController {
     @GetMapping("/grade")
     public Response gradeQuizSubmission(@RequestParam("courseid") int courseid,
                                         @RequestParam("submissionindex") int submissionindex
-                                        // ,@RequestParam("userId") int userId ,
-                                        // @RequestParam("password") String password
+                                        ,@RequestParam("userId") int userId ,
+                                        @RequestParam("password") String password
                                         ) {
                                             
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+
                 this.gradeQuizSubmissionService = new GradeQuizSubmissionService();
                 boolean success = gradeQuizSubmissionService.gradeQuizSubmission(courseid, submissionindex);
                 
@@ -128,13 +129,14 @@ public class QuizManagemantController {
                     return new Response("Failed to grad the quiz");
 
                 }
-        //     } else {
-        //         return new Response("you are not an instructor");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
 
-        // }
+            } else {
+                return new Response("you are not an instructor");
+            }
+        } else {
+            return new Response("invalid credintials");
+
+        }
 
 
 
