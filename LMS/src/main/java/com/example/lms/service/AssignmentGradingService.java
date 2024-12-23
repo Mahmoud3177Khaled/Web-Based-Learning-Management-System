@@ -31,6 +31,7 @@ public class AssignmentGradingService {
             
             VirtualDatabase.students.put(student.getId(), student);
 
+            notificationService.setUserService(new UserService());
             notificationService.addCustomNotification(student.getId(), "you got " + gradeToSet + " out of " + assignment.getGrade() + " in assignment " + assignmentSubmissionTograde.getAssignmentIndex() + " for course " + courseid);
 
             return true;

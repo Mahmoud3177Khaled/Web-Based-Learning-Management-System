@@ -40,6 +40,7 @@ public class GradeQuizSubmissionService {
 
             // student = course.getEnrolledStudents().get(course.getQuizSubmissions().get(submissionindex).getStudentid());
 
+            notificationService.setUserService(new UserService());
             notificationService.addCustomNotification(student.getId(), "you got " + student.getCorrectMarks().get(student.getCorrectMarks().size()-1) + " out of " + student.getQuizMarks().get(student.getQuizMarks().size()-1) + " for course " + courseid);
                 
 
