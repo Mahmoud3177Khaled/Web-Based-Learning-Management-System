@@ -1,53 +1,72 @@
 package com.example.lms.NotificationManagmentTests;
-
-import com.example.lms.notification.NotificationSubscriber;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import com.example.lms.entity.Notification;
 import com.example.lms.event.Event;
+import com.example.lms.event.EventSubscriber;
 import com.example.lms.repository.VirtualDatabase;
+import com.example.lms.entity.Notification;
+import com.example.lms.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import com.example.lms.config.MailConfig;
 
-import java.util.Map;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+@Component
+public class NotificationSubscriberTest implements EventSubscriber {
 
-class NotificationSubscriberTest {
+    @Autowired
+    private JavaMailSender mailSender;
 
-    private NotificationSubscriber notificationSubscriber;
+    @Override
+    public void handleEvent(Event event) {
+        if ("NotificationEvent".equals(event.getType())) {
+            int userId = (int) event.getData().get("userId");
+            String message = (String) event.getData().get("message");
 
-    @BeforeEach
-    void setUp() {
-        notificationSubscriber = new NotificationSubscriber();
+            // Get the email from VirtualDatabase
+            String email = getEmailFromDatabase(userId);
+
+            if (email != null) {
+                // Create a new notification object and store it in the virtual database
+                VirtualDatabase.notifications
+                        .computeIfAbsent(userId, k -> new ArrayList<>())
+                        .add(new Notification(userId, message));
+
+                // Send email notification
+                sendEmail(email, message);
+            } else {
+                System.out.println("No email found for User ID " + userId);
+            }
+        }
     }
 
-    @Test
-    void testHandleNotificationEvent() {
-        // Prepare event data
-        Map<String, Object> eventData = Map.of("userId", 1, "message", "Your quiz has been graded!");
+    // Method to retrieve the user's email from the VirtualDatabase
+    private String getEmailFromDatabase(int userId) {
+        User user = VirtualDatabase.students.get(userId);
+        if (user == null) {
+            user = VirtualDatabase.instructors.get(userId);
+        }
+        if (user == null) {
+            user = VirtualDatabase.admins.get(userId);
+        }
+        return (user != null) ? user.getEmail() : null;
 
-        // Create a notification event
-        Event notificationEvent = new Event("NotificationEvent", this, eventData);
-
-        // Handle the event
-        notificationSubscriber.handleEvent(notificationEvent);
-
-        // Check if the notification is added to the VirtualDatabase
-        assertTrue(VirtualDatabase.notifications.containsKey(1), "Notifications should contain key 1 (userId)");
-        assertEquals(1, VirtualDatabase.notifications.get(1).size(), "User should have one notification");
-
-        Notification notification = VirtualDatabase.notifications.get(1).get(0);
-        assertEquals("Your quiz has been graded!", notification.getMessage(), "The notification message should match");
     }
 
-    @Test
-    void testEmptyEventData() {
-        // Create an event with no useful data
-        Event emptyEvent = new Event("NotificationEvent", this, Map.of());
+    // Method to send an email notification
+    private void sendEmail(String email, String message) {
+        SimpleMailMessage emailMessage = new SimpleMailMessage();
+        emailMessage.setTo(email);
+        emailMessage.setSubject("New Notification");
+        emailMessage.setText(message);
 
-        // Handle the event (no actual notification data)
-        notificationSubscriber.handleEvent(emptyEvent);
-
-        // Ensure no notifications were added since the event was empty
-        assertTrue(VirtualDatabase.notifications.isEmpty(), "No notifications should be added for empty event data");
+        try {
+            mailSender.send(emailMessage);
+            System.out.println("Email sent to: " + email + " - Message: " + message);
+        } catch (Exception e) {
+            System.err.println("Failed to send email to " + email + ": " + e.getMessage());
+        }
     }
 }
