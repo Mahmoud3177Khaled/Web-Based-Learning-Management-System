@@ -27,8 +27,8 @@ public class testCotroller {
         VirtualDatabase.instructors.put(2, new Instructor(2,"b","2","a@a.com"));
         VirtualDatabase.instructors.put(3, new Instructor(3,"c","3","a@a.com"));
 
-        Student student = new Student(1, "x", "123", "123");
-        VirtualDatabase.students.put(1, student);
+        Student student = new Student(4, "x", "123", "123");
+        VirtualDatabase.students.put(4, student);
 
         course.addStudent(student);
         VirtualDatabase.courses.put("1", course);
