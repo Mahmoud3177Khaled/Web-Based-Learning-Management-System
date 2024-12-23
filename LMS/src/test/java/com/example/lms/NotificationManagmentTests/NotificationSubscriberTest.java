@@ -1,5 +1,6 @@
-package com.example.lms.notification;
+package com.example.lms.NotificationManagmentTests;
 
+import com.example.lms.notification.NotificationSubscriber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.example.lms.entity.Notification;
