@@ -1,21 +1,20 @@
 package com.example.lms.NotificationManagmentTests;
-import com.example.lms.event.Event;
-import com.example.lms.event.EventSubscriber;
-import com.example.lms.repository.VirtualDatabase;
-import com.example.lms.entity.Notification;
-import com.example.lms.entity.User;
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import java.util.ArrayList;
-import com.example.lms.config.MailConfig;
 
-import java.util.ArrayList;
-import java.util.Map;
-
-import static org.mockito.Mockito.*;
+import com.example.lms.entity.Notification;
+import com.example.lms.entity.User;
+import com.example.lms.event.Event;
+import com.example.lms.event.EventSubscriber;
+import com.example.lms.repository.VirtualDatabase;
 
 @SpringBootTest
 public class NotificationSubscriberTest implements EventSubscriber {
