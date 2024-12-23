@@ -10,6 +10,10 @@ public class Notification {
         this.message = message;
         this.isRead = isRead;
     }
+    public Notification(int id, String message) {
+        this.id = id;
+        this.message = message;
+    }
 
     // Getters and setters
     public int getId() {
