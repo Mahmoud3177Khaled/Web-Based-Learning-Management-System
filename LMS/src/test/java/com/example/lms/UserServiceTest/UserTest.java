@@ -24,7 +24,9 @@ class UserTest {
         VirtualDatabase.instructors.clear();
         VirtualDatabase.admins.clear();
         VirtualDatabase.loginMap.clear();
-        VirtualDatabase.students.put(1, new Student(1, "Jonathan Mokhles", "password", "Jonathan@gmail.com"));
+        UserCreation userCreation = new UserCreation();
+        userCreation.setUser(new User(1, "Jonathan Mokhles", "password", "Jonathan@gmail.com", "Student"));
+        userService.addNewUser(userCreation);
 
     }
 
@@ -48,7 +50,17 @@ class UserTest {
         userCreation.setUser(user);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> userService.addNewUser(userCreation));
-        assertEquals("this id id exsist please enter another id \n", exception.getMessage());
+        assertEquals("this id exsist please enter another id \n", exception.getMessage());
+    }
+
+    @Test
+    void addNewUser_WhenDuplicateUserEmail() {
+        UserCreation userCreation = new UserCreation();
+        User user = new User(500, "Jonathan Mokhles", "password", "Jonathan@gmail.com", "Instructor");
+        userCreation.setUser(user);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> userService.addNewUser(userCreation));
+        assertEquals("this email is used please enter another email", exception.getMessage());
     }
 
     @Test
@@ -103,7 +115,7 @@ class UserTest {
         assertNotNull(result);
         assertEquals("William Mokhles", ((User) result).getName());
         assertEquals("newpassword", ((User) result).getPassword());
-        assertEquals("william@gmail.com", ((User) result).getEmail());
+        assertEquals("Jonathan@gmail.com", ((User) result).getEmail());
     }
 
     @Test
