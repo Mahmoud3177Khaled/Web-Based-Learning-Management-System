@@ -39,7 +39,7 @@ import com.example.lms.service.UploadMediaFileService;
 
 @RestController
 @RequestMapping("/assignment")
-public class AssignmentCreationController {
+public class AssignmentManagementController {
 
     @Autowired
     private AssignmentCreationService assignmentCreationService;
@@ -54,31 +54,31 @@ public class AssignmentCreationController {
     public Response createNewAssignment(@RequestParam("assignFile") MultipartFile assignFile, 
                                     @RequestParam("courseid") String courseid, 
                                     @RequestParam("grade") int grade 
-                                    // ,@RequestParam("userId") int userId ,
-                                    // @RequestParam("password") String password
+                                    ,@RequestParam("userId") int userId ,
+                                    @RequestParam("password") String password
                                     ) {
 
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
-            this.assignmentCreationService = new AssignmentCreationService();
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+                this.assignmentCreationService = new AssignmentCreationService();
 
-            boolean success = assignmentCreationService.createAssignment(assignFile, courseid, grade);
+                boolean success = assignmentCreationService.createAssignment(assignFile, courseid, grade);
 
-            if(success) {
-                return new Response("Created a new assignment successfully");
-            } else {
-                return new Response("Failed to create a new assignment");
+                if(success) {
+                    return new Response("Created a new assignment successfully");
+                } else {
+                    return new Response("Failed to create a new assignment");
 
-            }
-                
+                }
+                    
             
-        //     } else {
-        //         return new Response("you are not an instructor");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
+            } else {
+                return new Response("you are not an instructor");
+            }
+        } else {
+            return new Response("invalid credintials");
 
-        // }
+        }
     }
 
     @Autowired
@@ -89,29 +89,30 @@ public class AssignmentCreationController {
                                  @RequestParam("studentid") String studentid, 
                                  @RequestParam("courseid") String courseid, 
                                  @RequestParam("assignmentindex") int assignmentIndex
-                                //  ,@RequestParam("userId") int userId ,
-                                //  @RequestParam("password") String password
+                                 ,@RequestParam("userId") int userId ,
+                                 @RequestParam("password") String password
                                  ) {
-            this.assignmentSubmissionService = new AssignmentSubmissionService();
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Student")){
 
-            boolean success = assignmentSubmissionService.submitAssignment(assignmentSubmissionFile, studentid, courseid, assignmentIndex);
+                this.assignmentSubmissionService = new AssignmentSubmissionService();
 
-            if(success) {
-                return new Response("Submitted an assignment submission successfull");
-            } else {
-                return new Response("Failed to submit an assignment submission");
+                boolean success = assignmentSubmissionService.submitAssignment(assignmentSubmissionFile, studentid, courseid, assignmentIndex);
 
-            }
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Student")){
+                if(success) {
+                    return new Response("Submitted an assignment submission successfull");
+                } else {
+                    return new Response("Failed to submit an assignment submission");
+
+                }
                 
-        //     } else {
-        //         return new Response("you are not a Student");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
+            } else {
+                return new Response("you are not a Student");
+            }
+        } else {
+            return new Response("invalid credintials");
 
-        // }
+        }
     }
 
     @Autowired
@@ -121,11 +122,11 @@ public class AssignmentCreationController {
     public Response gradeAssignmentSubmission(@RequestParam("courseid") String courseid,
                                           @RequestParam("assignmentSubmissionIndex") int assignmentSubmissionIndex, 
                                           @RequestParam("gradeToSet") int gradeToSet
-                                        //   ,@RequestParam("userId") int userId ,
-                                        //   @RequestParam("password") String password
+                                          ,@RequestParam("userId") int userId ,
+                                          @RequestParam("password") String password
                                           ) {
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
                
                     this.assignmentGradingService = new AssignmentGradingService();
                     
@@ -138,16 +139,14 @@ public class AssignmentCreationController {
 
                     }
 
-                    
-                
                 // return new Response(student, "graded assignmet " + assignmentSubmissionTograde.getAssignmentIndex() + " for student " + assignmentSubmissionTograde.getStudentid());
-        //     } else {
-        //         return new Response("you are not an instructor");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
+            } else {
+                return new Response("you are not an instructor");
+            }
+        } else {
+            return new Response("invalid credintials");
 
-        // }
+        }
 
 
     }

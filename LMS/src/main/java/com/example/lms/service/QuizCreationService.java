@@ -20,13 +20,13 @@ public class QuizCreationService {
         try {
             Course courseToAddTo = VirtualDatabase.courses.get(courseid);
             // this.db = db.getInistance();
-            Quiz quiz = new Quiz(numOfQuestions);
-
+            
             ArrayList<Question> quizBank = new ArrayList<>();
             quizBank = courseToAddTo.getBank().getQuestions();
-
+            
             Collections.shuffle(quizBank);
             List<Question> detachedQuiz = new ArrayList<>(quizBank.subList(0, Math.min(numOfQuestions, quizBank.size())));
+            Quiz quiz = new Quiz(Math.min(numOfQuestions, detachedQuiz.size()));
             quiz.setquestions(detachedQuiz);
             // System.out.println(quiz.toString());
             // courseToAddTo.addQuiz(quiz);

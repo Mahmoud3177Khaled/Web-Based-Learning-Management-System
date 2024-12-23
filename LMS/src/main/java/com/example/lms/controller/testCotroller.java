@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.lms.entity.Course;
 import com.example.lms.entity.Instructor;
 import com.example.lms.entity.Lesson;
+import com.example.lms.entity.Student;
 import com.example.lms.repository.VirtualDatabase;
 
 @RestController
@@ -25,6 +26,13 @@ public class testCotroller {
         VirtualDatabase.instructors.put(1, new Instructor(1,"a","1","a@a.com"));
         VirtualDatabase.instructors.put(2, new Instructor(2,"b","2","a@a.com"));
         VirtualDatabase.instructors.put(3, new Instructor(3,"c","3","a@a.com"));
+
+        Student student = new Student(1, "x", "123", "123");
+        VirtualDatabase.students.put(1, student);
+
+        course.addStudent(student);
+        VirtualDatabase.courses.put("1", course);
+        // VirtualDatabase.instructors.put(3, new Instructor(3,"c","3","a@a.com"));
         return "test ok";
     }
 }

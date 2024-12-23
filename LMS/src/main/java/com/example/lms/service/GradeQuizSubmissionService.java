@@ -27,7 +27,7 @@ public class GradeQuizSubmissionService {
             Quiz quiz = course.getQuizes().get(submissionToGrade.getQuizIndex());
 
             int score = 0;
-            for (int i = 0; i < submissionToGrade.getStudAnswers().size(); i++) {
+            for (int i = 0; i < Math.min(submissionToGrade.getStudAnswers().size(), quiz.getquestions().size()); i++) {
                 if(quiz.getquestions().get(i).getCorrectAnswer().equals(submissionToGrade.getStudAnswers().get(i))) {
                     score++;
                 }

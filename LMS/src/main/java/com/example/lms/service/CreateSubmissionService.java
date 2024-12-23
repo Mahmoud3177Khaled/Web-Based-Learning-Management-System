@@ -19,11 +19,15 @@ public class CreateSubmissionService {
             Course course = VirtualDatabase.courses.get(String.valueOf(courseid));
 
             // Student student = course.getEnrolledStudents().get(studentid);
-            Student student = new Student(studentid, "", "", "");
+            // Student student = new Student(studentid, "", "", "");
             
-            if(i == 0) {
-                course.addStudent(student);
-                i++;
+            // if(i == 0) {
+            //     course.addStudent(student);
+            //     i++;
+            // }
+
+            if(VirtualDatabase.courses.get(String.valueOf(courseid)).getEnrolledStudents().get(studentid) == null) {
+                return false;
             }
 
             QuizSubmission newSubmission = new QuizSubmission(studentid, courseid, quizIndex, studAnswers);

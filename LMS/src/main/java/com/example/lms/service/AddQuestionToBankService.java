@@ -21,11 +21,11 @@ public class AddQuestionToBankService {
     
     public boolean addQuastionToBank(String courseid, String questionType, String text, List<String> choices, String correctAnswer) { // add bank inside course and get bank from course
 
-        if (i == 0) {
-            VirtualDatabase.courses.put("1", new Course("1"));
+        // if (i == 0) {
+        //     VirtualDatabase.courses.put("1", new Course("1"));
     
-        }
-        i++;
+        // }
+        // i++;
         Course courseToAddTo = VirtualDatabase.courses.get(courseid);
 
         try {

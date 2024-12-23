@@ -38,73 +38,30 @@ public class QuestionBankController {
                                   @RequestParam("choices") List<String> choices, 
                                 //   @RequestParam("correctChoice") Integer correctChoice,
                                   @RequestParam("correctAnswer") String correctAnswer
-                                //   ,@RequestParam("userId") int userId ,
-                                // @RequestParam("password") String password
+                                  ,@RequestParam("userId") int userId ,
+                                @RequestParam("password") String password
                                   ) {
 
-        // if(authenticationManagement.isAuthenticate(userId,password)){
-        //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
+        if(authenticationManagement.isAuthenticate(userId,password)){
+            if(authorizationManagement.isAuthorized(userId, "Instructor")){
         
-        this.addQuestionToBankService = new AddQuestionToBankService();
-        boolean success = this.addQuestionToBankService.addQuastionToBank(courseid, questionType, text, choices, correctAnswer);
-        
-        if(success) {
-            return new Response("added " + questionType + " question to course " + courseid);
+              this.addQuestionToBankService = new AddQuestionToBankService();
+              boolean success = this.addQuestionToBankService.addQuastionToBank(courseid, questionType, text, choices, correctAnswer);
+              
+              if(success) {
+                  return new Response("added " + questionType + " question to course " + courseid);
+              } else {
+                  return new Response("failed to add " + questionType + " question to course " + courseid);
+                  
+              }
+
+            } else {
+                return new Response("you are not an instructor");
+            }
         } else {
-            return new Response("failed to add " + questionType + " question to course " + courseid);
-            
+            return new Response("invalid credintials");
+
         }
-
-        //     } else {
-        //         return new Response("you are not an instructor");
-        //     }
-        // } else {
-        //     return new Response("invalid credintials");
-
-        // }
-
-                                    
-        // // if(authenticationManagement.isAuthenticate(userId,password)){
-        // //     if(authorizationManagement.isAuthorized(userId, "Instructor")){
-        //         this.addQuestionToBankService = new AddQuestionToBankService();
-        //         if (i == 0) {
-        //             VirtualDatabase.courses.put("1", new Course("1"));
-            
-        //         }
-        //         i++;
-        //         Course courseToAddTo = VirtualDatabase.courses.get(courseid);
-
-        //         try {
-        //             if(questionType.equals("mcq")) {
-        //                 Question newQuestion = new mcqQuestion(text, choices, correctAnswer);
-        //                 courseToAddTo.addQuestionToBank(newQuestion);
-            
-        //             } else if (questionType.equals("tf")) {
-        //                 Question newQuestion = new tfQuestion(text, correctAnswer);
-        //                 courseToAddTo.addQuestionToBank(newQuestion);
-                        
-        //             } else if (questionType.equals("written")) {
-        //                 Question newQuestion = new writtenQuestion(text, correctAnswer);
-        //                 courseToAddTo.addQuestionToBank(newQuestion);
-        //             }
-                    
-        //             VirtualDatabase.courses.put(courseToAddTo.getId(), courseToAddTo);
-                    
-        //             return new Response(courseToAddTo.getBank(), "added " + questionType + " question to course " + courseid);
-        //         } catch (Exception e) {
-        //             return new Response("failed to add " + questionType + " question to course " + courseid);
-        //             // return new Response(e.toString());
-                    
-        //         }
-        // //     } else {
-        // //         return new Response("you are not an instructor");
-        // //     }
-        // // } else {
-        // //     return new Response("invalid credintials");
-
-        // // }
-
-
 
     }
     
