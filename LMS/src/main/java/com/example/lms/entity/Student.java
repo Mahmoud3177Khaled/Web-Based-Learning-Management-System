@@ -17,7 +17,11 @@ public class Student extends User {
         this.correctAssignmentMarks = new ArrayList<>();
         this.assignmentsMarks = new ArrayList<>();
     };
-
+public Student() {
+    super();
+    this.correctQuizMarks = new ArrayList<>();
+    this.quizMarks = new ArrayList<>();
+}
 
     public void addCorrectMark(Integer CorrectMark) {
         this.correctQuizMarks.add(CorrectMark);
