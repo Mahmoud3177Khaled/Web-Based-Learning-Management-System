@@ -51,7 +51,7 @@ public class AssignmentSubmissionTests {
     }
 
     @Test
-    public void createAssignmentSuccess() {
+    public void createAssignmentSubmissionSuccess() {
 
         boolean success = assignmentSubmissionService.submitAssignment(mockFile, "1", "1", 0);
 
@@ -60,7 +60,7 @@ public class AssignmentSubmissionTests {
     }
 
     @Test
-    public void createAssignmentNoCourseFailure() {
+    public void createAssignmentSubmissionNoCourseFailure() {
 
         boolean success = assignmentSubmissionService.submitAssignment(mockFile, "1", "2", 0);
 
@@ -69,7 +69,7 @@ public class AssignmentSubmissionTests {
     }
 
     @Test
-    public void createAssignmentNoStudentFailure() {
+    public void createAssignmentSubmissionNoStudentFailure() {
 
         boolean success = assignmentSubmissionService.submitAssignment(mockFile, "2", "1", 0);
 

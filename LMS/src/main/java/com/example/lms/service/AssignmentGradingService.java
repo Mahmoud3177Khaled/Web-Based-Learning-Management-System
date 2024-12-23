@@ -24,7 +24,7 @@ public class AssignmentGradingService {
             AssignmentSubmission assignmentSubmissionTograde = course.getAssignmentSubmissions().get(assignmentSubmissionIndex);
             Assignment assignment = course.getAssignments().get(assignmentSubmissionTograde.getAssignmentIndex());
             
-            Student student = VirtualDatabase.students.get(Integer.valueOf(assignmentSubmissionTograde.getStudentid()));
+            Student student = VirtualDatabase.courses.get(courseid).getEnrolledStudents().get(Integer.valueOf(assignmentSubmissionTograde.getStudentid()));
             
             student.addAssignmentsMark(assignment.getGrade());
             student.addcorrectAssignmentMark(gradeToSet);
