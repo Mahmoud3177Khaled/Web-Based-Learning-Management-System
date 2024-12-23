@@ -1,5 +1,6 @@
 package com.example.lms.CourseManagementTests;
 
+import java.io.File;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,5 +67,7 @@ public class CourseTests {
         VirtualDatabase.courses.put("t1", newCourse);
         courseManagementService.removeCourse(1, "t1");
         assertEquals(false,VirtualDatabase.courses.containsKey("t1"));
+        File file = new File("D:\\Documents\\GitHub\\Web-Based-Learning-Management-System/upload/t1");
+        assertTrue(!file.exists());
     }
 }

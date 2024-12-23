@@ -1,5 +1,6 @@
 package com.example.lms.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +40,26 @@ public class CourseManagementService {
     public boolean removeCourse(int instructorId ,String courseId){
         if(VirtualDatabase.courses.get(courseId).getInstructorId() == instructorId){
             VirtualDatabase.courses.remove(courseId);
+            File file = new File("D:\\Documents\\GitHub\\Web-Based-Learning-Management-System/upload/"+courseId);
+            deleteDirectoryRecursively(file);
             return  true;
         }
         return  false;
+    }
+    private boolean deleteDirectoryRecursively(File dir) {
+        if (dir.exists()) {
+            File[] files = dir.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        deleteDirectoryRecursively(file);
+                    } else {
+                        file.delete();
+                    }
+                }
+            }
+        }
+        return dir.delete();
     }
     public boolean addNewLesson(String courseId , Lesson lesson){
         Course course = VirtualDatabase.courses.get(courseId);

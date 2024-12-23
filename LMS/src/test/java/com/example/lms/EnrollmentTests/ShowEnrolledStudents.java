@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -77,13 +77,13 @@ public class ShowEnrolledStudents {
         VirtualDatabase.courses.put("t1",course1);
         VirtualDatabase.courses.put("t2",course2);
         VirtualDatabase.courses.put("t3",course3);
-        Map<Course,Map<Integer,Student>> enrolledStudentsInAllCourse = enrollmentService.showEnrolledStudentsInAllCourses();
-        assertTrue(enrolledStudentsInAllCourse.get(course1).containsKey(1));
-        assertTrue(enrolledStudentsInAllCourse.get(course1).containsKey(2));
-        assertTrue(enrolledStudentsInAllCourse.get(course2).containsKey(3));
-        assertTrue(enrolledStudentsInAllCourse.get(course2).containsKey(4));
-        assertTrue(enrolledStudentsInAllCourse.get(course3).containsKey(5));
-        assertTrue(enrolledStudentsInAllCourse.get(course3).containsKey(6));
+        Map<String,Map<Integer,Student>> enrolledStudentsInAllCourse = enrollmentService.showEnrolledStudentsInAllCourses();
+        assertTrue(enrolledStudentsInAllCourse.get(course1.getId()).containsKey(1));
+        assertTrue(enrolledStudentsInAllCourse.get(course1.getId()).containsKey(2));
+        assertTrue(enrolledStudentsInAllCourse.get(course2.getId()).containsKey(3));
+        assertTrue(enrolledStudentsInAllCourse.get(course2.getId()).containsKey(4));
+        assertTrue(enrolledStudentsInAllCourse.get(course3.getId()).containsKey(5));
+        assertTrue(enrolledStudentsInAllCourse.get(course3.getId()).containsKey(6));
         VirtualDatabase.students.remove(1);
         VirtualDatabase.students.remove(2);
         VirtualDatabase.students.remove(3);
