@@ -4,16 +4,20 @@ import com.example.lms.event.EventSubscriber;
 import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.entity.Notification;
 import com.example.lms.entity.User;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import com.example.lms.config.MailConfig;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-@Component
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
 public class NotificationSubscriberTest implements EventSubscriber {
 
     @Autowired
@@ -68,5 +72,17 @@ public class NotificationSubscriberTest implements EventSubscriber {
         } catch (Exception e) {
             System.err.println("Failed to send email to " + email + ": " + e.getMessage());
         }
+    }
+
+    @Test
+    public void testHandleEvent() {
+        // Example test implementation
+        Event event = mock(Event.class);
+        when(event.getType()).thenReturn("NotificationEvent");
+        when(event.getData()).thenReturn(Map.of("userId", 1, "message", "Test message"));
+
+        handleEvent(event);
+
+        // Add assertions to verify the expected behavior
     }
 }
