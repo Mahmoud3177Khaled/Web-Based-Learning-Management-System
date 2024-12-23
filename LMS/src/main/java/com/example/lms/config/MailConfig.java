@@ -15,8 +15,8 @@ public class MailConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         // Configure the SMTP server properties
-        mailSender.setHost("smtp.example.com");  // SMTP server host
-        mailSender.setPort(587);  // SMTP port (usually 587 for TLS, 465 for SSL)
+        mailSender.setHost("localhost");  // SMTP server host
+        mailSender.setPort(25);  // SMTP port (usually 25 for non-encrypted, 587 for TLS, 465 for SSL)
 
         // Provide your email credentials
         mailSender.setUsername("your-email@example.com");
@@ -24,8 +24,8 @@ public class MailConfig {
 
         Properties properties = mailSender.getJavaMailProperties();
         properties.put("mail.transport.protocol", "smtp");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "false");  // No authentication for local server
+        properties.put("mail.smtp.starttls.enable", "false");  // No TLS for local server
         properties.put("mail.debug", "true");  // Optional for debugging
 
         return mailSender;
