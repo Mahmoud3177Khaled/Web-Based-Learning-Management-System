@@ -37,10 +37,10 @@ public class EnrollmentService {
         return new ArrayList<>(searchCourse.getEnrolledStudents().values());
     }
     
-    public Map<Course,Map<Integer,Student>> showEnrolledStudentsInAllCourses(){
-        Map<Course,Map<Integer,Student>> allEnrolledStudents =new HashMap<>();
+    public Map<String,Map<Integer,Student>> showEnrolledStudentsInAllCourses(){
+        Map<String,Map<Integer,Student>> allEnrolledStudents =new HashMap<>();
         for (Map.Entry<String, Course> course : VirtualDatabase.courses.entrySet()) {
-            allEnrolledStudents.put(course.getValue(), course.getValue().getEnrolledStudents());
+            allEnrolledStudents.put(course.getValue().getId(), course.getValue().getEnrolledStudents());
         }
         return allEnrolledStudents;
     }

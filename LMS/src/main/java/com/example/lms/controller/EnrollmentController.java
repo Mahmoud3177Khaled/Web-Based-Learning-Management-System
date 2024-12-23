@@ -82,7 +82,7 @@ public class EnrollmentController {
     public Response showEnrolledStudentsInAllCourses(@RequestParam("userId") int userId ,@RequestParam("password") String password){
         if(authenticationManagement.isAuthenticate(userId,password)){
             if(authorizationManagement.isAuthorized(userId, "Instructor") || authorizationManagement.isAuthorized(userId, "Admin")){
-                Map<Course,Map<Integer,Student>> enrolledStudentsInAllCourses = enrollmentService.showEnrolledStudentsInAllCourses();
+                Map<String,Map<Integer,Student>> enrolledStudentsInAllCourses = enrollmentService.showEnrolledStudentsInAllCourses();
                 if(enrolledStudentsInAllCourses != null){
                     return new Response(enrolledStudentsInAllCourses,"there are students enrolled in courses.");
                 }
