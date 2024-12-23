@@ -25,15 +25,14 @@ public class NotificationController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/{senderId}/custom")
+    public ResponseEntity<String> addCustomNotification(@PathVariable int senderId,
+            @RequestParam("password") String password,
+            @RequestParam("userId") int userId, @RequestParam String message) {
+        notificationService.setUserService(userService);
 
-
-    @PostMapping("/{userId}/custom")
-    public ResponseEntity<String> addCustomNotification(@PathVariable int userId,
-            @RequestParam("password") String password, @RequestParam String message) {
-                notificationService.setUserService(userService);
-
-        if (authenticationManagement.isAuthenticate(userId, password)) {
-            if (authorizationManagement.isAuthorized(userId, "Admin")) {
+        if (authenticationManagement.isAuthenticate(senderId, password)) {
+            if (authorizationManagement.isAuthorized(senderId, "Admin")) {
                 notificationService.addCustomNotification(userId, message);
                 return ResponseEntity.ok("Custom notification added.");
             }
@@ -46,7 +45,7 @@ public class NotificationController {
     @GetMapping("/{userId}")
     public ResponseEntity<List<Notification>> getAllNotifications(@PathVariable int userId,
             @RequestParam("password") String password) {
-                notificationService.setUserService(userService);
+        notificationService.setUserService(userService);
 
         if (authenticationManagement.isAuthenticate(userId, password)) {
             return ResponseEntity.ok(notificationService.getNotifications(userId));
@@ -58,7 +57,7 @@ public class NotificationController {
     @GetMapping("/{userId}/unread")
     public ResponseEntity<List<Notification>> getUnreadNotifications(@PathVariable int userId,
             @RequestParam("password") String password) {
-                notificationService.setUserService(userService);
+        notificationService.setUserService(userService);
 
         if (authenticationManagement.isAuthenticate(userId, password)) {
 
@@ -72,7 +71,7 @@ public class NotificationController {
     @PutMapping("/{userId}/{notificationId}/read")
     public ResponseEntity<Notification> markNotificationAsRead(@PathVariable int userId,
             @RequestParam("password") String password, @PathVariable int notificationId) {
-                notificationService.setUserService(userService);
+        notificationService.setUserService(userService);
 
         if (authenticationManagement.isAuthenticate(userId, password)) {
             Notification updatedNotification = notificationService.markNotificationAsRead(userId, notificationId);
