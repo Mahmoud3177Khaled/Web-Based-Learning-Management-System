@@ -1,18 +1,20 @@
-package com.example.lms.notification;
-
+package com.example.lms.NotificationManagmentTests;
 import com.example.lms.event.Event;
 import com.example.lms.event.EventSubscriber;
 import com.example.lms.repository.VirtualDatabase;
 import com.example.lms.entity.Notification;
-import com.example.lms.entity.User; // Assuming User is the superclass for Student, Instructor, Admin
+import com.example.lms.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import com.example.lms.config.MailConfig;
 
 import java.util.ArrayList;
+
 @Component
-public class NotificationSubscriber implements EventSubscriber {
+public class NotificationSubscriberTest implements EventSubscriber {
 
     @Autowired
     private JavaMailSender mailSender;
@@ -49,8 +51,8 @@ public class NotificationSubscriber implements EventSubscriber {
         if (user == null) {
             user = VirtualDatabase.admins.get(userId);
         }
-
         return (user != null) ? user.getEmail() : null;
+
     }
 
     // Method to send an email notification
