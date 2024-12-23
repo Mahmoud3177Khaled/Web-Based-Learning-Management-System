@@ -1,4 +1,4 @@
-package com.example.lms.UserTests;
+package com.example.lms.UserServiceTest;
 
 import com.example.lms.entity.*;
 import com.example.lms.entity.UserRequest.*;
@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserServiceTest {
+class UserTest {
 
     @Autowired
     private UserService userService;
@@ -118,14 +118,14 @@ class UserServiceTest {
     @Test
     void isUserExisit() {
 
-        boolean exists = userService.IsUserExisit(1, "Student");
+        boolean exists = userService.IsUserExisit(1);
 
         assertTrue(exists);
     }
 
     @Test
     void isUserExisit_WhenUserDoesNotExist() {
-        boolean exists = userService.IsUserExisit(99, "Student");
+        boolean exists = userService.IsUserExisit(99);
 
         assertFalse(exists);
     }

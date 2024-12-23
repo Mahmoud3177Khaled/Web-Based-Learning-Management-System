@@ -17,7 +17,7 @@ public class UserService {
 
     public void addNewUser(UserCreation user) {
 
-        if (IsUserExisit(user.getUser().getId(), user.getUser().getUserType())) {
+        if (IsUserExisit(user.getUser().getId())) {
             throw new IllegalArgumentException("this id id exsist please enter another id \n");
         }
 
@@ -81,21 +81,16 @@ public class UserService {
                         user.getUser().getEmail()));
     }
 
-    public boolean IsUserExisit(int id, String type) {
+    public boolean IsUserExisit(int id) {
 
-        switch (type) {
-            case "Student":
-                return VirtualDatabase.students.containsKey(id);
-            case "Instructor":
-                return VirtualDatabase.instructors.containsKey(id);
-
-            case "Admin":
-                return VirtualDatabase.admins.containsKey(id);
-
-            default:
-                return false;
-
-        }
+        if (VirtualDatabase.students.containsKey(id)) 
+            return true;
+        else if (VirtualDatabase.instructors.containsKey(id)) 
+            return true;
+        else if (VirtualDatabase.admins.containsKey(id))
+            return true;
+        else 
+            return false;
     }
 
     public User loginUser(String email, String password) {
