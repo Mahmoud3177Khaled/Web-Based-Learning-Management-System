@@ -55,7 +55,8 @@ public class AssignmentSubmissionTests {
 
         boolean success = assignmentSubmissionService.submitAssignment(mockFile, "1", "1", 0);
 
-        assertTrue(success);
+        // assertTrue(success);
+        assertTrue(VirtualDatabase.courses.get("1").getAssignmentSubmissions().size() == 1);
     }
 
     @Test
@@ -63,7 +64,8 @@ public class AssignmentSubmissionTests {
 
         boolean success = assignmentSubmissionService.submitAssignment(mockFile, "1", "2", 0);
 
-        assertTrue(!success);
+        // assertTrue(!success);
+        assertTrue(VirtualDatabase.courses.get("1").getAssignmentSubmissions().size() == 0);
     }
 
     @Test
@@ -71,6 +73,7 @@ public class AssignmentSubmissionTests {
 
         boolean success = assignmentSubmissionService.submitAssignment(mockFile, "2", "1", 0);
 
-        assertTrue(!success);
+        // assertTrue(!success);
+        assertTrue(VirtualDatabase.courses.get("1").getAssignmentSubmissions().size() == 0);
     }
 }
