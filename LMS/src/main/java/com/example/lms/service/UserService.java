@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.lms.entity.Instructor;
 import com.example.lms.entity.User;
 import com.example.lms.entity.UserRequest.UserCreation;
+import com.example.lms.entity.UserRequest.UpdatedUser;
 import com.example.lms.entity.Student;
 import com.example.lms.entity.Admin;
 import com.example.lms.repository.VirtualDatabase;
@@ -18,7 +19,10 @@ public class UserService {
     public void addNewUser(UserCreation user) {
 
         if (IsUserExisit(user.getUser().getId())) {
-            throw new IllegalArgumentException("this id id exsist please enter another id \n");
+            throw new IllegalArgumentException("this id exsist please enter another id \n");
+        }
+        if (VirtualDatabase.loginMap.containsKey(user.getUser().getEmail())) {
+            throw new IllegalArgumentException("this email is used please enter another email");
         }
 
         switch (user.getUser().getUserType()) {
@@ -83,13 +87,13 @@ public class UserService {
 
     public boolean IsUserExisit(int id) {
 
-        if (VirtualDatabase.students.containsKey(id)) 
+        if (VirtualDatabase.students.containsKey(id))
             return true;
-        else if (VirtualDatabase.instructors.containsKey(id)) 
+        else if (VirtualDatabase.instructors.containsKey(id))
             return true;
         else if (VirtualDatabase.admins.containsKey(id))
             return true;
-        else 
+        else
             return false;
     }
 
@@ -101,20 +105,20 @@ public class UserService {
         return user;
     }
 
-    public Object updateUser(int id, User updatedUser) {
+    public Object updateUser(int id, UpdatedUser updatedUser) {
         if (VirtualDatabase.students.containsKey(id)) {
             Student existingStudent = VirtualDatabase.students.get(id);
             updateUserDetails(existingStudent, updatedUser);
             return existingStudent;
         }
 
-        if (VirtualDatabase.instructors.containsKey(id)) {
+        else if (VirtualDatabase.instructors.containsKey(id)) {
             Instructor existingInstructor = VirtualDatabase.instructors.get(id);
             updateUserDetails(existingInstructor, updatedUser);
             return existingInstructor;
         }
 
-        if (VirtualDatabase.admins.containsKey(id)) {
+        else if (VirtualDatabase.admins.containsKey(id)) {
             Admin existingAdmin = VirtualDatabase.admins.get(id);
             updateUserDetails(existingAdmin, updatedUser);
             return existingAdmin;
@@ -123,15 +127,12 @@ public class UserService {
         throw new IllegalArgumentException("User with ID " + id + " not found");
     }
 
-    private void updateUserDetails(User existingUser, User updatedUser) {
+    private void updateUserDetails(User existingUser, UpdatedUser updatedUser) {
         if (updatedUser.getName() != null) {
             existingUser.setName(updatedUser.getName());
         }
         if (updatedUser.getPassword() != null) {
             existingUser.setPassword(updatedUser.getPassword());
-        }
-        if (updatedUser.getEmail() != null) {
-            existingUser.setEmail(updatedUser.getEmail());
         }
     }
 }

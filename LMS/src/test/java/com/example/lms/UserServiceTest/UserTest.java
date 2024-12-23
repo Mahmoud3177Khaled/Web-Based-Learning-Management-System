@@ -96,7 +96,7 @@ class UserTest {
     @Test
     void updateUser() {
 
-        User updatedUser = new User(1, "William Mokhles", "newpassword", "william@gmail.com", "Student");
+        UpdatedUser updatedUser = new UpdatedUser("William Mokhles", "newpassword");
 
         Object result = userService.updateUser(1, updatedUser);
 
@@ -108,7 +108,7 @@ class UserTest {
 
     @Test
     void updateUse_WhenUserNotFound() {
-        User updatedUser = new User(99, "William Mokhles", "newpassword", "william@gmail.com", "Student");
+        UpdatedUser updatedUser = new UpdatedUser("William Mokhles", "newpassword");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> userService.updateUser(99, updatedUser));

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.lms.entity.User;
 import com.example.lms.entity.UserRequest.LoginRequest;
 import com.example.lms.entity.UserRequest.UserCreation;
+import com.example.lms.entity.UserRequest.UpdatedUser;
 import com.example.lms.service.UserService;
 
 import com.example.lms.security.AuthenticationManagement;
@@ -47,22 +48,17 @@ public class UserController {
         return ResponseEntity.ok("User registered successfully!");
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<Object> getUserById(@RequestParam("userId") int userId,
-            @RequestParam("password") String password, @PathVariable int id) {
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Object> getUserById(@PathVariable int userId, @RequestParam("password") String password) {
         if (authenticationManagement.isAuthenticate(userId, password)) {
-            if (authorizationManagement.isAuthorized(userId, "Admin")) {
                 try {
-                    Object user = userService.getUserById(id);
+                    Object user = userService.getUserById(userId);
                     return ResponseEntity.ok(user);
                 } catch (IllegalArgumentException e) {
                     return ResponseEntity.status(404).body(e.getMessage());
                 }
-            }
-            return ResponseEntity.status(403).body("You don't have an authorization.");
         }
-        return ResponseEntity.status(401).body("this request need an authentication.");
-
+        return ResponseEntity.status(401).body("This request requires authentication.");
     }
 
     @PostMapping("/login")
@@ -75,9 +71,9 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/user/{userId}")
     public ResponseEntity<Object> updateUser(@PathVariable int userId, @RequestParam("password") String password,
-            @RequestBody User updatedUser) {
+            @RequestBody UpdatedUser updatedUser) {
 
         if (authenticationManagement.isAuthenticate(userId, password)) {
             try {
