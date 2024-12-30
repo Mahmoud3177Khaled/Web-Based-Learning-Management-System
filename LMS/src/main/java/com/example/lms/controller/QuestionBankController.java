@@ -41,26 +41,30 @@ public class QuestionBankController {
                                   ,@RequestParam("userId") int userId ,
                                 @RequestParam("password") String password
                                   ) {
+        try {
 
-        if(authenticationManagement.isAuthenticate(userId,password)){
-            if(authorizationManagement.isAuthorized(userId, "Instructor")){
+            if(authenticationManagement.isAuthenticate(userId,password)){
+                if(authorizationManagement.isAuthorized(userId, "Instructor")){
         
-              this.addQuestionToBankService = new AddQuestionToBankService();
-              boolean success = this.addQuestionToBankService.addQuastionToBank(courseid, questionType, text, choices, correctAnswer);
-              
-              if(success) {
-                  return new Response("added " + questionType + " question to course " + courseid);
-              } else {
-                  return new Response("failed to add " + questionType + " question to course " + courseid);
-                  
-              }
-
+                this.addQuestionToBankService = new AddQuestionToBankService();
+                boolean success = this.addQuestionToBankService.addQuastionToBank(courseid, questionType, text, choices, correctAnswer);
+                
+                if(success) {
+                    return new Response("added " + questionType + " question to course " + courseid);
+                    } else {
+                        return new Response("failed to add " + questionType + " question to course " + courseid);
+                        
+                    }
+                    
+                } else {
+                    return new Response("you are not an instructor");
+                }
             } else {
-                return new Response("you are not an instructor");
+                return new Response("invalid credintials");
+                
             }
-        } else {
-            return new Response("invalid credintials");
-
+        } catch(Exception e) {
+            return new Response("authntication error");
         }
 
     }

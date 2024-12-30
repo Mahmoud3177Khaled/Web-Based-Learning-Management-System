@@ -26,9 +26,10 @@ public class AddQuestionToBankService {
     
         // }
         // i++;
-        Course courseToAddTo = VirtualDatabase.courses.get(courseid);
-
+        
         try {
+            Course courseToAddTo = VirtualDatabase.courses.get(courseid);
+            
             if(questionType.equals("mcq")) {
                 Question newQuestion = new mcqQuestion(text, choices, correctAnswer);
                 courseToAddTo.addQuestionToBank(newQuestion);
